@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/basecore" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/model" />
-            <option value="$PROJECT_DIR$/volley" />
           </set>
         </option>
       </GradleProjectSettings>
