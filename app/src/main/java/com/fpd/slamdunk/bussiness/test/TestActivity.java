@@ -28,6 +28,7 @@ public class TestActivity extends CommenActivity{
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.test);
+
 //        TextView  tx = (TextView) findViewById(R.id.result);
 //        TestEntity te = new TestEntity();
 //        te.setName("fpd");
@@ -38,31 +39,30 @@ public class TestActivity extends CommenActivity{
 //        coreResponse.setResult(te);
 //        String j = JSON.toJSONString(coreResponse);
 //        Log.d("response",j);
-//
-//        TestAction ta = new TestAction(this);
-//        TestEntity e = ta.jsonTest(j);
-//        Log.d("e",e.getName()+e.getPassword());
-//
-//        ta.test("fpd", new CallBackListener<TestEntity>() {
-//            @Override
-//            public void onSuccess(TestEntity result) {
-//                //页面渲染
-//            }
-//
-//            @Override
-//            public void onFailure(String Message) {
-//                //错误提示
-//            }
-//        });
 
-        mapView = (MapView) findViewById(R.id.baidumap);
-        baiduMap = mapView.getMap();
-        baiduMap.setMyLocationEnabled(true);
-        mLocationClient = new LocationClient(getApplicationContext());
+        TestAction ta = new TestAction(this);
 
-        initLocation();
-        mLocationClient.start();
-        mLocationClient.registerLocationListener(new MyLocationListener(mLocationClient, baiduMap));
+        ta.test("fpdfpd","123456", new CallBackListener<TestEntity>() {
+            @Override
+            public void onSuccess(TestEntity result) {
+                //页面渲染
+                Log.d("Code",result.getCode());
+            }
+
+            @Override
+            public void onFailure(String Message) {
+                //错误提示
+            }
+        });
+
+//        mapView = (MapView) findViewById(R.id.baidumap);
+//        baiduMap = mapView.getMap();
+//        baiduMap.setMyLocationEnabled(true);
+//        mLocationClient = new LocationClient(getApplicationContext());
+//
+//        initLocation();
+//        mLocationClient.start();
+//        mLocationClient.registerLocationListener(new MyLocationListener(mLocationClient, baiduMap));
     }
 
     private void  initLocation(){

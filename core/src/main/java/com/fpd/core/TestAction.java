@@ -25,22 +25,23 @@ public class TestAction {
         mContext = context;
     }
 
-    public void test(String name, final CallBackListener<TestEntity> listener){
+    public void test(String name, String password,final CallBackListener<TestEntity> listener){
         Map<String,String> requestParam = new HashMap<>();
-        requestParam.put("name",name);
+        requestParam.put("username",name);
+        requestParam.put("password",password);
 
-        SDApi.post(mContext, "http://www.baidu.com", null, new SDApiResponse<String>() {
+        SDApi.post(mContext, "http://192.168.23.2:8000/signup/", requestParam, new SDApiResponse<String>() {
             @Override
             public void onSuccess(String response) {
-//                if (listener !=null && response !=null){
-//                    CoreResponse<TestEntity> re = JSON.parseObject(response,new TypeReference<CoreResponse<TestEntity>>(){});
-//                    if (re.isSuccess()){
-//                        listener.onSuccess(re.getResult());
-//                    }else{
-//                        listener.onFailure(re.getErrorMessage());
-//                    }
-//                }
-                Log.d("baidu",response);
+                  Log.d("response",response);
+                if (listener !=null && response !=null){
+                    CoreResponse<TestEntity> re = JSON.parseObject(response,new TypeReference<CoreResponse<TestEntity>>(){});
+                    if (re.isSuccess()){
+                        listener.onSuccess(re.getResult());
+                    }else{
+                        listener.onFailure(re.getErrorMessage());
+                    }
+                }
             }
         });
     }
