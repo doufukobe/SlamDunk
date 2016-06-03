@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@null">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/invite_list_bg">
+
+
+        <ImageView
+            android:id="@+id/invite_img"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/default_ball"/>
+
+        <TextView
+            android:id="@+id/invite_people_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="doufukobe"
+            android:textSize="16dp"
+            android:layout_toRightOf="@+id/invite_img"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/invite_member"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/invite_member"
+            android:layout_toRightOf="@+id/invite_people_name"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorwhite"
+            android:textSize="12dp"
+            android:text="6/8"/>
+
+        <TextView
+            android:id="@+id/invite_time"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6-1 18:00"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/invite_sport_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/invite_people_name"
+            android:layout_below="@+id/invite_people_name"
+            android:layout_marginTop="12dp"
+            android:text="南邮南操场半场PK"/>
+
+        <TextView
+            android:id="@+id/invite_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/invite_sport_name"
+            android:layout_alignRight="@+id/invite_time"
+            android:textColor="@color/colorred"
+            android:text="小于500m"/>
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
