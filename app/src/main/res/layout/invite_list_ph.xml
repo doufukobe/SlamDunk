@@ -10,23 +10,14 @@
         android:layout_height="match_parent"
         android:background="@drawable/invite_list_bg">
 
-
-        <ImageView
-            android:id="@+id/invite_img"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="10dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:adjustViewBounds="true"
-            />
-
         <TextView
             android:id="@+id/invite_people_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+
             android:textSize="16dp"
-            android:layout_toRightOf="@+id/invite_img"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="12dp" />
 
         <TextView
@@ -41,25 +32,34 @@
             android:layout_marginLeft="5dp"
             android:textColor="@color/colorwhite"
             android:textSize="12dp"
-          />
+            />
 
         <TextView
             android:id="@+id/invite_time"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6-1 18:00"
-            android:layout_marginRight="10dp"
+
+            android:layout_marginRight="12dp"
             android:layout_marginTop="15dp" />
 
+        <ImageView
+            android:id="@+id/invite_img"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:scaleType="fitXY"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/invite_people_name"
+            android:layout_margin="12dp"
+            />
         <TextView
             android:id="@+id/invite_sport_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/invite_people_name"
-            android:layout_below="@+id/invite_people_name"
-            android:layout_marginTop="12dp"
-           />
+            android:layout_below="@+id/invite_img"
+            android:layout_marginBottom="12dp"
+            />
 
         <TextView
             android:id="@+id/invite_distance"
@@ -69,8 +69,6 @@
             android:layout_alignRight="@+id/invite_time"
             android:textColor="@color/colorred"
             />
-
-
 
     </RelativeLayout>
 

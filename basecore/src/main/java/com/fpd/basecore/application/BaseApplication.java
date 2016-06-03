@@ -9,8 +9,8 @@ import android.util.DisplayMetrics;
 public class BaseApplication extends Application {
     private static BaseApplication application;
 
-    private int screenHeight;
-    private int screenWidth;
+    private static int screenHeight;
+    private static int screenWidth;
     private AppManager appManager;
 
     public static BaseApplication getApplication() {
@@ -33,11 +33,11 @@ public class BaseApplication extends Application {
         this.screenHeight = metrics.heightPixels;
     }
 
-    public int getScreenHeight() {
+    public static int getScreenHeight() {
         return screenHeight;
     }
 
-    public int getScreenWidth() {
+    public static int getScreenWidth() {
         return screenWidth;
     }
 

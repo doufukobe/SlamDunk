@@ -1,33 +1,30 @@
 package com.fpd.slamdunk.bussiness.home.fragment;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.fpd.api.callback.CallBackListener;
+import com.fpd.core.invitelist.InviteListAction;
+import com.fpd.model.invite.InviteListEntity;
 import com.fpd.slamdunk.R;
-import com.fpd.slamdunk.bussiness.home.widget.DividerItemDecoration;
+import com.fpd.slamdunk.bussiness.home.adapter.InviteAdapter;
 import com.fpd.slamdunk.bussiness.home.widget.MyLoadMoreView;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
-import com.lhh.ptrrv.library.footer.loadmore.BaseLoadMoreView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by t450s on 2016/6/2.
@@ -36,120 +33,103 @@ public class InviteFragment extends Fragment {
 
     private Context mContext;
     private PullToRefreshRecyclerView listView;
+    private LocationClient mLocationClient;
 
-
-    private PtrrvAdapter mAdapter;
-    private static final int DEFAULT_ITEM_SIZE = 8;
-    private static final int ITEM_SIZE_OFFSET = 8;
-
-    private static final int MSG_CODE_REFRESH = 0;
-    private static final int MSG_CODE_LOADMORE = 1;
-
-    private static final int TIME = 1000;
-
-    Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            if (msg.what == MSG_CODE_REFRESH) {
-                mAdapter.setCount(DEFAULT_ITEM_SIZE);
-                mAdapter.notifyDataSetChanged();
-                listView.setOnRefreshComplete();
-                listView.onFinishLoading(true, false);
-            } else if (msg.what == MSG_CODE_LOADMORE) {
-                if(mAdapter.getItemCount() == DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET){
-                    //over
-                    Toast.makeText(mContext, "没有新数据", Toast.LENGTH_SHORT).show();
-                    listView.onFinishLoading(false, false);
-                } else {
-                    mAdapter.setCount(DEFAULT_ITEM_SIZE + ITEM_SIZE_OFFSET);
-                    mAdapter.notifyDataSetChanged();
-                    listView.onFinishLoading(true, false);
-                }
-            }
-        }
-    };
+    private List<InviteListEntity> inviteList = new ArrayList<>();
+    private InviteAdapter mAdapter;
+    private InviteListAction inviteListAction;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext= getActivity();
+        inviteListAction = new InviteListAction(mContext);
+        mLocationClient = new LocationClient(mContext);
+        initLocation();
+        mLocationClient.registerLocationListener(new InviteLocation());
     }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser){
+//            if (inviteListAction !=null){
+//                inviteListAction.getInviteList();
+//            }
+//        }else{
+//
+//        }
+//    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.invite_fragment,null);
         listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
-        listView.setSwipeEnable(true);
-
-        MyLoadMoreView loadMoreView = new MyLoadMoreView(mContext,listView.getRecyclerView());
-        loadMoreView.setLoadmoreString("教练我想打篮球");
-        loadMoreView.setLoadMorePadding(100);
-        listView.setLayoutManager(new LinearLayoutManager(mContext));
-
-        listView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mHandler.sendEmptyMessageDelayed(MSG_CODE_REFRESH, TIME);
-            }
-        });
-//        listView.getRecyclerView().addItemDecoration(new DividerItemDecoration(mContext,
-//                DividerItemDecoration.VERTICAL_LIST));
-
-//        mPtrrv.removeHeader();
-        mAdapter = new PtrrvAdapter(mContext);
-//        mAdapter.setCount(0);
-        mAdapter.setCount(DEFAULT_ITEM_SIZE);
-        listView.setAdapter(mAdapter);
-        listView.onFinishLoading(false, false);
+        initPullList();
+        getInviteList();
         return view;
     }
 
+    private void getInviteList(){
+        mLocationClient.start();
+    }
 
-    private class PtrrvAdapter extends RecyclerView.Adapter<PtrrvAdapter.ViewHolder> {
-
-        protected int mCount = 0;
-        protected Context context = null;
-
-        public static final int TYPE_HEADER = 0;
-        public static final int TYPE_HISVIDEO = 1;
-        public static final int TYPE_MESSAGE = 2;
-
-
-        public PtrrvAdapter(Context context) {
-           this.context = context;
-        }
-
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.invite_list_item, null);
-            return new ViewHolder(view);
-        }
-
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-
-        }
-
-        public void setCount(int count){
-            mCount = count;
-        }
-
-        @Override
-        public int getItemCount() {
-            return mCount;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder{
-
-            public ViewHolder(View itemView) {
-                super(itemView);
+    private void initPullList(){
+        listView.setSwipeEnable(true);
+        MyLoadMoreView loadMoreView = new MyLoadMoreView(mContext,listView.getRecyclerView());
+        loadMoreView.setLoadMorePadding(100);
+        listView.setLayoutManager(new LinearLayoutManager(mContext));
+        listView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getInviteList();
             }
-        }
+        });
+        mAdapter = new InviteAdapter(mContext,inviteList);
+        listView.setAdapter(mAdapter);
+        listView.onFinishLoading(false, false);
+    }
+
+    private void  initLocation(){
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setCoorType("bd09ll");
+        option.setScanSpan(1000);
+        option.setOpenGps(true);
+        option.setLocationNotify(false);//可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
+        mLocationClient.setLocOption(option);
     }
 
 
+    private class InviteLocation implements BDLocationListener{
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            if (bdLocation.getLocType() == BDLocation.TypeGpsLocation ||
+                    bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
+                inviteListAction.getInviteList(bdLocation.getLatitude(), bdLocation.getLongitude(), new CallBackListener<List<InviteListEntity>>() {
+                    @Override
+                    public void onSuccess(List<InviteListEntity> result) {
+                        mAdapter.fillView(result);
+                        listView.setOnRefreshComplete();
+                    }
+
+                    @Override
+                    public void onFailure(String Message) {
+                        Toast.makeText(mContext,Message,Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }else{
+                Toast.makeText(mContext,"定位失败,无法为您提供活动信息",Toast.LENGTH_SHORT).show();
+            }
+
+            mLocationClient.stop();
+        }
+    }
 }
