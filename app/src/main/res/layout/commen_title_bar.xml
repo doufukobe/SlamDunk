@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/colormain">
+    android:background="@color/colormain"
+    android:gravity="center_vertical">
 
     <Button
         android:id="@+id/back_button"
-        android:layout_marginLeft="12dp"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@mipmap/topbar_back"/>
+        android:background="@mipmap/white_back"/>
 
 
     <TextView
@@ -20,7 +20,7 @@
         android:gravity="center"
         android:textColor="@color/colorwhite"
         android:textSize="20dp"
-        android:text="约球"/>
+        />
 
     <ImageButton
         android:id="@+id/top_action"
