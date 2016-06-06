@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.bussiness.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.fpd.basecore.application.BaseApplication;
 import com.fpd.model.invite.InviteListEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.application.CommenApplication;
+import com.fpd.slamdunk.join.JoinActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -82,7 +84,7 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.distance.setText(inviteList.get(position).getAddressDist());
         holder.theme_name.setText(inviteList.get(position).getActName());
         int cur = inviteList.get(position).getCurPeopleNum();
@@ -97,6 +99,14 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.mipmap.default_ball);
             holder.ac_img.setImageBitmap(bitmap);
         }
+        holder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, JoinActivity.class);
+                intent.putExtra("ACTID",inviteList.get(position).getActId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -111,8 +121,10 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
         TextView theme_name;
         TextView distance;
         ImageView ac_img;
+        RelativeLayout rootView;
         public ViewHolder(View itemView) {
             super(itemView);
+            rootView = (RelativeLayout) itemView.findViewById(R.id.invite_layout);
             people_name = (TextView) itemView.findViewById(R.id.invite_people_name);
             member = (TextView) itemView.findViewById(R.id.invite_member);
             time = (TextView) itemView.findViewById(R.id.invite_time);

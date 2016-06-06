@@ -1,6 +1,8 @@
 package com.fpd.slamdunk.application;
 
 
+import android.util.Log;
+
 import com.fpd.basecore.application.BaseApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -11,6 +13,8 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import java.io.File;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by t450s on 2016/6/1.
@@ -35,5 +39,10 @@ public class CommenApplication extends BaseApplication {
                 .memoryCacheExtraOptions(480,800)
                 .build();
         ImageLoader.getInstance().init(configuration);
+
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+       String registraId =  JPushInterface.getRegistrationID(this);
+        Log.d("registraId",registraId);
     }
 }

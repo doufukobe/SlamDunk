@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/commen_title_bar"></include>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+       >
+
+        <ImageView
+            android:id="@+id/submit_user"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@mipmap/ic_person"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"/>
+
+
+        <TextView
+            android:id="@+id/submit_user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/submit_user"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16dp"
+            android:text="doufukobe"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        >
+
+        <ImageView
+            android:id="@+id/place_tip"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@mipmap/ic_tip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"/>
+
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/place_tip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16dp"
+            android:text="是否有球"/>
+
+        <CheckBox
+            android:id="@+id/submit_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+
+        <ImageView
+            android:id="@+id/place_tip"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@mipmap/ic_introduce"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"/>
+
+
+        <EditText
+            android:singleLine="true"
+            android:id="@+id/submit_introduce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/place_tip"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="30dp"
+            android:textSize="16dp"
+            android:hint="个人描述"/>
+
+    </RelativeLayout>
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:layout_marginTop="10dp"
+        android:id="@+id/submit_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colormain"
+        android:textSize="5dp"
+        android:text="确 认 加 入"></com.gc.materialdesign.views.ButtonRectangle>
+</LinearLayout>
