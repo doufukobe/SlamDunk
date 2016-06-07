@@ -13,6 +13,7 @@ import com.fpd.model.actdetial.ActivityDetailEntitiy;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.join.addressdetail.LocationDetail;
+import com.fpd.slamdunk.join.submit.JoinSubmitActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class JoinActivity extends CommenActivity {
     private TextView addressInfo;
     private TextView memberInfo;
     private TextView actIntroduce;
+    private TextView ballInfo;
 
     private ImageView topImage;
     private TextView joinAct;
@@ -61,14 +63,15 @@ public class JoinActivity extends CommenActivity {
         topImage = (ImageView) findViewById(R.id.join_top_img);
         actIntroduce = (TextView) findViewById(R.id.act_introduce);
         addresslayout = (RelativeLayout) findViewById(R.id.address_layout);
+        ballInfo = (TextView) findViewById(R.id.join_hasball);
     }
 
     private void setClick(){
         joinAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JoinActivity.this, LocationDetail.class);
-                intent.putExtra("ACTID",actId);
+                Intent intent = new Intent(JoinActivity.this, JoinSubmitActivity.class);
+                intent.putExtra("ACTID","8");
                 startActivity(intent);
             }
         });
@@ -102,16 +105,19 @@ public class JoinActivity extends CommenActivity {
         actName.setText(result.getActName());
         addressDist.setText(result.getAddressDist());
         String originator = result.getActOriginator();
-        memberList.setText(originator+","+result.getMemberList());
+        String member = result.getMemberList().get(0).getUserName();
+        member += result.getMemberList().get(1).getUserName();
+        memberList.setText(originator+","+member);
         addressInfo.setText(result.getAddressInfo());
-        actTime.setText(getDateToString(result.getActTime()));
-        memberInfo.setText("当前人数"+result.getMinPeopleNum()+" 目标人数"+result.getMaxPeopleNum());
+        actTime.setText(getDateToString(result.getActTime()*1000));
+        memberInfo.setText("当前人数"+result.getCurPeopleNum()+" 目标人数"+result.getMaxPeopleNum());
         String hasball = null;
-        if (result.getHasEquipment().equals("0"))
+        if (result.isHasEquipment())
             hasball = "有球";
         else
             hasball = "无球";
-        actIntroduce.setText(hasball+'\n'+result.getActInfo());
+        ballInfo.setText(hasball);
+        actIntroduce.setText(result.getActInfo());
         addressLongitude = result.getAddressLongitude();
         addressLatitude = result.getAddressLatitude();
     }

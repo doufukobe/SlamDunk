@@ -32,7 +32,7 @@
                     android:textColor="@color/colorwhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="南邮3V3篮球争霸赛"
+
                     android:layout_margin="10dp"/>
 
                 <TextView
@@ -42,7 +42,7 @@
                     android:textColor="@color/colorwhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000m"
+
                     android:layout_margin="12dp"/>
 
                 <TextView
@@ -53,7 +53,7 @@
                     android:layout_marginLeft="12dp"
                     android:textColor="@color/colorwhite"
                     android:textSize="14dp"
-                    android:text="doufukobe,马文,张亮,kobe bryant,lebron james,"
+
                     android:layout_marginBottom="12dp"
                     android:ellipsize="end"
                     android:singleLine="true"
@@ -96,7 +96,7 @@
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="30dp"
                     android:textSize="16dp"
-                    android:text="南京邮电大学南操场"/>
+                    />
 
             </RelativeLayout>
 
@@ -123,7 +123,7 @@
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="30dp"
                     android:textSize="16dp"
-                    android:text="2016-06-06 18:00"/>
+                   />
 
             </RelativeLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="30dp"
                     android:textSize="16dp"
-                    android:text="当前人数6 目标人数8"/>
+                    />
 
             </RelativeLayout>
 
@@ -175,7 +175,7 @@
                     android:layout_marginRight="12dp"
                     android:layout_marginLeft="30dp"
                     android:textSize="16dp"
-                    android:text="有球"/>
+                    />
 
                 <TextView
                     android:id="@+id/act_introduce"
@@ -186,7 +186,7 @@
                     android:textSize="16dp"
                     android:layout_marginTop="12dp"
                     android:layout_below="@+id/join_hasball"
-                    android:text="由光电工程学院主办的针对研究生同学的半场3V3篮球赛"/>
+                    />
 
             </RelativeLayout>
         </LinearLayout>

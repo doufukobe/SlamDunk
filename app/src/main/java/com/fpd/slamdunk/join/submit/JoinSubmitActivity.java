@@ -5,8 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
 import com.fpd.core.joinsubmit.JoinSubmitAction;
 import com.fpd.model.arrange.ArrangeEntity;
 import com.fpd.slamdunk.CommenActivity;
@@ -24,7 +26,7 @@ public class JoinSubmitActivity extends CommenActivity {
     private ButtonRectangle submit;
     private JoinSubmitAction submitAction;
     private String actId;
-    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +48,12 @@ public class JoinSubmitActivity extends CommenActivity {
             @Override
             public void onClick(View v) {
                 boolean has = hasBall.isChecked();
-                String ball = has?"0":"1";
+                String ball = has?"True":"False";
 
-                submitAction.submit(actId, userId, introduce.getText().toString(), ball, new CallBackListener<ArrangeEntity>() {
+                submitAction.submit("8", Config.userId, introduce.getText().toString(), ball, new CallBackListener<ArrangeEntity>() {
                     @Override
                     public void onSuccess(ArrangeEntity result) {
-
+                        Toast.makeText(JoinSubmitActivity.this, "申请成功", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

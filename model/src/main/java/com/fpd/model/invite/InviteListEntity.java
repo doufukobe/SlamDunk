@@ -11,7 +11,7 @@ public class InviteListEntity implements Serializable {
     private String actName;
     private String actOriginator;
     private long actTime;
-    private String url;
+    private String actImg;
     private String addressDist;
     private int curPeopleNum;
     private int maxPeopleNum;
@@ -48,14 +48,6 @@ public class InviteListEntity implements Serializable {
         this.actTime = actTime;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getAddressDist() {
         return addressDist;
     }
@@ -78,5 +70,13 @@ public class InviteListEntity implements Serializable {
 
     public void setMaxPeopleNum(int maxPeopleNum) {
         this.maxPeopleNum = maxPeopleNum;
+    }
+
+    public String getActImg() {
+        return actImg;
+    }
+
+    public void setActImg(String actImg) {
+        this.actImg = actImg;
     }
 }

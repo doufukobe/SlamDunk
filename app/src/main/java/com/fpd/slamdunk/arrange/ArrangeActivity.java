@@ -183,13 +183,13 @@ public class ArrangeActivity extends CommenActivity {
         startAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = hasBall.isChecked()?"1":"0";
+                String s = hasBall.isChecked()?"True":"False";
                 arrangeAct.setArrange(activeName.getText().toString(), actTime + "", item_num.getText().toString()
                         , min_num.getText().toString(), s, introduce.getText().toString(), locationLa, locationLo
                         , addressInfo, new CallBackListener<ArrangeEntity>() {
                     @Override
                     public void onSuccess(ArrangeEntity result) {
-
+                        Toast.makeText(ArrangeActivity.this, "发起成功", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -273,7 +273,8 @@ public class ArrangeActivity extends CommenActivity {
 
         @Override
         public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-            actTime = millseconds;
+            actTime = millseconds/1000;
+            Log.d("actTime",actTime+"");
             arrange_date.setText(getDateToString(millseconds));
         }
 
@@ -301,7 +302,9 @@ public class ArrangeActivity extends CommenActivity {
                 locationMap.setMapStatus(mMapStatusUpdate);
                 arrangeClient.stop();
                 poiSearch.searchNearby(new PoiNearbySearchOption().keyword("篮球场").location(cenpt).radius(2000));
-
+                locationLa =bdLocation.getLatitude() ;
+                locationLo = bdLocation.getLongitude();
+                addressInfo = bdLocation.getLocationDescribe();
             }else{
                 Toast.makeText(ArrangeActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
             }

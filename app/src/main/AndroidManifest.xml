@@ -41,7 +41,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="vs4lhxmT0FksD9cS1sqdWU8y"></meta-data>
 
-        <activity android:name=".arrange.ArrangeActivity">
+        <activity android:name=".join.JoinActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
 

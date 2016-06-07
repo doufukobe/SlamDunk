@@ -77,7 +77,7 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        if (inviteList.get(position).getUrl().isEmpty())
+        if (inviteList.get(position).getActImg().isEmpty())
             return WITHOUT_PHOTO;
         else
             return WITH_PHOTO;
@@ -93,8 +93,8 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
         holder.people_name.setText(inviteList.get(position).getActOriginator());
         String date = sdf.format(new Date(inviteList.get(position).getActTime()));
         holder.time.setText(date.substring(date.indexOf("-")+1,date.lastIndexOf(":")));
-        if (!inviteList.get(position).getUrl().isEmpty()){
-            ImageLoader.getInstance().displayImage(inviteList.get(position).getUrl(), holder.ac_img, options);
+        if (!inviteList.get(position).getActImg().isEmpty()){
+            ImageLoader.getInstance().displayImage(inviteList.get(position).getActImg(), holder.ac_img, options);
         }else{
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.mipmap.default_ball);
             holder.ac_img.setImageBitmap(bitmap);

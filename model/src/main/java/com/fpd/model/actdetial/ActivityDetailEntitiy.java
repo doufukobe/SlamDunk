@@ -1,6 +1,7 @@
 package com.fpd.model.actdetial;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by t450s on 2016/6/6.
@@ -11,11 +12,12 @@ public class ActivityDetailEntitiy implements Serializable {
     private String addressInfo;
     private int maxPeopleNum;
     private int minPeopleNum;
-    private String hasEquipment;
+    private int curPeopleNum;
+    private boolean hasEquipment;
     private String actInfo;
     private String actOriginator;
     private String addressDist;
-    private String memberList;
+    private List<MemberEntity> memberList;
     private double addressLongitude;
     private double addressLatitude;
 
@@ -59,13 +61,6 @@ public class ActivityDetailEntitiy implements Serializable {
         this.minPeopleNum = minPeopleNum;
     }
 
-    public String getHasEquipment() {
-        return hasEquipment;
-    }
-
-    public void setHasEquipment(String hasEquipment) {
-        this.hasEquipment = hasEquipment;
-    }
 
     public String getActInfo() {
         return actInfo;
@@ -91,13 +86,6 @@ public class ActivityDetailEntitiy implements Serializable {
         this.addressDist = addressDist;
     }
 
-    public String getMemberList() {
-        return memberList;
-    }
-
-    public void setMemberList(String memberList) {
-        this.memberList = memberList;
-    }
 
     public double getAddressLongitude() {
         return addressLongitude;
@@ -113,5 +101,29 @@ public class ActivityDetailEntitiy implements Serializable {
 
     public void setAddressLatitude(double addressLatitude) {
         this.addressLatitude = addressLatitude;
+    }
+
+    public List<MemberEntity> getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(List<MemberEntity> memberList) {
+        this.memberList = memberList;
+    }
+
+    public boolean isHasEquipment() {
+        return hasEquipment;
+    }
+
+    public void setHasEquipment(boolean hasEquipment) {
+        this.hasEquipment = hasEquipment;
+    }
+
+    public int getCurPeopleNum() {
+        return curPeopleNum;
+    }
+
+    public void setCurPeopleNum(int curPeopleNum) {
+        this.curPeopleNum = curPeopleNum;
     }
 }
