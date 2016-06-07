@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.application;
 
 
+import com.baidu.apistore.sdk.ApiStoreSDK;
 import com.fpd.basecore.application.BaseApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -19,7 +20,7 @@ public class CommenApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ApiStoreSDK.init(this, "c64fc060ae6d9f0bf7599e35edd1f76b");
         File cacheDir = StorageUtils.getOwnCacheDirectory(getApplicationContext(), "imageloader/Cache");
 
         ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this)

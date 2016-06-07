@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -89,7 +90,7 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                     return;
                 }
                 //提交用户名和密码给后台
-//                submit(name,password);
+                submit(name,password);
                 break;
             case R.id.id_login_tip_forget:
 
@@ -110,12 +111,14 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
             public void onSuccess(LREntity result)
             {
                 //登陆成功跳转到首页
+                Log.i("TAG","result="+result.getUserId());
             }
 
             @Override
             public void onFailure(String Message)
             {
-                //登陆失败，告诉用户原因(1、用户名输入错误，2、密码输入错误)
+//                登陆失败，告诉用户原因(1、用户名输入错误，2、密码输入错误)
+                Log.i("TAG","Message="+Message);
             }
         });
     }

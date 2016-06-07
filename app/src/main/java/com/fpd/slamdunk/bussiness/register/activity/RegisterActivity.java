@@ -3,6 +3,7 @@ package com.fpd.slamdunk.bussiness.register.activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -95,7 +96,7 @@ public class RegisterActivity extends CommenActivity implements
                     return;
                 }
                 //将用户名和密码提交给后台
-//                submit(name,password);
+                submit(name,password);
                 break;
         }
     }
@@ -115,11 +116,13 @@ public class RegisterActivity extends CommenActivity implements
             public void onSuccess(LREntity result)
             {
                 //注册成功跳转到首页
+                Log.i("TAG11","onSuccess__result="+result.getUserId());
             }
 
             @Override
             public void onFailure(String Message)
             {
+                Log.i("TAG11","onFailure");
                 //注册失败，告诉用户原因(用户名已存在)
             }
         });
