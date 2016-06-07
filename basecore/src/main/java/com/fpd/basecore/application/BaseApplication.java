@@ -11,10 +11,19 @@ public class BaseApplication extends Application {
 
     private static int screenHeight;
     private static int screenWidth;
+    private static float density;
     private AppManager appManager;
 
     public static BaseApplication getApplication() {
         return application;
+    }
+
+    public static float getDensity() {
+        return density;
+    }
+
+    public static void setDensity(int density) {
+        BaseApplication.density = density;
     }
 
     @Override
@@ -31,6 +40,7 @@ public class BaseApplication extends Application {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         this.screenWidth = metrics.widthPixels;
         this.screenHeight = metrics.heightPixels;
+        density = metrics.density;
     }
 
     public static int getScreenHeight() {

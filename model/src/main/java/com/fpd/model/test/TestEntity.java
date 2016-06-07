@@ -7,32 +7,32 @@ import java.io.Serializable;
  */
 public class TestEntity implements Serializable {
 
-    private String code;
+//    private String code;
+//
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(String code) {
+//        this.code = code;
+//    }
 
-    public String getCode() {
-        return code;
+    private String name;
+    private String password;
+
+    public String getName() {
+        return name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setName(String name) {
+        this.name = name;
     }
 
-//    private String name;
-//    private String password;
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

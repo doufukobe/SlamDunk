@@ -6,6 +6,7 @@
     android:background="@null">
 
     <RelativeLayout
+        android:id="@+id/invite_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/invite_list_bg">

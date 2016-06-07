@@ -15,9 +15,13 @@ import com.baidu.mapapi.map.MapView;
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.core.TestAction;
 import com.fpd.core.response.CoreResponse;
+import com.fpd.model.invite.InviteListEntity;
+import com.fpd.model.invite.inviteEntityList;
 import com.fpd.model.test.TestEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+
+import java.util.ArrayList;
 
 public class TestActivity extends CommenActivity{
     MapView mapView;
@@ -29,31 +33,42 @@ public class TestActivity extends CommenActivity{
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.test);
 
-//        TextView  tx = (TextView) findViewById(R.id.result);
-//        TestEntity te = new TestEntity();
-//        te.setName("fpd");
-//        te.setPassword("123456");
-//        CoreResponse<TestEntity> coreResponse = new CoreResponse<>();
-//        coreResponse.setErrorCode("0");
-//        coreResponse.setErrorMessage("111111");
-//        coreResponse.setResult(te);
-//        String j = JSON.toJSONString(coreResponse);
-//        Log.d("response",j);
-
-        TestAction ta = new TestAction(this);
-
-        ta.test("fpdfpd","123456", new CallBackListener<TestEntity>() {
-            @Override
-            public void onSuccess(TestEntity result) {
-                //页面渲染
-                Log.d("Code",result.getCode());
-            }
-
-            @Override
-            public void onFailure(String Message) {
-                //错误提示
-            }
-        });
+        TextView  tx = (TextView) findViewById(R.id.result);
+        InviteListEntity te = new InviteListEntity();
+        te.setActId(3);
+        te.setActImg("naidu");
+        te.setActTime(System.currentTimeMillis());
+        te.setActOriginator("doufukobe");
+        te.setAddressDist("300m");
+        te.setActName("nanyou");
+        te.setMaxPeopleNum(10);
+        te.setCurPeopleNum(8);
+        inviteEntityList x = new inviteEntityList();
+        ArrayList<InviteListEntity> list =  new ArrayList<InviteListEntity>();
+        list.add(te);
+        list.add(te);
+        x.setActList(list);
+        CoreResponse<inviteEntityList> coreResponse = new CoreResponse<>();
+        coreResponse.setErrorCode("0");
+        coreResponse.setErrorMessage("111111");
+        coreResponse.setResult(x);
+        String j = JSON.toJSONString(coreResponse);
+        Log.d("response",j);
+//
+//        TestAction ta = new TestAction(this);
+//
+//        ta.test("fpdfpd","123456", new CallBackListener<TestEntity>() {
+//            @Override
+//            public void onSuccess(TestEntity result) {
+//                //页面渲染
+//                Log.d("Code",result.getCode());
+//            }
+//
+//            @Override
+//            public void onFailure(String Message) {
+//                //错误提示
+//            }
+//        });
 
 //        mapView = (MapView) findViewById(R.id.baidumap);
 //        baiduMap = mapView.getMap();
