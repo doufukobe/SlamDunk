@@ -35,4 +35,6 @@ dependencies {
     compile files('libs/baidumapapi_search_v3_7_3.jar')
     compile files('libs/baidumapapi_util_v3_7_3.jar')
     compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/ApiStoreSDK1.0.4.jar')
+    compile files('libs/gson-2.2.4.jar')
 }

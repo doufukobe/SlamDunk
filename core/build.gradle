@@ -25,4 +25,6 @@ dependencies {
     compile project(':api')
     compile project(':model')
     compile project(':basecore')
+    compile files('libs/ApiStoreSDK1.0.4.jar')
+    compile files('libs/gson-2.2.4.jar')
 }
