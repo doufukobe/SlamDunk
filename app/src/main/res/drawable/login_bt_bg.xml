@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/colormain"/>
-    <corners android:radius="5dp"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/login_bt_bg_press"/>
+    <item android:drawable="@drawable/login_bt_bg_normal"/>
+</selector>

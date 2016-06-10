@@ -3,7 +3,6 @@ package com.fpd.slamdunk.bussiness.register.activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,8 +12,9 @@ import com.fpd.core.register.RegisterAction;
 import com.fpd.model.login.LREntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
-import com.fpd.slamdunk.bussiness.login.widget.ColorIcon;
+import com.fpd.basecore.util.ColorIcon;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
+
 
 /**
  * Created by solo on 2016/6/2.
@@ -116,13 +116,11 @@ public class RegisterActivity extends CommenActivity implements
             public void onSuccess(LREntity result)
             {
                 //注册成功跳转到首页
-                Log.i("TAG11","onSuccess__result="+result.getUserId());
             }
 
             @Override
             public void onFailure(String Message)
             {
-                Log.i("TAG11","onFailure");
                 //注册失败，告诉用户原因(用户名已存在)
             }
         });

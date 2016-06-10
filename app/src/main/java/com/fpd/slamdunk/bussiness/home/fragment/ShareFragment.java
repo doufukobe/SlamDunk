@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +14,16 @@ import android.view.ViewGroup;
 import com.baidu.apistore.sdk.ApiCallBack;
 import com.baidu.apistore.sdk.ApiStoreSDK;
 import com.baidu.apistore.sdk.network.Parameters;
+import com.fpd.basecore.config.URLContans;
 import com.fpd.model.sportnews.ArticleEntity;
 import com.fpd.model.sportnews.SportNewsEntity;
 import com.fpd.model.sportnews.SportNewsEntityData;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.adapter.RecyclerBaseAdapter;
+import com.fpd.slamdunk.bussiness.home.widget.MyLoadMoreView;
 import com.fpd.slamdunk.bussiness.sportnews.activity.SportActivity;
 import com.google.gson.Gson;
+import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +36,9 @@ public class ShareFragment extends Fragment implements RecyclerBaseAdapter.OnIte
     private Context mContext;
     private View mContentView;
     //List相关
-    private RecyclerView mSharList;
+    private PullToRefreshRecyclerView mSharList;
     private RecyclerBaseAdapter mAdapter;
     private List<ArticleEntity> mDatas;
-    //常量
-    public static final String SPORT_NEWS_URL="sport_news_url";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -57,7 +58,7 @@ public class ShareFragment extends Fragment implements RecyclerBaseAdapter.OnIte
 
     private void initViews()
     {
-        mSharList=(RecyclerView)mContentView.findViewById(R.id.id_share_list);
+        mSharList=(PullToRefreshRecyclerView)mContentView.findViewById(R.id.id_share_list);
         initList();
     }
 
@@ -68,9 +69,28 @@ public class ShareFragment extends Fragment implements RecyclerBaseAdapter.OnIte
 
     private void initList()
     {
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mSharList.setLayoutManager(llm);
+        mSharList.setSwipeEnable(true);
+        MyLoadMoreView loadMoreView = new MyLoadMoreView(mContext,mSharList.getRecyclerView());
+        loadMoreView.setLoadMorePadding(100);
+        mSharList.setLayoutManager(new LinearLayoutManager(mContext));
+        mSharList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                Log.i("TAG", "onRefresh");
+            }
+        });
+        mSharList.setPagingableListener(new PullToRefreshRecyclerView.PagingableListener()
+        {
+            @Override
+            public void onLoadMoreItems()
+            {
+                Log.i("TAG", "onLoadMoreItems");
+            }
+        });
+        mSharList.setAdapter(mAdapter);
+        mSharList.onFinishLoading(true, false);
         mDatas=new ArrayList<>();
         mAdapter=new RecyclerBaseAdapter<ArticleEntity>(mContext,mDatas,R.layout.sportnews_list_item)
         {
@@ -97,7 +117,15 @@ public class ShareFragment extends Fragment implements RecyclerBaseAdapter.OnIte
                     @Override
                     public void onSuccess(int status, String responseString)
                     {
-                        SportNewsEntity sne = new Gson().fromJson(responseString, SportNewsEntity.class);
+                        SportNewsEntity sne=null;
+                        try
+                        {
+                            sne = new Gson().fromJson(responseString, SportNewsEntity.class);
+
+                        }catch (Exception e)
+                        {
+
+                        }
                         if (sne != null)
                         {
                             SportNewsEntityData data = sne.data;
@@ -130,7 +158,7 @@ public class ShareFragment extends Fragment implements RecyclerBaseAdapter.OnIte
     public void onItemClick(int positon)
     {
         Intent intent=new Intent(mContext, SportActivity.class);
-        intent.putExtra(SPORT_NEWS_URL,mDatas.get(positon).url);
+        intent.putExtra(URLContans.SPORT_NEWS_URL,mDatas.get(positon).url);
         startActivity(intent);
     }
 }

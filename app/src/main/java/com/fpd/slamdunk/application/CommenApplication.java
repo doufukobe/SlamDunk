@@ -1,6 +1,9 @@
 package com.fpd.slamdunk.application;
 
 
+import android.util.Log;
+
+import com.baidu.apistore.sdk.ApiStoreSDK;
 import com.fpd.basecore.application.BaseApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -41,6 +44,6 @@ public class CommenApplication extends BaseApplication {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
        String registraId =  JPushInterface.getRegistrationID(this);
-        Log.d("registraId",registraId);
+        Log.d("registraId", registraId);
     }
 }
