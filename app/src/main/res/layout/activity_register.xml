@@ -33,7 +33,7 @@
             <RelativeLayout
                 android:layout_width="40dp"
                 android:layout_height="match_parent">
-                <com.fpd.slamdunk.bussiness.login.widget.ColorIcon
+                <com.fpd.basecore.util.ColorIcon
                     android:id="@+id/id_register_name_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -60,7 +60,7 @@
             <RelativeLayout
                 android:layout_width="40dp"
                 android:layout_height="match_parent">
-                <com.fpd.slamdunk.bussiness.login.widget.ColorIcon
+                <com.fpd.basecore.util.ColorIcon
                     android:id="@+id/id_register_password_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -88,7 +88,7 @@
             <RelativeLayout
                 android:layout_width="40dp"
                 android:layout_height="match_parent">
-                <com.fpd.slamdunk.bussiness.login.widget.ColorIcon
+                <com.fpd.basecore.util.ColorIcon
                     android:id="@+id/id_register_sure_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"

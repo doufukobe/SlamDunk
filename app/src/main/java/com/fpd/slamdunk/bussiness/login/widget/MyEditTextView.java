@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.fpd.slamdunk.R;
-import com.fpd.slamdunk.bussiness.login.util.DensityUtil;
+import com.fpd.basecore.util.DensityUtil;
 
 /**
  * Created by solo on 2016/6/2.

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,8 +14,8 @@ import com.fpd.core.login.LoginAction;
 import com.fpd.model.login.LREntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
-import com.fpd.slamdunk.bussiness.login.widget.CircleImage;
-import com.fpd.slamdunk.bussiness.login.widget.ColorIcon;
+import com.fpd.basecore.util.CircleImage;
+import com.fpd.basecore.util.ColorIcon;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 
@@ -111,14 +110,12 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
             public void onSuccess(LREntity result)
             {
                 //登陆成功跳转到首页
-                Log.i("TAG","result="+result.getUserId());
             }
 
             @Override
             public void onFailure(String Message)
             {
 //                登陆失败，告诉用户原因(1、用户名输入错误，2、密码输入错误)
-                Log.i("TAG","Message="+Message);
             }
         });
     }

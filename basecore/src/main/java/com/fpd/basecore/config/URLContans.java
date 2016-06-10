@@ -13,4 +13,6 @@ public class URLContans {
 
     public static String SUBMITJOIN = "joinactivity/";
 
+    public static String SPORT_NEWS_URL="sport_news_url";
+
 }
