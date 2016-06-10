@@ -3,18 +3,21 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent"
      android:background="@color/colorwhite">
+
     <RelativeLayout
         android:id="@+id/id_login_layout1"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="48dp">
         <TextView
-            android:id="@+id/id_login_tv_appname"
+            android:id="@+id/id_login_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
             android:textColor="@color/colorblack"
-            android:textSize="25sp"
-            android:text="约球"/>
+            android:layout_marginRight="12dp"
+            android:textSize="16dp"
+            android:text="跳过"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/id_login_layout2"
@@ -123,28 +126,28 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/id_login_layout5"
-        android:layout_below="@+id/id_login_layout4"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_alignParentBottom="true">
         <TextView
             android:id="@+id/id_login_tip_register"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="12dp"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:textColor="@color/colorblack"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:text="立即注册"
             android:gravity="center"/>
         <TextView
             android:id="@+id/id_login_tip_forget"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="12dp"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:textColor="@color/colorblack"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:text="忘记密码"
             android:gravity="center"/>
     </RelativeLayout>

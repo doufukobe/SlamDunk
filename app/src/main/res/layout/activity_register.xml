@@ -3,11 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorwhite">
+
+    <include layout="@layout/commen_title_bar"></include>
+
     <RelativeLayout
         android:id="@+id/id_register_layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="80dp">
         <TextView
             android:id="@+id/id_register_tv"
             android:layout_width="wrap_content"
@@ -24,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="35dp">
         <LinearLayout
             android:id="@+id/id_register_1"
             android:layout_width="match_parent"
