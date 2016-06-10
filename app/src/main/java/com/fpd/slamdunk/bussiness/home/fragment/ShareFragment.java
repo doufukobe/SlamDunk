@@ -117,7 +117,15 @@ public class ShareFragment extends Fragment implements RecyclerBaseAdapter.OnIte
                     @Override
                     public void onSuccess(int status, String responseString)
                     {
-                        SportNewsEntity sne = new Gson().fromJson(responseString, SportNewsEntity.class);
+                        SportNewsEntity sne=null;
+                        try
+                        {
+                            sne = new Gson().fromJson(responseString, SportNewsEntity.class);
+
+                        }catch (Exception e)
+                        {
+
+                        }
                         if (sne != null)
                         {
                             SportNewsEntityData data = sne.data;
