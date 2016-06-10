@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
@@ -27,6 +28,8 @@ public class RegisterActivity extends CommenActivity implements
     private MyEditTextView mEtPassword;
     private MyEditTextView mEtSure;
     private Button mBtRegister;
+    private Button backbtn;
+    private TextView topTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -42,6 +45,9 @@ public class RegisterActivity extends CommenActivity implements
         mEtPassword=(MyEditTextView)findViewById(R.id.id_register_password_et);
         mEtSure=(MyEditTextView)findViewById(R.id.id_register_sure_et);
         mBtRegister=(Button)findViewById(R.id.id_register_bt);
+        backbtn = (Button) findViewById(R.id.back_button);
+        topTitle = (TextView) findViewById(R.id.top_title);
+        topTitle.setText("注册");
         initIcons();
     }
 
@@ -49,6 +55,7 @@ public class RegisterActivity extends CommenActivity implements
     private void initEvents()
     {
         mBtRegister.setOnClickListener(this);
+        backbtn.setOnClickListener(this);
     }
 
     private void initIcons()
@@ -98,6 +105,8 @@ public class RegisterActivity extends CommenActivity implements
                 //将用户名和密码提交给后台
                 submit(name,password);
                 break;
+            case R.id.top_title:
+                finish();
         }
     }
 
