@@ -23,13 +23,13 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="vs4lhxmT0FksD9cS1sqdWU8y"></meta-data>
 
-        <activity android:name=".join.JoinActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
+        <!--<activity android:name=".join.JoinActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"></action>-->
 
-                <category android:name="android.intent.category.LAUNCHER"></category>
-            </intent-filter>
-        </activity>
+                <!--<category android:name="android.intent.category.LAUNCHER"></category>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
@@ -105,7 +105,7 @@
 
         <!-- Required SDK核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver"
-            android:process="com.fpd.slamdunk.remote"/>
+                  android:process="com.fpd.slamdunk.remote"/>
 
         <receiver
             android:name=".receiver.MyReceiver"
@@ -124,6 +124,19 @@
         <!-- Required . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="2e72bf3180c501b6565f31ba" /> <!-- </>值来自开发者平台取得的AppKey-->
+
+        <!--register/login/sportNews-->
+        <activity android:name=".bussiness.register.activity.RegisterActivity"/>
+        <activity android:name=".bussiness.sportnews.activity.SportActivity"/>
+        <activity android:name=".bussiness.login.activity.LoginActivity">
+        </activity>
+        <activity android:name=".bussiness.home.activity.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
+
+                <category android:name="android.intent.category.LAUNCHER"></category>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

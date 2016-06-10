@@ -104,6 +104,7 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
     }
     private void showToast(String str)
     {
+        Log.i("TAG","showToast");
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
