@@ -12,20 +12,22 @@ import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
+import com.fpd.basecore.util.CircleImage;
+import com.fpd.basecore.util.ColorIcon;
+import com.fpd.basecore.util.StyleCheckUtil;
 import com.fpd.core.login.LoginAction;
 import com.fpd.model.login.LREntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
-import com.fpd.slamdunk.bussiness.login.widget.CircleImage;
-import com.fpd.slamdunk.bussiness.login.widget.ColorIcon;
+
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 
 
 public class LoginActivity extends CommenActivity implements View.OnClickListener
 {
-
+    public final static String LOGIN_REGEX = "^(1[0-9]{10})$|^([\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]+)$|^([a-zA-Z0-9_]{6,20})$";
     private TextView mTipRegister;
     private MyEditTextView mEtName;
     private MyEditTextView mEtPassword;
@@ -85,14 +87,8 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                 startActivity(intentToRegister);
                 break;
             case R.id.id_login_bt:
-                String nameRex="[^\\s]{6,10}";
                 String name=mEtName.getText().toString();
                 String password=mEtPassword.getText().toString();
-                if(!name.matches(nameRex))
-                {
-                    showToast("用户名输入错误");
-                    return;
-                }
                 //提交用户名和密码给后台
                 submit(name,password);
                 break;
@@ -142,4 +138,6 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
             }
         });
     }
+
+
 }
