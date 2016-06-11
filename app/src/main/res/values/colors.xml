@@ -113,4 +113,5 @@
     <!--solo-->
     <color name="colorblack">#000000</color>
     <color name="gray01">#efbdbdbd</color>
+    <color name="gray02">#e0e0e0</color>
 </resources>

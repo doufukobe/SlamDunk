@@ -5,46 +5,43 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fpd.basecore.util.CircleImage;
-import com.fpd.basecore.util.DensityUtil;
-import com.fpd.basecore.util.PersonalView;
+import com.fpd.basecore.util.ColorIcon;
 import com.fpd.slamdunk.R;
-import com.nineoldandroids.view.ViewHelper;
 
 /**
  * Created by solo on 2016/6/2.
  */
-public class MyFragment extends Fragment implements PersonalView.OnScrollListener
+public class MyFragment extends Fragment implements View.OnClickListener
 {
 
     private Context mContext;
     private View mContentView;
 
-    private PersonalView mSrollView;
-
-    private View mTopbar;
-    private View mTopLayout;
-    private View mTopLayout1;
-    private ImageView mBackground;
-    private ImageView mBackground1;
     private CircleImage mIcon;
+    private TextView mName;
+    private TextView mSiteOne;
+    private TextView mSizteTwo;
+    private TextView mSexAge;
+    private ColorIcon mZanIcon;
+    private TextView mZanAmount;
+    private TextView mAccount;
 
-    private int iconScrollLegth;
-    private int topLayoutScrollLength;
-    private int iconMinSize;
-    private int iconMaxSize;
+    private View mCreate;
+    private View mJoin;
+    private View mSet;
+    private View mQuit;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mContentView=inflater.inflate(R.layout.fragment_my,container,false);
+        mContentView=inflater.inflate(R.layout.fragment_my, container, false);
         mContext=getActivity();
         initViews();
         return mContentView;
@@ -52,20 +49,22 @@ public class MyFragment extends Fragment implements PersonalView.OnScrollListene
 
     private void initViews()
     {
-        mSrollView=(PersonalView)mContentView.findViewById(R.id.id_my_scrollview);
-
-        mTopbar=mContentView.findViewById(R.id.id_my_top_bar);
-
-        mTopLayout=mContentView.findViewById(R.id.id_my_top_ly);
-        mTopLayout1=mContentView.findViewById(R.id.id_my_top_ly_1);
-
-        mBackground=(ImageView)mContentView.findViewById(R.id.id_my_top_bg);
-        mBackground1=(ImageView)mContentView.findViewById(R.id.id_my_top_bg_1);
-
         mIcon=(CircleImage)mContentView.findViewById(R.id.id_my_icon);
+        mName=(TextView)mContentView.findViewById(R.id.id_my_name);
+        mSiteOne=(TextView)mContentView.findViewById(R.id.id_my_site_1);
+        mSizteTwo=(TextView)mContentView.findViewById(R.id.id_my_site_2);
+        mSexAge=(TextView)mContentView.findViewById(R.id.id_my_sex_age);
+        mZanIcon=(ColorIcon)mContentView.findViewById(R.id.id_my_zan_icon);
+        mZanAmount=(TextView)mContentView.findViewById(R.id.id_my_zan_amount);
+        mAccount=(TextView)mContentView.findViewById(R.id.id_my_account_number);
+
+        mCreate=mContentView.findViewById(R.id.id_my_ly_create);
+        mJoin=mContentView.findViewById(R.id.id_my_ly_join);
+        mSet=mContentView.findViewById(R.id.id_my_ly_3);
+        mQuit=mContentView.findViewById(R.id.id_my_ly_4);
 
         initCircleImag(mIcon);
-        initConstants();
+        initColorIcon(mZanIcon);
         initEvents();
     }
 
@@ -75,26 +74,20 @@ public class MyFragment extends Fragment implements PersonalView.OnScrollListene
         view.setBitmap(bitmap);
     }
 
+    private void initColorIcon(ColorIcon view)
+    {
+        view.setColor(this.getResources().getColor(R.color.gray01));
+        Bitmap bitmap = BitmapFactory.decodeResource(this.getResources(), R.mipmap.like33);
+        view.setBitmap(bitmap);
+    }
+
     private void initEvents()
     {
-        mSrollView.setOnScrollListener(this);
-        mTopLayout.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.i("TAG", "mTopBackground.onClick()");
-            }
-        });
-
-        mIcon.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Log.i("TAG", "mIcon.onClick()");
-            }
-        });
+        mIcon.setOnClickListener(this);
+        mCreate.setOnClickListener(this);
+        mJoin.setOnClickListener(this);
+        mSet.setOnClickListener(this);
+        mQuit.setOnClickListener(this);
     }
 
     private void initDatas()
@@ -102,44 +95,26 @@ public class MyFragment extends Fragment implements PersonalView.OnScrollListene
 
     }
 
-    private void initConstants()
-    {
-        topLayoutScrollLength=DensityUtil.dip2px(mContext,160);
-
-        iconScrollLegth= DensityUtil.dip2px(mContext,125);
-        iconMinSize=DensityUtil.dip2px(mContext,50);
-        iconMaxSize=DensityUtil.dip2px(mContext,70);
-    }
-
-    //t:0~maxScrollLength
     @Override
-    public void onScroll(int t, int maxScrollLength)
+    public void onClick(View v)
     {
-        float factor=(float)t/(maxScrollLength);
-        factor=(factor>1) ? 1 : factor;
-        if(t==0)
+        switch (v.getId())
         {
-            mTopbar.setVisibility(View.GONE);
+            case R.id.id_my_icon:
 
-            mTopLayout1.setVisibility(View.GONE);
-            mTopLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.id_my_ly_create:
+
+                break;
+            case R.id.id_my_ly_join:
+
+                break;
+            case R.id.id_my_ly_3:
+
+                break;
+            case R.id.id_my_ly_4:
+
+                break;
         }
-        else
-        {
-            mTopbar.setVisibility(View.VISIBLE);
-
-            mTopLayout1.setVisibility(View.VISIBLE);
-            mTopLayout.setVisibility(View.GONE);
-        }
-
-        ViewHelper.setAlpha(mTopbar, factor);
-
-        ViewHelper.setTranslationY(mTopLayout1,-topLayoutScrollLength*factor);
-
-        ViewHelper.setPivotX(mIcon, 0);
-        ViewHelper.setPivotY(mIcon, mIcon.getHeight() / 2);
-        ViewHelper.setScaleY(mIcon, 1 - (1 - ((float) iconMinSize / iconMaxSize)) * factor);
-        ViewHelper.setScaleX(mIcon, 1 - (1 - ((float) iconMinSize / iconMaxSize)) * factor);
-        ViewHelper.setTranslationY(mIcon, -iconScrollLegth * factor);
     }
 }
