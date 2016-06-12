@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.bussiness.home.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.basecore.util.ColorIcon;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.setting.SettingActivity;
 
 /**
  * Created by solo on 2016/6/2.
@@ -110,7 +112,8 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
                 break;
             case R.id.id_my_ly_3:
-
+                Intent intent=new Intent(mContext, SettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.id_my_ly_4:
 
