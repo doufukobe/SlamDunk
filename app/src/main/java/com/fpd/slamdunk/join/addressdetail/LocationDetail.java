@@ -1,6 +1,9 @@
 package com.fpd.slamdunk.join.addressdetail;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -37,6 +40,8 @@ public class LocationDetail extends CommenActivity implements BDLocationListener
     private RoutePlanSearch routePlanSearch;
     private double latitude;
     private double longitude;
+    private Button backBtn;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,16 @@ public class LocationDetail extends CommenActivity implements BDLocationListener
         locationClient.start();
         routePlanSearch = RoutePlanSearch.newInstance();
         routePlanSearch.setOnGetRoutePlanResultListener(this);
+
+        backBtn = (Button) findViewById(R.id.back_button);
+        textView = (TextView) findViewById(R.id.top_title);
+        textView.setText("路径展示");
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

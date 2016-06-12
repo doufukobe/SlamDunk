@@ -1,5 +1,6 @@
 package com.fpd.slamdunk.bussiness.register.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
 import com.fpd.core.register.RegisterAction;
 import com.fpd.model.login.LREntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.basecore.util.ColorIcon;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 
 
@@ -61,7 +64,7 @@ public class RegisterActivity extends CommenActivity implements
     private void initIcons()
     {
         initIcon(R.id.id_register_name_icon,R.mipmap.ic_perm_identity_black_48dp);
-        initIcon(R.id.id_register_password_icon,R.mipmap.ic_lock_open_black_48dp);
+        initIcon(R.id.id_register_password_icon, R.mipmap.ic_lock_open_black_48dp);
         initIcon(R.id.id_register_sure_icon, R.mipmap.ic_lock_open_black_48dp);
     }
 
@@ -105,8 +108,9 @@ public class RegisterActivity extends CommenActivity implements
                 //将用户名和密码提交给后台
                 submit(name,password);
                 break;
-            case R.id.top_title:
+            case R.id.back_button:
                 finish();
+                break;
         }
     }
 
@@ -124,13 +128,19 @@ public class RegisterActivity extends CommenActivity implements
             @Override
             public void onSuccess(LREntity result)
             {
-                //注册成功跳转到首页
+                Config.userId = result.getUserId()+"";
+                getSharedPreferences(Config.sharedParaferance,MODE_PRIVATE)
+                        .edit().putString(Config.userId,Config.userId).commit();
+
+                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
             }
 
             @Override
             public void onFailure(String Message)
             {
-                //注册失败，告诉用户原因(用户名已存在)
+               Toast.makeText(RegisterActivity.this,Message,Toast.LENGTH_SHORT).show();
             }
         });
     }

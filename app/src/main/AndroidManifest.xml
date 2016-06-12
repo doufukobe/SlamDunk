@@ -23,14 +23,38 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="vs4lhxmT0FksD9cS1sqdWU8y"></meta-data>
 
-        <!--<activity android:name=".join.JoinActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"></action>-->
+        <activity android:name=".bussiness.startup.StartUpActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"></category>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+                <category android:name="android.intent.category.LAUNCHER"></category>
+            </intent-filter>
+        </activity>
 
+        <activity android:name=".bussiness.home.activity.HomeActivity"
+            android:launchMode="singleTask"></activity>
+
+        <activity android:name=".arrange.ArrangeActivity"></activity>
+
+        <activity android:name=".bussiness.sportnews.activity.SportActivity"></activity>
+
+
+        <activity android:name=".join.JoinActivity"></activity>
+
+        <activity android:name=".join.submit.JoinSubmitActivity"></activity>
+
+        <activity android:name=".join.addressdetail.LocationDetail"></activity>
+
+        <activity android:name=".bussiness.login.activity.LoginActivity"></activity>
+
+        <activity android:name=".bussiness.register.activity.RegisterActivity"></activity>
+
+        <activity android:name=".bussiness.selectimg.SelectPhotoActivity"></activity>
+
+        <activity android:name=".bussiness.myact.MyActListActivity"></activity>
+
+        <activity android:name=".myjoinact.MyJoinActActivity"></activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
 
@@ -105,7 +129,7 @@
 
         <!-- Required SDK核心功能-->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver"
-                  android:process="com.fpd.slamdunk.remote"/>
+            android:process="com.fpd.slamdunk.remote"/>
 
         <receiver
             android:name=".receiver.MyReceiver"
@@ -124,22 +148,6 @@
         <!-- Required . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="2e72bf3180c501b6565f31ba" /> <!-- </>值来自开发者平台取得的AppKey-->
-
-        <!--register/login/sportNews/setting-->
-        <activity android:name=".bussiness.register.activity.RegisterActivity"/>
-        <activity android:name=".bussiness.sportnews.activity.SportActivity"/>
-        <activity android:name=".setting.SettingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-
-                <category android:name="android.intent.category.LAUNCHER"></category>
-            </intent-filter>
-        </activity>
-        <activity android:name=".bussiness.login.activity.LoginActivity">
-        </activity>
-        <activity android:name=".bussiness.home.activity.HomeActivity">
-        </activity>
-        <activity android:name=".setting.SettingNameActivity"/>
     </application>
 
 </manifest>

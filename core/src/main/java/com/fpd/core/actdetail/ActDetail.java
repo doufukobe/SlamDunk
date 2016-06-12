@@ -30,7 +30,7 @@ public class ActDetail {
     public void getActivityDetail(String actId, final CallBackListener<ActivityDetailEntitiy> listener){
 
         Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("actId","8");
+        requestParams.put("actId",actId);
 
         SDApi.post(context, Config.headUrl+ URLContans.GETACTIVITY, requestParams, new SDApiResponse<String>() {
             @Override

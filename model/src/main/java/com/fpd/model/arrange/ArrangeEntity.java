@@ -6,14 +6,14 @@ import java.io.Serializable;
  * Created by t450s on 2016/6/4.
  */
 public class ArrangeEntity implements Serializable {
-    private boolean success;
+    private int actId;
 
 
-    public boolean isSuccess() {
-        return success;
+    public int getActId() {
+        return actId;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setActId(int actId) {
+        this.actId = actId;
     }
 }

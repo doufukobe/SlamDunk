@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fpd.basecore.swipelayout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipelayout_my_act"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorwhite"
+    swipe:clickToClose="true"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:tag="back">
+
+        <TextView
+            android:id="@+id/textview_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorred"
+            android:gravity="center"
+            android:text="撤销"
+            android:textColor="@color/colorwhite"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:id="@+id/my_act_layout">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="发起人"
+                android:textSize="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/my_act_list_actname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingBottom="12dp"
+                android:text="doufukobe"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="活动时间"
+                android:textSize="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/my_act_list_acttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingBottom="12dp"
+                android:text="2016-06-07"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="活动状态"
+                android:textSize="12dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/my_act_list_actstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="12dp"
+                android:layout_centerInParent="true"
+                android:text="已完成"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</com.fpd.basecore.swipelayout.SwipeLayout>

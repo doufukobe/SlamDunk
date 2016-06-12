@@ -27,8 +27,8 @@ public class ArrangeAction {
         this.context = context;
     }
 
-    public void setArrange(String actName,String timeLong,String itemNum,String minNum
-        ,String hasBall,String introduce,double latitude,double longtitude,String addressInfo, final CallBackListener<ArrangeEntity> listener){
+    public void setArrange(final String actName,String timeLong, final String itemNum, final String minNum
+        ,String hasBall, final String introduce, final double latitude, final double longtitude,String addressInfo, final CallBackListener<ArrangeEntity> listener){
 
         final Map<String,String> requestParam = new HashMap<>();
         requestParam.put("userId","6");
@@ -44,7 +44,16 @@ public class ArrangeAction {
         SDApi.post(context, Config.headUrl+ URLContans.PUBLISHACTIVITY, requestParam, new SDApiResponse<String>() {
             @Override
             public void onSuccess(String response) {
-                if (response != null && listener != null) {
+
+                if (latitude==0&&longtitude==0){
+                    listener.onFailure("定位失败，无法发起活动");
+                }else if(actName.length() >50){
+                    listener.onFailure("活动名字太长，请重新修改");
+                }else if(introduce.length() >255){
+                    listener.onFailure("活动简介太长，请重新修改");
+                }else if(Integer.valueOf(minNum) > Integer.valueOf(itemNum)){
+                    listener.onFailure("最小人数不能大于目标人数");
+                }else if (response != null && listener != null) {
                     Log.d("response",response);
                     CoreResponse<ArrangeEntity> coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<ArrangeEntity>>() {
                     });

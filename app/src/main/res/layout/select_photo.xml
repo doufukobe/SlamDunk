@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/commen_title_bar"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp">
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/select_photo_take"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:text="拍照"></com.gc.materialdesign.views.ButtonFlat>
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/select_photo_pick"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:text="相册图片"></com.gc.materialdesign.views.ButtonFlat>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/select_photo_img"
+        android:layout_width="match_parent"
+        android:layout_height="183dp"
+        android:scaleType="fitCenter"
+        android:layout_margin="12dp"/>
+
+    <com.gc.materialdesign.views.ButtonRectangle
+        android:id="@+id/select_photo_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colormain"
+        android:textSize="6dp"
+        android:text="确 定"></com.gc.materialdesign.views.ButtonRectangle>
+</LinearLayout>

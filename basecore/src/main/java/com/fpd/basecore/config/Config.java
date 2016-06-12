@@ -7,6 +7,7 @@ public class Config {
 
     public static String headUrl = "http://192.168.23.2:8000/";
 
-    public static String userId = "5";
+    public static String userId = "";
 
+    public static String sharedParaferance = "SLAMDUNK";
 }

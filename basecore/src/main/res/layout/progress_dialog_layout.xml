@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_centerInParent="true"
+        android:padding="10dp"
+        android:background="#88000000"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/progress_msg">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/progress_circile"
+                android:layout_width="68dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/loading_cir"/>
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/progress_img"
+                android:padding="6dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/loading_logobg"/>
+
+        </RelativeLayout>
+
+
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:id="@+id/progress_msg"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:text="正在加载..."/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
