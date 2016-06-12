@@ -109,6 +109,7 @@ public class MyEditTextView extends EditText implements
         void onClearClick();
     }
     private OnClearClickListener listener;
+
     public void setOnClearClickListener(OnClearClickListener listener)
     {
         this.listener=listener;
@@ -119,6 +120,7 @@ public class MyEditTextView extends EditText implements
         void onTextChange();
     }
     private OnTextChangeListener mOnTextChangeListener;
+
     public void setOnTextChangeListener(OnTextChangeListener listener)
     {
         this.mOnTextChangeListener=listener;

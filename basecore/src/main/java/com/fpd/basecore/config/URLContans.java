@@ -15,4 +15,7 @@ public class URLContans {
 
     public static String SPORT_NEWS_URL="sport_news_url";
 
+    public static String GETUSERINFO = "getuserinfo/";
+
+    public static String DELETEACT = "delactivity/";
 }

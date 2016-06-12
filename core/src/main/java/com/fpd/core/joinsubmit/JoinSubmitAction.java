@@ -12,6 +12,7 @@ import com.fpd.basecore.config.Config;
 import com.fpd.basecore.config.URLContans;
 import com.fpd.core.response.CoreResponse;
 import com.fpd.model.arrange.ArrangeEntity;
+import com.fpd.model.success.SuccessEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class JoinSubmitAction {
         this.context = context;
     }
 
-    public void submit(String actId,String userId,String personInfo,String hasEquipment, final CallBackListener<ArrangeEntity> listener){
+    public void submit(String actId,String userId,String personInfo,String hasEquipment, final CallBackListener<SuccessEntity> listener){
 
         Map<String,String> requestParam = new HashMap<>();
         requestParam.put("actId",actId);
@@ -40,7 +41,7 @@ public class JoinSubmitAction {
             public void onSuccess(String response) {
                 if (response !=null&&listener !=null){
                     Log.d("response",response);
-                    CoreResponse<ArrangeEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<ArrangeEntity>>(){});
+                    CoreResponse<SuccessEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<SuccessEntity>>(){});
                     if (coreResponse.isSuccess()){
                         listener.onSuccess(coreResponse.getResult());
                     }else{

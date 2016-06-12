@@ -8,10 +8,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
 import com.fpd.core.actdetail.ActDetail;
 import com.fpd.model.actdetial.ActivityDetailEntitiy;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.join.addressdetail.LocationDetail;
 import com.fpd.slamdunk.join.submit.JoinSubmitActivity;
 
@@ -70,9 +72,16 @@ public class JoinActivity extends CommenActivity {
         joinAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JoinActivity.this, JoinSubmitActivity.class);
-                intent.putExtra("ACTID","8");
-                startActivity(intent);
+
+                if (Config.userId.isEmpty()){
+                    Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(JoinActivity.this, JoinSubmitActivity.class);
+                    intent.putExtra("ACTID",actId);
+                    startActivity(intent);
+                }
+
             }
         });
 

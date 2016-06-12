@@ -1,14 +1,17 @@
 package com.fpd.slamdunk.bussiness.home.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.arrange.ArrangeActivity;
 import com.fpd.slamdunk.bussiness.home.adapter.HomeAdapter;
 import com.fpd.slamdunk.bussiness.home.fragment.InviteFragment;
 import com.fpd.slamdunk.bussiness.home.fragment.MyFragment;
@@ -30,6 +33,7 @@ public class HomeActivity extends CommenActivity {
     private Button invitePage;
     private Button sharePage;
     private Button myPage;
+    private Button action_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class HomeActivity extends CommenActivity {
     private void initView() {
         backButton = (Button) findViewById(R.id.back_button);
         topTitle = (TextView) findViewById(R.id.top_title);
+        action_button = (Button) findViewById(R.id.top_action);
         homeViewPager = (ViewPager) findViewById(R.id.home_viewPager);
 
         invitePage = (Button) findViewById(R.id.pager1);
@@ -99,6 +104,14 @@ public class HomeActivity extends CommenActivity {
                 setBackground(2);
             }
         });
+
+        action_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ArrangeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -113,16 +126,20 @@ public class HomeActivity extends CommenActivity {
                 homeViewPager.setCurrentItem(0);
                 invitePage.setSelected(true);
                 topTitle.setText("约球");
+                action_button.setVisibility(View.VISIBLE);
+                action_button.setText("发起活动");
                 break;
             case 1:
                 homeViewPager.setCurrentItem(1);
                 sharePage.setSelected(true);
                 topTitle.setText("评球");
+                action_button.setVisibility(View.INVISIBLE);
                 break;
             case 2:
                 homeViewPager.setCurrentItem(2);
                 myPage.setSelected(true);
                 topTitle.setText("账户");
+                action_button.setVisibility(View.INVISIBLE);
                 break;
         }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dialog_bg">#ffffff</color>
+    <color name="btn_unpress_color">#ffffff</color>
+    <color name="btn_press_color">#e0e0e0</color>
+    <color name="colormain">#ff9800</color>
+</resources>

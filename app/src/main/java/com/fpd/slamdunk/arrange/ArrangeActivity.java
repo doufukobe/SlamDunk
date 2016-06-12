@@ -1,5 +1,6 @@
 package com.fpd.slamdunk.arrange;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -52,16 +53,24 @@ import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.application.BaseApplication;
+import com.fpd.basecore.config.Config;
+import com.fpd.basecore.dialog.SDDialog;
 import com.fpd.core.arrange.ArrangeAction;
+import com.fpd.core.upactphoto.UpActPhotoAction;
 import com.fpd.model.arrange.ArrangeEntity;
+import com.fpd.model.success.SuccessEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.widget.WalkingRouteOverlay;
+import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
+import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
+import com.fpd.slamdunk.bussiness.selectimg.SelectPhotoActivity;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -71,7 +80,10 @@ import java.util.List;
  */
 public class ArrangeActivity extends CommenActivity {
 
+    private static final int GETPHOTO = 150;
+
     private TextView arrange_date;
+    private TextView act_photo;
     private TimePickerDialog mDialogMonthDayHourMinute;
     private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private ScrollView scrollView;
@@ -104,6 +116,12 @@ public class ArrangeActivity extends CommenActivity {
     private GeoCoder mSearch;
     private PoiSearch poiSearch;
     private BitmapDescriptor basketPlace;
+
+    private TextView topTitle;
+    private Button backButton;
+    private UpActPhotoAction upActPhotoAction;
+    private String filePartName;
+    private File upLoadFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,25 +201,61 @@ public class ArrangeActivity extends CommenActivity {
         startAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = hasBall.isChecked()?"True":"False";
-                arrangeAct.setArrange(activeName.getText().toString(), actTime + "", item_num.getText().toString()
-                        , min_num.getText().toString(), s, introduce.getText().toString(), locationLa, locationLo
-                        , addressInfo, new CallBackListener<ArrangeEntity>() {
-                    @Override
-                    public void onSuccess(ArrangeEntity result) {
-                        Toast.makeText(ArrangeActivity.this, "发起成功", Toast.LENGTH_SHORT).show();
-                    }
+                if (Config.userId.isEmpty()){
+                    Intent intent = new Intent(ArrangeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    String s = hasBall.isChecked() ? "True" : "False";
+                    arrangeAct.setArrange(activeName.getText().toString(), actTime + "", item_num.getText().toString()
+                            , min_num.getText().toString(), s, introduce.getText().toString(), locationLa, locationLo
+                            , addressInfo, new CallBackListener<ArrangeEntity>() {
+                        @Override
+                        public void onSuccess(ArrangeEntity result) {
+                            upActPhotoAction = new UpActPhotoAction(ArrangeActivity.this);
+                            upActPhotoAction.UpLoadImg(result.getActId() + "", filePartName, upLoadFile, new CallBackListener<SuccessEntity>() {
+                                @Override
+                                public void onSuccess(SuccessEntity result) {
+                                    SDDialog sdDialog = new SDDialog(ArrangeActivity.this, "活动发起成功" ,new dialogCallback());
+                                    sdDialog.show();
+                                }
 
-                    @Override
-                    public void onFailure(String Message) {
+                                @Override
+                                public void onFailure(String Message) {
+                                    Toast.makeText(ArrangeActivity.this, Message, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onFailure(String Message) {
+                            Toast.makeText(ArrangeActivity.this, Message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        act_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ArrangeActivity.this, SelectPhotoActivity.class);
+                startActivityForResult(intent,GETPHOTO);
             }
         });
     }
 
     private void  initView(){
+
+        topTitle = (TextView) findViewById(R.id.top_title);
+        topTitle.setText("发起约球");
+        backButton = (Button) findViewById(R.id.back_button);
+
         arrange_date = (TextView) findViewById(R.id.arrange_date);
         baiduMap = (MapView) findViewById(R.id.arrange_baidumap);
         locationMap = baiduMap.getMap();
@@ -220,6 +274,7 @@ public class ArrangeActivity extends CommenActivity {
 
         hasBall = (CheckBox) findViewById(R.id.arrange_hasBall);
         introduce = (EditText) findViewById(R.id.arrange_introduce_edit);
+        act_photo  = (TextView) findViewById(R.id.arrange_act_photo);
         initOther();
     }
 
@@ -388,6 +443,20 @@ public class ArrangeActivity extends CommenActivity {
         }
     }
 
+    private class dialogCallback implements SDDialog.Callback{
+
+        @Override
+        public void sureCallBack() {
+            Intent intent = new Intent(ArrangeActivity.this, MyActListActivity.class);
+            startActivity(intent);
+        }
+
+        @Override
+        public void cancelCallBack() {
+
+        }
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -408,4 +477,18 @@ public class ArrangeActivity extends CommenActivity {
             arrangeClient.stop();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GETPHOTO){
+            if (resultCode == RESULT_OK){
+                String path = data.getStringExtra("file");
+                filePartName = path.substring(path.lastIndexOf("/")+1,path.length());
+                upLoadFile =new File(path);
+                if (upLoadFile !=null){
+                    Log.d("upLoadFile",upLoadFile.getAbsolutePath());
+                }
+            }
+        }
+    }
 }

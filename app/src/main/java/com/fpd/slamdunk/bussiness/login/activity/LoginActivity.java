@@ -27,7 +27,6 @@ import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 
 public class LoginActivity extends CommenActivity implements View.OnClickListener
 {
-    public final static String LOGIN_REGEX = "^(1[0-9]{10})$|^([\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]+)$|^([a-zA-Z0-9_]{6,20})$";
     private TextView mTipRegister;
     private MyEditTextView mEtName;
     private MyEditTextView mEtPassword;
