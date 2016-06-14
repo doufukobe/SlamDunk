@@ -55,6 +55,8 @@
         <activity android:name=".bussiness.myact.MyActListActivity"></activity>
 
         <activity android:name=".myjoinact.MyJoinActActivity"></activity>
+
+        <activity android:name=".setting.SettingActivity"></activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
 

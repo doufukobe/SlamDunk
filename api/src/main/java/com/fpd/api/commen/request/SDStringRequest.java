@@ -4,8 +4,11 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
+import com.android.volley.ResponseDelivery;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
+import com.fpd.api.net.VolleyController;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -49,5 +52,20 @@ public class SDStringRequest extends StringRequest {
             parsed = new String(response.data);
         }
         return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
+    }
+
+    @Override
+    protected void deliverResponse(String response) {
+        if (VolleyController.getInstance().progressDialog != null)
+            VolleyController.getInstance().progressDialog.hideProgressDialog();
+        super.deliverResponse(response);
+    }
+
+    @Override
+    public void deliverError(VolleyError error) {
+        if (VolleyController.getInstance().progressDialog != null) {
+            VolleyController.getInstance().progressDialog.hideProgressDialog();
+        }
+        super.deliverError(error);
     }
 }

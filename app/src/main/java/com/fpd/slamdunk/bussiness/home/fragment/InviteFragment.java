@@ -2,6 +2,7 @@ package com.fpd.slamdunk.bussiness.home.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -50,17 +51,24 @@ public class InviteFragment extends Fragment {
         mLocationClient.registerLocationListener(new InviteLocation());
     }
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser){
-//            if (inviteListAction !=null){
-//                inviteListAction.getInviteList();
-//            }
-//        }else{
-//
-//        }
-//    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            if (listView !=null){
+                listView.setOnRefreshComplete();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setRefreshing(true);
+                    }
+                },200);
+            }
+        }else{
+
+        }
+    }
 
     @Nullable
     @Override
@@ -68,7 +76,8 @@ public class InviteFragment extends Fragment {
         View view = LayoutInflater.from(mContext).inflate(R.layout.invite_fragment,null);
         listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
         initPullList();
-        getInviteList();
+        if (getUserVisibleHint())
+            getInviteList();
         return view;
     }
 
@@ -115,6 +124,8 @@ public class InviteFragment extends Fragment {
         public void onReceiveLocation(BDLocation bdLocation) {
             if (bdLocation.getLocType() == BDLocation.TypeGpsLocation ||
                     bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
+                Log.d("latitude",bdLocation.getLatitude()+"");
+                Log.d("longitude",bdLocation.getLongitude()+"");
                 inviteListAction.getInviteList(bdLocation.getLatitude(), bdLocation.getLongitude(), new CallBackListener<List<InviteListEntity>>() {
                     @Override
                     public void onSuccess(List<InviteListEntity> result) {
@@ -124,10 +135,12 @@ public class InviteFragment extends Fragment {
 
                     @Override
                     public void onFailure(String Message) {
+                        listView.setOnRefreshComplete();
                         Toast.makeText(mContext,Message,Toast.LENGTH_SHORT).show();
                     }
                 });
             }else{
+                listView.setOnRefreshComplete();
                 Toast.makeText(mContext,"定位失败,无法为您提供活动信息",Toast.LENGTH_SHORT).show();
             }
 

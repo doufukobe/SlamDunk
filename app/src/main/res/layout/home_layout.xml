@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:textColor="@drawable/home_bottom_button"
-            android:text="约球"/>
+            android:text="发现"/>
 
         <Button
             android:id="@+id/pager3"
@@ -51,7 +51,9 @@
             android:layout_weight="1"
             android:background="@null"
             android:textColor="@drawable/home_bottom_button"
-            android:text="约球"/>
+            android:drawableTop="@drawable/account_img"
+            android:padding="3dp"
+            android:text="账户"/>
 
     </LinearLayout>
 

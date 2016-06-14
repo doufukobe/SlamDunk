@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fpd.basecore.application.BaseApplication;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.application.CommenApplication;
 import com.fpd.slamdunk.arrange.ArrangeActivity;
 import com.fpd.slamdunk.bussiness.home.adapter.HomeAdapter;
 import com.fpd.slamdunk.bussiness.home.fragment.InviteFragment;
@@ -34,6 +37,8 @@ public class HomeActivity extends CommenActivity {
     private Button sharePage;
     private Button myPage;
     private Button action_button;
+
+    private long currTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +146,18 @@ public class HomeActivity extends CommenActivity {
                 topTitle.setText("账户");
                 action_button.setVisibility(View.INVISIBLE);
                 break;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (System.currentTimeMillis() - currTime >2000){
+            Toast.makeText(this,"再按一次，退出程序",Toast.LENGTH_SHORT).show();
+            currTime = System.currentTimeMillis();
+        }else{
+            ((CommenApplication)getApplication()).exit(false);
         }
 
     }

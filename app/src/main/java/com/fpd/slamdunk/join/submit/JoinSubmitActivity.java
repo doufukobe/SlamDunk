@@ -17,6 +17,7 @@ import com.fpd.model.arrange.ArrangeEntity;
 import com.fpd.model.success.SuccessEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
 import com.fpd.slamdunk.myjoinact.MyJoinActActivity;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -85,7 +86,7 @@ public class JoinSubmitActivity extends CommenActivity {
 
         @Override
         public void sureCallBack() {
-            Intent intent = new Intent(JoinSubmitActivity.this, MyJoinActActivity.class);
+            Intent intent = new Intent(JoinSubmitActivity.this, HomeActivity.class);
             startActivity(intent);
         }
 

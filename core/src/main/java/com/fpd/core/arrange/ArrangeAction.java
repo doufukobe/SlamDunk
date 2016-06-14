@@ -31,7 +31,7 @@ public class ArrangeAction {
         ,String hasBall, final String introduce, final double latitude, final double longtitude,String addressInfo, final CallBackListener<ArrangeEntity> listener){
 
         final Map<String,String> requestParam = new HashMap<>();
-        requestParam.put("userId","6");
+        requestParam.put("userId",Config.userId);
         requestParam.put("addressLongitude",longtitude+"");
         requestParam.put("addressLatitude",latitude+"");
         requestParam.put("actName",actName);

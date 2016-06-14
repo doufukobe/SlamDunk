@@ -5,7 +5,7 @@ package com.fpd.basecore.config;
  */
 public class Config {
 
-    public static String headUrl = "http://192.168.23.2:8000/";
+    public static String headUrl = "http://192.168.23.3:8000/";
 
     public static String userId = "";
 

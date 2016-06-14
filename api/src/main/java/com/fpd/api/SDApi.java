@@ -29,6 +29,19 @@ public class SDApi {
         }
     }
 
+    public static void post(Context context,String url,Map<String,String> requestParams,SDApiResponse<String> apiResponse,boolean showProgress){
+        if(NetWorkUtil.isNetworkConnected(context)){
+            if (NetWorkUtil.isNetworkAvailable(context)){
+                SDStringRequest request = new SDStringRequest(url,requestParams,apiResponse.successListener(),apiResponse.errorListener());
+                VolleyController.getInstance().addToRequestQueueWithCache(request,context,showProgress);
+            }else{
+                apiResponse.OnError(new NoConnectionError());
+            }
+        }else{
+            apiResponse.OnError(new NoConnectionError());
+        }
+    }
+
     public static void upFile(Context context,String url,Map<String,String> requestParams,SDApiResponse<String> apiResponse,
                               String filePartName,File file){
         if(NetWorkUtil.isNetworkConnected(context)){
