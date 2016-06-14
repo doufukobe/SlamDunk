@@ -21,6 +21,7 @@ import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
 import com.fpd.slamdunk.myjoinact.MyJoinActActivity;
+import com.fpd.slamdunk.setting.SettingActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -131,7 +132,10 @@ public class MyFragment extends Fragment implements View.OnClickListener
                 startActivity(intent1);}
                 break;
             case R.id.id_my_ly_3:
-
+                if (userInfo !=null){
+                    Intent intent3 = new Intent(getActivity(), SettingActivity.class);
+                    intent3.putExtra("userInfo", userInfo);
+                    startActivity(intent3);}
                 break;
             case R.id.id_my_ly_4:
                 Config.userId = "";

@@ -7,6 +7,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.fpd.api.SDApi;
 import com.fpd.api.SDApiResponse;
 import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
+import com.fpd.basecore.config.URLContans;
 import com.fpd.core.response.CoreResponse;
 import com.fpd.model.arrange.ArrangeEntity;
 import com.fpd.model.success.SuccessEntity;
@@ -30,7 +32,7 @@ public class UpActPhotoAction {
         Map<String,String> requestParam = new HashMap<>();
         requestParam.put("actId",actId);
 
-        SDApi.upFile(context, "", requestParam, new SDApiResponse<String>() {
+        SDApi.upFile(context, Config.headUrl+ URLContans.UPLOADACTIMG, requestParam, new SDApiResponse<String>() {
             @Override
             public void onSuccess(String response) {
                 if (response !=null && listener !=null){

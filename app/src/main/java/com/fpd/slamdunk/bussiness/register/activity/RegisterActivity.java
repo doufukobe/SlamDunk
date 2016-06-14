@@ -83,21 +83,9 @@ public class RegisterActivity extends CommenActivity implements
         switch (v.getId())
         {
             case R.id.id_register_bt:
-                String nameRex="[^\\s]{6,10}";
-                String passwordRex="[^\\s]{6,16}";
                 String name=mEtName.getText().toString();
                 String password=mEtPassword.getText().toString();
                 String sure=mEtSure.getText().toString();
-                if(!name.matches(nameRex))
-                {
-                    showToast("用户名格式错误，请输入6~10位的数字、字母或符号");
-                    return;
-                }
-                if(!password.matches(passwordRex))
-                {
-                    showToast("密码格式错误，请输入6~16位的数字、字母或符号");
-                    return;
-                }
 
                 //用户名和密码都符合格式要求
                 if(!password.equals(sure))

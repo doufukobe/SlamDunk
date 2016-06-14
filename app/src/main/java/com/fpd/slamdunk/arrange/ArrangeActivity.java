@@ -61,6 +61,7 @@ import com.fpd.model.arrange.ArrangeEntity;
 import com.fpd.model.success.SuccessEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.home.widget.WalkingRouteOverlay;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
@@ -211,19 +212,25 @@ public class ArrangeActivity extends CommenActivity {
                             , addressInfo, new CallBackListener<ArrangeEntity>() {
                         @Override
                         public void onSuccess(ArrangeEntity result) {
-                            upActPhotoAction = new UpActPhotoAction(ArrangeActivity.this);
-                            upActPhotoAction.UpLoadImg(result.getActId() + "", filePartName, upLoadFile, new CallBackListener<SuccessEntity>() {
-                                @Override
-                                public void onSuccess(SuccessEntity result) {
-                                    SDDialog sdDialog = new SDDialog(ArrangeActivity.this, "活动发起成功" ,new dialogCallback());
-                                    sdDialog.show();
-                                }
+                            if (upLoadFile !=null){
+                                upActPhotoAction = new UpActPhotoAction(ArrangeActivity.this);
+                                upActPhotoAction.UpLoadImg(result.getActId() + "", filePartName, upLoadFile, new CallBackListener<SuccessEntity>() {
+                                    @Override
+                                    public void onSuccess(SuccessEntity result) {
+                                        SDDialog sdDialog = new SDDialog(ArrangeActivity.this, "活动发起成功" ,new dialogCallback());
+                                        sdDialog.show();
+                                    }
 
-                                @Override
-                                public void onFailure(String Message) {
-                                    Toast.makeText(ArrangeActivity.this, Message, Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                    @Override
+                                    public void onFailure(String Message) {
+                                        Toast.makeText(ArrangeActivity.this, Message, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }else{
+                                SDDialog sdDialog = new SDDialog(ArrangeActivity.this, "活动发起成功" ,new dialogCallback());
+                                sdDialog.show();
+                            }
+
                         }
 
                         @Override
@@ -296,7 +303,7 @@ public class ArrangeActivity extends CommenActivity {
         center_Tip.setPadding(0, 0, 0, tip_height);
         center_Tip.setImageBitmap(bitmap);
 
-        basketPlace = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
+        basketPlace = BitmapDescriptorFactory.fromResource(R.mipmap.bkplayground);
 
         arrangeClient = new LocationClient(this);
         LocationClientOption option = new LocationClientOption();
@@ -447,7 +454,7 @@ public class ArrangeActivity extends CommenActivity {
 
         @Override
         public void sureCallBack() {
-            Intent intent = new Intent(ArrangeActivity.this, MyActListActivity.class);
+            Intent intent = new Intent(ArrangeActivity.this, HomeActivity.class);
             startActivity(intent);
         }
 
@@ -485,6 +492,8 @@ public class ArrangeActivity extends CommenActivity {
                 String path = data.getStringExtra("file");
                 filePartName = path.substring(path.lastIndexOf("/")+1,path.length());
                 upLoadFile =new File(path);
+                act_photo.setText("已选择");
+                act_photo.setTextColor(getResources().getColor(R.color.colormain));
                 if (upLoadFile !=null){
                     Log.d("upLoadFile",upLoadFile.getAbsolutePath());
                 }

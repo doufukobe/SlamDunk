@@ -39,6 +39,7 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
 
     private DisplayImageOptions options;
 
+
     private List<InviteListEntity> inviteList;
 
     public InviteAdapter(Context contenxt, List<InviteListEntity> inviteList){
@@ -77,14 +78,14 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        if (inviteList.get(position).getActImg().isEmpty())
+        if (null == inviteList.get(position).getActImg() &&  inviteList.get(position).getActImg().isEmpty())
             return WITHOUT_PHOTO;
         else
             return WITH_PHOTO;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.distance.setText(inviteList.get(position).getAddressDist());
         holder.theme_name.setText(inviteList.get(position).getActName());
         int cur = inviteList.get(position).getCurPeopleNum();
@@ -93,6 +94,7 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
         holder.people_name.setText(inviteList.get(position).getActOriginator());
         String date = sdf.format(new Date(inviteList.get(position).getActTime()));
         holder.time.setText(date.substring(date.indexOf("-")+1,date.lastIndexOf(":")));
+
         if (!inviteList.get(position).getActImg().isEmpty()){
             ImageLoader.getInstance().displayImage(inviteList.get(position).getActImg(), holder.ac_img, options);
         }else{
@@ -104,6 +106,8 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, JoinActivity.class);
                 intent.putExtra("ACTID",inviteList.get(position).getActId());
+                intent.putExtra("ACTPHOTOURL",inviteList.get(position).getActImg());
+                intent.putExtra("DISTANCE",inviteList.get(position).getAddressDist());
                 context.startActivity(intent);
             }
         });

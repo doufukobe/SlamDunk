@@ -18,4 +18,10 @@ public class URLContans {
     public static String GETUSERINFO = "getuserinfo/";
 
     public static String DELETEACT = "delactivity/";
+
+    public static String LOGIN = "signin/";
+
+    public static String REGISTER = "signup/";
+
+    public static String UPLOADACTIMG = "actimgupload/";
 }

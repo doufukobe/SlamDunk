@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.join;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.join.addressdetail.LocationDetail;
 import com.fpd.slamdunk.join.submit.JoinSubmitActivity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,13 +46,18 @@ public class JoinActivity extends CommenActivity {
     private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private double addressLongitude;
     private double addressLatitude;
+    private String act_photo;
+
+    private DisplayImageOptions options;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join_layout);
+        act_photo = getIntent().getStringExtra("ACTPHOTOURL");
+        actId = getIntent().getStringExtra("ACTID");
         initView();
         actDetail = new ActDetail(this);
-        actId = getIntent().getStringExtra("ACTID");
         getActivityDetail();
         setClick();
     }
@@ -89,8 +97,8 @@ public class JoinActivity extends CommenActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(JoinActivity.this, LocationDetail.class);
-                intent.putExtra("LATITUDE",addressLatitude);
-                intent.putExtra("LONGITUDE",addressLongitude);
+                intent.putExtra("LATITUDE", addressLatitude);
+                intent.putExtra("LONGITUDE", addressLongitude);
                 startActivity(intent);
             }
         });
@@ -112,7 +120,7 @@ public class JoinActivity extends CommenActivity {
 
     private void fullView(ActivityDetailEntitiy result) {
         actName.setText(result.getActName());
-        addressDist.setText(result.getAddressDist());
+        addressDist.setText(getIntent().getStringExtra("DISTANCE"));
         String originator = result.getActOriginator();
         String member = result.getMemberList().get(0).getUserName();
         member += result.getMemberList().get(1).getUserName();
@@ -129,10 +137,26 @@ public class JoinActivity extends CommenActivity {
         actIntroduce.setText(result.getActInfo());
         addressLongitude = result.getAddressLongitude();
         addressLatitude = result.getAddressLatitude();
+        if (!act_photo.isEmpty()){
+            ImageLoader.getInstance().displayImage(act_photo, topImage, options);
+        }
     }
 
     private String getDateToString(long time) {
         Date d = new Date(time);
         return sf.format(d);
+    }
+
+    private void initOption() {
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.mipmap.invite_photo)
+                .showImageForEmptyUri(R.mipmap.default_ball)
+                .showImageOnFail(R.mipmap.invite_photo)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .resetViewBeforeLoading(true)
+                .build();
     }
 }

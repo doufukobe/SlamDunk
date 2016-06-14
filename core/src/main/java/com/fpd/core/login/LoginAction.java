@@ -9,12 +9,16 @@ import com.alibaba.fastjson.TypeReference;
 import com.fpd.api.SDApi;
 import com.fpd.api.SDApiResponse;
 import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
+import com.fpd.basecore.config.URLContans;
 import com.fpd.basecore.util.StyleCheckUtil;
 import com.fpd.core.response.CoreResponse;
 import com.fpd.model.login.LREntity;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by solo on 2016/6/4.
@@ -33,6 +37,7 @@ public class LoginAction
         Map<String ,String> requestParams=new HashMap<String,String>();
         requestParams.put("userName",name);
         requestParams.put("passWord",password);
+        requestParams.put("registerId", JPushInterface.getRegistrationID(mContext));
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(mContext, "用户名不能为空", Toast.LENGTH_SHORT).show();
@@ -50,7 +55,7 @@ public class LoginAction
             return;
         }
 
-        SDApi.post(mContext, "http://192.168.23.2:8000/signin/", requestParams, new SDApiResponse<String>()
+        SDApi.post(mContext, Config.headUrl+ URLContans.LOGIN, requestParams, new SDApiResponse<String>()
         {
             @Override
             public void onSuccess(String response)
