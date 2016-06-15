@@ -13,7 +13,7 @@ public class UserInfoEntity implements Serializable {
     private String userPosition;
     private int userLiked;
     private List<HostedEntity> userHostedAct;
-    private List<JoinedEntity> userJoinedAct;
+    private List<HostedEntity> userJoinedAct;
     private String userHeadUrl;
 
     public String getUserPetName() {
@@ -64,13 +64,7 @@ public class UserInfoEntity implements Serializable {
         this.userHostedAct = userHostedAct;
     }
 
-    public List<JoinedEntity> getUserJoinedAct() {
-        return userJoinedAct;
-    }
 
-    public void setUserJoinedAct(List<JoinedEntity> userJoinedAct) {
-        this.userJoinedAct = userJoinedAct;
-    }
 
     public String getUserHeadUrl() {
         return userHeadUrl;
@@ -80,9 +74,11 @@ public class UserInfoEntity implements Serializable {
         this.userHeadUrl = userHeadUrl;
     }
 
-    @Override
-    public String toString()
-    {
-        return userPetName+"_"+userAge+"_"+userSex+"_"+userPosition+"_"+userLiked+userHeadUrl;
+    public List<HostedEntity> getUserJoinedAct() {
+        return userJoinedAct;
+    }
+
+    public void setUserJoinedAct(List<HostedEntity> userJoinedAct) {
+        this.userJoinedAct = userJoinedAct;
     }
 }

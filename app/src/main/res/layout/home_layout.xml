@@ -27,20 +27,24 @@
         android:orientation="horizontal">
 
         <Button
-        android:id="@+id/pager1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@null"
-        android:textColor="@drawable/home_bottom_button"
-        android:text="约球"/>
+            android:id="@+id/pager1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableTop="@drawable/act_list_img"
+            android:textColor="@drawable/home_bottom_button"
+            android:padding="1dp"
+            android:text="约球"/>
 
         <Button
             android:id="@+id/pager2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:padding="1dp"
             android:background="@null"
+            android:drawableTop="@drawable/discover_list_img"
             android:textColor="@drawable/home_bottom_button"
             android:text="发现"/>
 
@@ -52,7 +56,7 @@
             android:background="@null"
             android:textColor="@drawable/home_bottom_button"
             android:drawableTop="@drawable/account_img"
-            android:padding="3dp"
+            android:padding="1dp"
             android:text="账户"/>
 
     </LinearLayout>

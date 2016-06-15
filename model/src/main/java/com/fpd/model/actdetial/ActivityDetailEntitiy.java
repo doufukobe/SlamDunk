@@ -15,11 +15,12 @@ public class ActivityDetailEntitiy implements Serializable {
     private int curPeopleNum;
     private boolean hasEquipment;
     private String actInfo;
-    private String actOriginator;
+    private String actOriginatorName;
     private String addressDist;
     private List<MemberEntity> memberList;
     private double addressLongitude;
     private double addressLatitude;
+    private String actImg;
 
     public String getActName() {
         return actName;
@@ -70,13 +71,6 @@ public class ActivityDetailEntitiy implements Serializable {
         this.actInfo = actInfo;
     }
 
-    public String getActOriginator() {
-        return actOriginator;
-    }
-
-    public void setActOriginator(String actOriginator) {
-        this.actOriginator = actOriginator;
-    }
 
     public String getAddressDist() {
         return addressDist;
@@ -125,5 +119,21 @@ public class ActivityDetailEntitiy implements Serializable {
 
     public void setCurPeopleNum(int curPeopleNum) {
         this.curPeopleNum = curPeopleNum;
+    }
+
+    public String getActOriginatorName() {
+        return actOriginatorName;
+    }
+
+    public void setActOriginatorName(String actOriginatorName) {
+        this.actOriginatorName = actOriginatorName;
+    }
+
+    public String getActImg() {
+        return actImg;
+    }
+
+    public void setActImg(String actImg) {
+        this.actImg = actImg;
     }
 }

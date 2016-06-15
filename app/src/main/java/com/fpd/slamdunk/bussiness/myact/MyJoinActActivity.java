@@ -1,4 +1,4 @@
-package com.fpd.slamdunk.myjoinact;
+package com.fpd.slamdunk.bussiness.myact;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +7,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.fpd.model.myactlist.MyActListEntity;
-import com.fpd.model.userinfo.JoinedEntity;
+import com.fpd.model.userinfo.HostedEntity;
 import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.myact.adapter.MyActListAdapter;
-import com.fpd.slamdunk.myjoinact.adapter.MyJoinActListAdapter;
 
 import java.util.ArrayList;
 
@@ -26,15 +24,15 @@ public class MyJoinActActivity extends CommenActivity {
     private ListView myActList;
     private Button backBtn;
     private TextView title;
-    private MyJoinActListAdapter mAdapter;
+    private MyActListAdapter mAdapter;
     private UserInfoEntity userInfo;
-    private ArrayList<JoinedEntity> actList;
+    private ArrayList<HostedEntity> actList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_act_list);
         userInfo = (UserInfoEntity) getIntent().getSerializableExtra("userInfo");
-        actList = (ArrayList<JoinedEntity>) userInfo.getUserJoinedAct();
+        actList = (ArrayList<HostedEntity>) userInfo.getUserJoinedAct();
         initView();
         setClick();
 
@@ -47,7 +45,7 @@ public class MyJoinActActivity extends CommenActivity {
         title = (TextView) findViewById(R.id.top_title);
         title.setText("参与的活动");
         if (actList !=null){
-        mAdapter = new MyJoinActListAdapter(this,actList);
+        mAdapter = new MyActListAdapter(this,actList);
         myActList.setAdapter(mAdapter);}
     }
 

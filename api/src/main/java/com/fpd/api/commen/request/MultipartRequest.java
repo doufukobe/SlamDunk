@@ -44,7 +44,7 @@ public class MultipartRequest extends Request<String> {
 
     private void buildMultipartEntity() {
         if (upLoadFile !=null){
-            entity.addPart(filePartName,new FileBody(upLoadFile));
+            entity.addPart("file",new FileBody(upLoadFile));
         }
         try {
             if (mParams != null && mParams.size() > 0) {

@@ -119,7 +119,7 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                 Log.i("TAG","result="+result.getUserId());
                 Config.userId = result.getUserId()+"";
                 getSharedPreferences(Config.sharedParaferance,MODE_PRIVATE)
-                        .edit().putString(Config.userId,Config.userId).commit();
+                        .edit().putString(Config.userId, result.getUserId()+"").commit();
                 if (getIntent().getStringExtra("ACTIVITYFROM").equals("StartUpActivity")){
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);

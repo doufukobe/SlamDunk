@@ -9,7 +9,7 @@ public class InviteListEntity implements Serializable {
 
     private int actId;
     private String actName;
-    private String actOriginator;
+    private String actOriginatorName;
     private long actTime;
     private String actImg;
     private String addressDist;
@@ -32,13 +32,7 @@ public class InviteListEntity implements Serializable {
         this.actName = actName;
     }
 
-    public String getActOriginator() {
-        return actOriginator;
-    }
 
-    public void setActOriginator(String actOriginator) {
-        this.actOriginator = actOriginator;
-    }
 
     public long getActTime() {
         return actTime;
@@ -78,5 +72,13 @@ public class InviteListEntity implements Serializable {
 
     public void setActImg(String actImg) {
         this.actImg = actImg;
+    }
+
+    public String getActOriginatorName() {
+        return actOriginatorName;
+    }
+
+    public void setActOriginatorName(String actOriginatorName) {
+        this.actOriginatorName = actOriginatorName;
     }
 }

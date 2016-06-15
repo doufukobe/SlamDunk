@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -117,8 +118,9 @@ public class RegisterActivity extends CommenActivity implements
             public void onSuccess(LREntity result)
             {
                 Config.userId = result.getUserId()+"";
-                getSharedPreferences(Config.sharedParaferance,MODE_PRIVATE)
-                        .edit().putString(Config.userId,Config.userId).commit();
+                Log.d("userId",Config.userId);
+                getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
+                        .edit().putString(Config.userId,result.getUserId()+"").commit();
 
                     Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                     startActivity(intent);

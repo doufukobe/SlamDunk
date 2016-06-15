@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,6 +23,8 @@ import com.fpd.slamdunk.bussiness.home.fragment.ShareFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by t450s on 2016/6/2.
@@ -58,6 +61,7 @@ public class HomeActivity extends CommenActivity {
         fragmentList.add(new MyFragment());
         homeViewPager.setAdapter(new HomeAdapter(this, fragmentList));
         setBackground(0);
+        Log.d("registerId", JPushInterface.getRegistrationID(this));
     }
 
     private void initView() {

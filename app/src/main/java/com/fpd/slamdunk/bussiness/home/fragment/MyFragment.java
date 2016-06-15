@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
-import com.fpd.slamdunk.myjoinact.MyJoinActActivity;
+import com.fpd.slamdunk.bussiness.myact.MyJoinActActivity;
 import com.fpd.slamdunk.setting.SettingActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -107,6 +106,10 @@ public class MyFragment extends Fragment implements View.OnClickListener
         mQuit.setOnClickListener(this);
     }
 
+    private void initDatas()
+    {
+
+    }
 
     @Override
     public void onClick(View v)
@@ -144,13 +147,11 @@ public class MyFragment extends Fragment implements View.OnClickListener
     }
 
     private void getUserInfo(){
-        Log.i("TAG","getUserInfo");
         userAction = new UserInfoAction(getActivity());
         userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>() {
             @Override
             public void onSuccess(UserInfoEntity result) {
                 userInfo = result;
-                Log.i("TAG","onSuccess");
                 fullView();
             }
 
@@ -159,11 +160,6 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
             }
         });
-    }
-
-    private void setUserInfo()
-    {
-
     }
 
     private void fullView() {
@@ -179,8 +175,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
         ImageLoader.getInstance().loadImage(userInfo.getUserHeadUrl(), options, new ImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String s, View view)
-            {
+            public void onLoadingStarted(String s, View view) {
 
             }
 
@@ -199,25 +194,22 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
             }
         });
-
-        Log.i("TAG",userInfo.toString());
-        if(userInfo.getUserPetName()!=null)
-        {
+        if (userInfo.getUserPetName() !=null )
             mName.setText(userInfo.getUserPetName());
+        if (userInfo.getUserPosition() !=null){
+            String[] site = userInfo.getUserPosition().split(":");
+
+            if (site.length == 1){
+                mSiteOne.setText(site[0]);
+            }else{
+                mSiteOne.setText(site[0]);
+                mSizteTwo.setText(site[1]);
+            }
         }
-        String[] site=null;
-        if(userInfo.getUserPosition()!=null)
-        {
-            site = userInfo.getUserPosition().split(":");
-        }
-        if (site!=null && site.length == 1){
-            mSiteOne.setText(site[0]);
-        }else{
-            mSiteOne.setText(site[0]);
-            mSizteTwo.setText(site[1]);
-        }
-        mSexAge.setText(userInfo.getUserSex());
-        mZanAmount.setText(userInfo.getUserLiked() + "");
+        if (userInfo.getUserSex()!=null)
+            mSexAge.setText(userInfo.getUserSex());
+
+        mZanAmount.setText(userInfo.getUserLiked()+"");
         mAccount.setText(Config.userId);
     }
 }

@@ -19,6 +19,8 @@ import com.fpd.model.success.SuccessEntity;
 import com.fpd.model.userinfo.HostedEntity;
 import com.fpd.slamdunk.R;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -63,17 +65,20 @@ public class MyActListAdapter extends BaseSwipeAdapter {
             viewHolder.actState = (TextView) convertView.findViewById(R.id.my_act_list_actstate);
             viewHolder.actTime = (TextView) convertView.findViewById(R.id.my_act_list_acttime);
             viewHolder.textViewCancel = (TextView) convertView.findViewById(R.id.textview_cancel);
+            viewHolder.actMem = (TextView) convertView.findViewById(R.id.my_act_list_actmember);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.actName.setText(entity.getActName());
         final String data = getDateToString(entity.getActTime());
         viewHolder.actTime.setText(data.substring(data.indexOf(" "), data.length()));
-        viewHolder.actState.setText(entity.getActState());
-        if (entity.getActState().equals("正在进行")) {
+        viewHolder.actMem.setText(entity.getCurPeopleNum()+"");
+        if (entity.getActState().equals("1")) {
+            viewHolder.actState.setText("正在进行");
             viewHolder.actState.setTextColor(context.getResources().getColor(R.color.colormain));
             viewHolder.swipeLayout.setSwipeEnabled(true);
         }else{
+            viewHolder.actState.setText("已完成");
             viewHolder.swipeLayout.setSwipeEnabled(false);
         }
 
@@ -140,7 +145,7 @@ public class MyActListAdapter extends BaseSwipeAdapter {
         private TextView actName;
         private TextView actTime;
         private TextView actState;
-
+        private TextView actMem;
         private TextView textViewCancel;
 
     }
