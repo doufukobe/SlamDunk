@@ -25,5 +25,5 @@ public class URLContans {
 
     public static String UPLOADACTIMG = "actimgupload/";
 
-    public static String UPDATEUSERINFO = "updateuserinfo/";
+    public static String UPLOADHEADIMG = "userimgupload/";
 }
