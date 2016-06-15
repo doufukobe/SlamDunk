@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,10 +107,6 @@ public class MyFragment extends Fragment implements View.OnClickListener
         mQuit.setOnClickListener(this);
     }
 
-    private void initDatas()
-    {
-
-    }
 
     @Override
     public void onClick(View v)
@@ -147,11 +144,13 @@ public class MyFragment extends Fragment implements View.OnClickListener
     }
 
     private void getUserInfo(){
+        Log.i("TAG","getUserInfo");
         userAction = new UserInfoAction(getActivity());
         userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>() {
             @Override
             public void onSuccess(UserInfoEntity result) {
                 userInfo = result;
+                Log.i("TAG","onSuccess");
                 fullView();
             }
 
@@ -160,6 +159,11 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
             }
         });
+    }
+
+    private void setUserInfo()
+    {
+
     }
 
     private void fullView() {
@@ -175,7 +179,8 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
         ImageLoader.getInstance().loadImage(userInfo.getUserHeadUrl(), options, new ImageLoadingListener() {
             @Override
-            public void onLoadingStarted(String s, View view) {
+            public void onLoadingStarted(String s, View view)
+            {
 
             }
 
@@ -194,16 +199,25 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
             }
         });
-        mName.setText(userInfo.getUserPetName());
-        String[] site = userInfo.getUserPosition().split(":");
-        if (site.length == 1){
+
+        Log.i("TAG",userInfo.toString());
+        if(userInfo.getUserPetName()!=null)
+        {
+            mName.setText(userInfo.getUserPetName());
+        }
+        String[] site=null;
+        if(userInfo.getUserPosition()!=null)
+        {
+            site = userInfo.getUserPosition().split(":");
+        }
+        if (site!=null && site.length == 1){
             mSiteOne.setText(site[0]);
         }else{
             mSiteOne.setText(site[0]);
             mSizteTwo.setText(site[1]);
         }
         mSexAge.setText(userInfo.getUserSex());
-        mZanAmount.setText(userInfo.getUserLiked()+"");
+        mZanAmount.setText(userInfo.getUserLiked() + "");
         mAccount.setText(Config.userId);
     }
 }

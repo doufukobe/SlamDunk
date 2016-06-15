@@ -50,7 +50,6 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
     private PopupWindow mSitePopup;
     private TextView mSiteSave;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -149,7 +148,6 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 mSexPopup.showAtLocation(mLySex, Gravity.CENTER_HORIZONTAL,0,0);
                 break;
             case R.id.id_setting_ly_age:
-
                 break;
             //sex
             case R.id.id_popup_sex_man:

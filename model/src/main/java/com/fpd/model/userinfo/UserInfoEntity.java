@@ -79,4 +79,10 @@ public class UserInfoEntity implements Serializable {
     public void setUserHeadUrl(String userHeadUrl) {
         this.userHeadUrl = userHeadUrl;
     }
+
+    @Override
+    public String toString()
+    {
+        return userPetName+"_"+userAge+"_"+userSex+"_"+userPosition+"_"+userLiked+userHeadUrl;
+    }
 }

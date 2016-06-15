@@ -1,7 +1,6 @@
 package com.fpd.core.userinfo;
 
 import android.content.Context;
-import android.telecom.Call;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -31,11 +30,13 @@ public class UserInfoAction {
         Map<String,String> requestParam = new HashMap<>();
         requestParam.put("userId",userId);
 
-        SDApi.post(context, Config.headUrl + URLContans.GETUSERINFO, requestParam, new SDApiResponse<String>() {
+        SDApi.post(context, Config.headUrl + URLContans.GETUSERINFO, requestParam,
+                new SDApiResponse<String>() {
             @Override
             public void onSuccess(String response) {
                 if (response!=null && listener !=null){
-                    CoreResponse<UserInfoEntity> coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<UserInfoEntity>>(){});
+                    CoreResponse<UserInfoEntity> coreResponse = JSON.parseObject(response,
+                            new TypeReference<CoreResponse<UserInfoEntity>>(){});
                     if (coreResponse.isSuccess()){
                         listener.onSuccess(coreResponse.getResult());
                     }else{
@@ -44,6 +45,22 @@ public class UserInfoAction {
                 }
             }
         });
+    }
+
+    public void SetUserInfo(String userId,String userPetName,String position,String sex,int age,
+                            final CallBackListener<UserInfoEntity> listener)
+    {
+        Map<String,String> requestParam = new HashMap<>();
+        requestParam.put("userId",userId);
+        SDApi.post(context, Config.headUrl + URLContans.SETUSERINFO, requestParam,
+                new SDApiResponse<String>()
+                {
+                    @Override
+                    public void onSuccess(String response)
+                    {
+
+                    }
+                });
     }
 
 }
