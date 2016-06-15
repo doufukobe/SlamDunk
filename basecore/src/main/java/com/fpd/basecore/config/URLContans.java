@@ -24,4 +24,6 @@ public class URLContans {
     public static String REGISTER = "signup/";
 
     public static String UPLOADACTIMG = "actimgupload/";
+
+    public static String UPLOADHEADIMG = "userimgupload/";
 }

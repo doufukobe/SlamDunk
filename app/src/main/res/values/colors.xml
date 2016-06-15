@@ -12,6 +12,8 @@
     <color name="colorred">#e51c23</color>
     <color name="top_bg_color">#ffb74d</color>
 
+    <color name="alpha_back">#00000000</color>
+    <color name="full_back">#dd000000</color>
 
 
 

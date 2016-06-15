@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"></uses-permission>
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
@@ -73,6 +73,11 @@
         <activity android:name=".bussiness.myact.MyJoinActActivity"></activity>
 
         <activity android:name=".setting.SettingActivity"></activity>
+
+        <activity android:name=".bussiness.myactdetial.MyActDetailActivity"></activity>
+
+        <activity android:name=".bussiness.selectimg.SelectHeadImgActivity"></activity>
+
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
 

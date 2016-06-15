@@ -9,17 +9,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapView;
+import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
+import com.fpd.basecore.util.CircleImage;
+import com.fpd.core.upuserhead.UpHeadImgAction;
+import com.fpd.model.success.SuccessEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.gc.materialdesign.views.ButtonFlat;
@@ -33,29 +33,30 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by t450s on 2016/6/10.
+ * Created by t450s on 2016/6/15.
  */
-public class SelectPhotoActivity extends CommenActivity {
+public class SelectHeadImgActivity extends CommenActivity {
     private static final int RESULT_CAMERA_ONLY = 200;
     private static final int RESULT_CAMERA_CROP_PATH_RESULT = 300;
     private static final int RESULT_CAMERA_PICK = 400;
-    private ImageView imageView;
+    private CircleImage imageView;
     private ButtonFlat take_photo;
     private ButtonFlat pick_photo;
     private ButtonRectangle photo_done;
     private Uri imageUri;
     private Uri cropImage;
-    private File  fileoutput;
+    private File fileoutput;
     private Button backButton;
     private TextView topTitle;
     private File parent;
+    private Bitmap resultBitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
-        setContentView(R.layout.select_photo);
+        setContentView(R.layout.select_head_img);
 
-        imageView = (ImageView) findViewById(R.id.select_photo_img);
+        imageView = (CircleImage) findViewById(R.id.select_photo_img);
         take_photo = (ButtonFlat) findViewById(R.id.select_photo_take);
         pick_photo = (ButtonFlat) findViewById(R.id.select_photo_pick);
         photo_done = (ButtonRectangle) findViewById(R.id.select_photo_done);
@@ -65,6 +66,7 @@ public class SelectPhotoActivity extends CommenActivity {
         String dir = null;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
             dir = Environment.getExternalStorageDirectory().getAbsolutePath();
+
         parent =  new File(Environment.getExternalStorageDirectory().getPath()+"/slamdunk");
         if (!parent.exists()){
             parent.mkdir();
@@ -94,10 +96,7 @@ public class SelectPhotoActivity extends CommenActivity {
         photo_done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("file",fileoutput.getAbsolutePath());
-                setResult(RESULT_OK,intent);
-                finish();
+                upLoadHeadImg();
             }
         });
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +139,8 @@ public class SelectPhotoActivity extends CommenActivity {
             case RESULT_CAMERA_CROP_PATH_RESULT:
                 try {
                     Bitmap bt = BitmapFactory.decodeStream(getContentResolver().openInputStream(cropImage));
-                    imageView.setImageBitmap(zoomBitmap(compressImage(bt),980,550));
+                    resultBitmap = zoomBitmap(compressImage(bt), 300, 300);
+                    imageView.setBitmap(resultBitmap);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -159,7 +159,7 @@ public class SelectPhotoActivity extends CommenActivity {
         matrix.postScale(scaleWidth, scaleHeight);// 利用矩阵进行缩放不会造成内存溢出
         Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
 
-        fileoutput = new File(parent,"x.jpg");
+        fileoutput = new File(parent,"15.jpg");
         if (fileoutput.exists())
             fileoutput.delete();
         FileOutputStream fout = null;
@@ -203,14 +203,32 @@ public class SelectPhotoActivity extends CommenActivity {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 16);
-        intent.putExtra("aspectY", 9);
-        intent.putExtra("outputX", 980);
-        intent.putExtra("outputY", 550);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cropImage);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true);
         startActivityForResult(intent, RESULT_CAMERA_CROP_PATH_RESULT);
+    }
+
+    private void upLoadHeadImg(){
+        UpHeadImgAction action = new UpHeadImgAction(this);
+        action.UpLoadImg(Config.userId, fileoutput.getName(), fileoutput, new CallBackListener<SuccessEntity>() {
+            @Override
+            public void onSuccess(SuccessEntity result) {
+                Intent intent = new Intent();
+                intent.putExtra("HEADIMG",resultBitmap);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(String Message) {
+
+            }
+        });
     }
 }

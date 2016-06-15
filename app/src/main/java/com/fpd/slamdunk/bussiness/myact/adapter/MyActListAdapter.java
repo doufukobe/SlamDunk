@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.bussiness.myact.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.fpd.model.myactlist.MyActListEntity;
 import com.fpd.model.success.SuccessEntity;
 import com.fpd.model.userinfo.HostedEntity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.myactdetial.MyActDetailActivity;
 
 import org.w3c.dom.Text;
 
@@ -114,7 +116,9 @@ public class MyActListAdapter extends BaseSwipeAdapter {
         viewHolder.layoutForeground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, MyActDetailActivity.class);
+                intent.putExtra("ACTID",entity.getActId());
+                context.startActivity(intent);
             }
         });
 
