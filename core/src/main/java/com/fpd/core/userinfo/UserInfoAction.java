@@ -1,7 +1,6 @@
 package com.fpd.core.userinfo;
 
 import android.content.Context;
-import android.telecom.Call;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -46,6 +45,27 @@ public class UserInfoAction {
                 }
             }
         });
+    }
+
+    public void updateUserInfo(String userId,String userPetName,String userSex,String userPosition
+        ,String userAge)
+    {
+        Map<String,String> requestParam = new HashMap<>();
+        requestParam.put("userId",userId);
+        requestParam.put("userPetName",userPetName);
+        requestParam.put("userSex",userSex);
+        requestParam.put("userPosition",userPosition);
+        requestParam.put("userAge",userAge);
+        SDApi.post(context, Config.headUrl + URLContans.UPDATEUSERINFO, requestParam, new SDApiResponse<String>()
+        {
+            @Override
+            public void onSuccess(String response)
+            {
+
+            }
+        });
+
+
     }
 
 }

@@ -27,6 +27,7 @@ public abstract class RecyclerBaseAdapter<T> extends RecyclerView.Adapter
     private Context context;
     private List<T> datas;
     private int layoutId;
+    private int count;
     private DisplayImageOptions options;
 
     public RecyclerBaseAdapter(Context context, List<T> datas, int itemlayoutId)
@@ -50,6 +51,10 @@ public abstract class RecyclerBaseAdapter<T> extends RecyclerView.Adapter
                 .build();
     }
 
+    public void setCount(int count)
+    {
+        this.count=count;
+    }
     @Override
     public int getItemCount()
     {
@@ -129,7 +134,7 @@ public abstract class RecyclerBaseAdapter<T> extends RecyclerView.Adapter
                 {
                     if(imageView!=null && loadedImage!=null)
                     {
-                        imageView.setBackground(new BitmapDrawable(loadedImage));
+                        imageView.setImageDrawable(new BitmapDrawable(loadedImage));
                     }
                 }
             });
@@ -139,7 +144,7 @@ public abstract class RecyclerBaseAdapter<T> extends RecyclerView.Adapter
 
     public interface OnItemClickListener
     {
-        void onItemClick(int positon);
+        void onItemClick(int position);
     }
     private OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){

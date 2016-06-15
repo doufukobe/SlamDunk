@@ -13,8 +13,12 @@ import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.basecore.util.DensityUtil;
+import com.fpd.core.userinfo.UserInfoAction;
+import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 
@@ -23,6 +27,8 @@ import com.fpd.slamdunk.R;
  */
 public class SettingActivity extends CommenActivity implements View.OnClickListener
 {
+
+    private UserInfoEntity userInfo;
 
     private CircleImage mIcon;
     private TextView mName;
@@ -50,12 +56,19 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
     private PopupWindow mSitePopup;
     private TextView mSiteSave;
 
+    private String nameString;
+    private String sexString;
+    private String siteString;
+    private String ageString;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         initViews();
+//        getUserInfo();
     }
 
     private void initViews()
@@ -95,7 +108,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
 
     private void initSitePopupWindow()
     {
-        View popupView= LayoutInflater.from(this).inflate(R.layout.popup_site,null);
+        View popupView= LayoutInflater.from(this).inflate(R.layout.popup_site, null);
         mSitePopup=new PopupWindow(popupView, DensityUtil.dip2px(this,250),
                 DensityUtil.dip2px(this,300),true);
         mCbPG=(CheckBox)popupView.findViewById(R.id.id_popup_site_cb_pg);
@@ -132,6 +145,35 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         mSiteSave.setOnClickListener(this);
     }
 
+    private void fillViews()
+    {
+        if(userInfo.getUserPetName()!=null)
+        {
+            mName.setText(userInfo.getUserPetName());
+        }
+        if(userInfo.getUserSex()!=null)
+        {
+            mSex.setText(userInfo.getUserSex());
+        }
+        if(userInfo.getUserAge()>0)
+        {
+            mAge.setText(userInfo.getUserAge());
+        }
+        if(userInfo.getUserPosition()!=null)
+        {
+            String[] sites=userInfo.getUserPosition().split(":");
+            if(sites.length==1)
+            {
+                mSite.setText(sites[0]);
+            }
+            else if(sites.length==2)
+            {
+                mSite.setText(sites[0]+"、"+sites[1]);
+            }
+        }
+
+    }
+
     @Override
     public void onClick(View v)
     {
@@ -139,7 +181,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         {
             case R.id.id_setting_ly_name:
                 Intent name=new Intent(this,SettingNameActivity.class);
-                startActivity(name);
+                startActivityForResult(name,99);
                 break;
             case R.id.id_setting_ly_site:
                 mSitePopup.showAtLocation(mLyAge,Gravity.CENTER_HORIZONTAL,0,0);
@@ -168,6 +210,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 break;
             case R.id.id_popup_site_save:
                 mSitePopup.dismiss();
+                setSite();
                 break;
 
         }
@@ -180,12 +223,78 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         {
             mRbMan.setChecked(true);
             mRbWoman.setChecked(false);
+            sexString="男";
         }
         else if (sex==1)
         {
             mRbMan.setChecked(false);
             mRbWoman.setChecked(true);
+            sexString="女";
         }
     }
 
+    private void setSite()
+    {
+        StringBuilder builder=new StringBuilder();
+        if(mCbPG.isChecked())
+        {
+            builder.append("PG:");
+        }
+        if(mCbSG.isChecked())
+        {
+            builder.append("SG:");
+        }
+        if(mCbCF.isChecked())
+        {
+            builder.append("CF:");
+        }
+        if (mCbPG.isChecked())
+        {
+            builder.append("PG");
+        }
+        if(mCbSF.isChecked())
+        {
+            builder.append("SF:");
+        }
+        siteString=builder.toString().substring(0,builder.length()-1);
+        if(siteString.length()==0)
+        {
+            siteString="SG";
+        }
+    }
+
+    private void updateUserInfo()
+    {
+        UserInfoAction action=new UserInfoAction(this);
+        action.updateUserInfo(Config.userId,mName.getText().toString(),sexString,siteString,ageString);
+    }
+
+    private void getUserInfo(){
+        UserInfoAction userAction = new UserInfoAction(this);
+        userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>()
+        {
+            @Override
+            public void onSuccess(UserInfoEntity result)
+            {
+                userInfo = result;
+                fillViews();
+            }
+
+            @Override
+            public void onFailure(String Message)
+            {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode==99 && resultCode==RESULT_OK)
+        {
+            String result=data.getStringExtra("username");
+            mName.setText("solo:"+result);
+        }
+    }
 }

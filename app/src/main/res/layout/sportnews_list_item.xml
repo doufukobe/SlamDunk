@@ -1,31 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="90dp">
     <RelativeLayout
         android:id="@+id/id_sportnews_layout1"
-        android:layout_width="70dp"
+        android:layout_width="97dp"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/id_sportnews_img"
-            android:layout_marginLeft="10dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="85dp"
+            android:layout_height="65dp"
             android:layout_centerVertical="true"
-            android:background="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/id_sportnews_layout2"
         android:layout_toRightOf="@+id/id_sportnews_layout1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/id_sportnews_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"/>
+            android:layout_marginTop="12dp"
+            android:textSize="15sp"
+            android:textColor="@color/colorblack"/>
+        <TextView
+            android:id="@+id/id_sportnews_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            android:textSize="12sp"
+            android:textColor="@color/gray01"
+            android:text="新浪体育"/>
+        <TextView
+            android:id="@+id/id_sportnews_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12sp"
+            android:layout_toRightOf="@+id/id_sportnews_author"
+            android:layout_marginLeft="15dp"
+            android:textSize="12sp"
+            android:textColor="@color/gray01"
+            android:text="2016.1.1"/>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"

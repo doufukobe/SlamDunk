@@ -14,13 +14,11 @@ import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.basecore.util.ColorIcon;
-import com.fpd.basecore.util.StyleCheckUtil;
 import com.fpd.core.login.LoginAction;
 import com.fpd.model.login.LREntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
-
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 
@@ -100,11 +98,6 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                 finish();
                 break;
         }
-    }
-    private void showToast(String str)
-    {
-        Log.i("TAG","showToast");
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
     private void submit(String name,String password)
