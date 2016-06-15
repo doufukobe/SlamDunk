@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fpd.api.callback.CallBackListener;
@@ -21,7 +20,7 @@ import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
-import com.fpd.slamdunk.myjoinact.MyJoinActActivity;
+import com.fpd.slamdunk.bussiness.myact.MyJoinActActivity;
 import com.fpd.slamdunk.setting.SettingActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -195,15 +194,21 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
             }
         });
-        mName.setText(userInfo.getUserPetName());
-        String[] site = userInfo.getUserPosition().split(":");
-        if (site.length == 1){
-            mSiteOne.setText(site[0]);
-        }else{
-            mSiteOne.setText(site[0]);
-            mSizteTwo.setText(site[1]);
+        if (userInfo.getUserPetName() !=null )
+            mName.setText(userInfo.getUserPetName());
+        if (userInfo.getUserPosition() !=null){
+            String[] site = userInfo.getUserPosition().split(":");
+
+            if (site.length == 1){
+                mSiteOne.setText(site[0]);
+            }else{
+                mSiteOne.setText(site[0]);
+                mSizteTwo.setText(site[1]);
+            }
         }
-        mSexAge.setText(userInfo.getUserSex());
+        if (userInfo.getUserSex()!=null)
+            mSexAge.setText(userInfo.getUserSex());
+
         mZanAmount.setText(userInfo.getUserLiked()+"");
         mAccount.setText(Config.userId);
     }

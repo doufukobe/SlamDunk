@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,6 +50,8 @@ public class JoinActivity extends CommenActivity {
     private String act_photo;
 
     private DisplayImageOptions options;
+    private Button backButton;
+    private TextView titleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,9 @@ public class JoinActivity extends CommenActivity {
         actIntroduce = (TextView) findViewById(R.id.act_introduce);
         addresslayout = (RelativeLayout) findViewById(R.id.address_layout);
         ballInfo = (TextView) findViewById(R.id.join_hasball);
+        backButton = (Button) findViewById(R.id.back_button);
+        titleView = (TextView) findViewById(R.id.top_title);
+        titleView.setText("活动详情");
     }
 
     private void setClick(){
@@ -121,9 +127,14 @@ public class JoinActivity extends CommenActivity {
     private void fullView(ActivityDetailEntitiy result) {
         actName.setText(result.getActName());
         addressDist.setText(getIntent().getStringExtra("DISTANCE"));
-        String originator = result.getActOriginator();
-        String member = result.getMemberList().get(0).getUserName();
-        member += result.getMemberList().get(1).getUserName();
+        String originator = result.getActOriginatorName();
+        String member = "";
+        for (int i=0;i<result.getMemberList().size();i++){
+            member += result.getMemberList().get(i).getUserName()+",";
+        }
+        if (member.length()>0){
+            member = member.substring(0,member.length()-1);
+        }
         memberList.setText(originator+","+member);
         addressInfo.setText(result.getAddressInfo());
         actTime.setText(getDateToString(result.getActTime()*1000));
@@ -137,7 +148,7 @@ public class JoinActivity extends CommenActivity {
         actIntroduce.setText(result.getActInfo());
         addressLongitude = result.getAddressLongitude();
         addressLatitude = result.getAddressLatitude();
-        if (!act_photo.isEmpty()){
+        if (act_photo !=null && !act_photo.isEmpty()){
             ImageLoader.getInstance().displayImage(act_photo, topImage, options);
         }
     }

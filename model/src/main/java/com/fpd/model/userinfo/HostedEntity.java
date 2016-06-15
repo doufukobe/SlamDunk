@@ -10,6 +10,7 @@ public class HostedEntity implements Serializable {
     private String actName;
     private long actTime;
     private String actState;
+    private int curPeopleNum;
 
     public int getActId() {
         return actId;
@@ -41,5 +42,13 @@ public class HostedEntity implements Serializable {
 
     public void setActState(String actState) {
         this.actState = actState;
+    }
+
+    public int getCurPeopleNum() {
+        return curPeopleNum;
+    }
+
+    public void setCurPeopleNum(int curPeopleNum) {
+        this.curPeopleNum = curPeopleNum;
     }
 }

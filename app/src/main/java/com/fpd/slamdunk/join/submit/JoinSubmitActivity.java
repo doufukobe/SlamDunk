@@ -13,13 +13,10 @@ import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
 import com.fpd.basecore.dialog.SDDialog;
 import com.fpd.core.joinsubmit.JoinSubmitAction;
-import com.fpd.model.arrange.ArrangeEntity;
 import com.fpd.model.success.SuccessEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
-import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
-import com.fpd.slamdunk.myjoinact.MyJoinActActivity;
 import com.gc.materialdesign.views.ButtonRectangle;
 
 /**

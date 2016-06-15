@@ -68,7 +68,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/invite_sport_name"
             android:layout_alignRight="@+id/invite_time"
-            android:textColor="@color/colorred"
             />
 
     </RelativeLayout>

@@ -2,6 +2,7 @@ package com.fpd.core.userinfo;
 
 import android.content.Context;
 import android.telecom.Call;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -35,6 +36,7 @@ public class UserInfoAction {
             @Override
             public void onSuccess(String response) {
                 if (response!=null && listener !=null){
+                    Log.d("response", response);
                     CoreResponse<UserInfoEntity> coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<UserInfoEntity>>(){});
                     if (coreResponse.isSuccess()){
                         listener.onSuccess(coreResponse.getResult());

@@ -57,20 +57,22 @@ public class TestActivity extends CommenActivity{
 
         imageView = (ImageView) findViewById(R.id.photo);
 
-        SDDialog dialog = new SDDialog(this,"成功", new SDDialog.Callback() {
-            @Override
-            public void sureCallBack() {
-                SDProgressDialog progressDialog = new SDProgressDialog(TestActivity.this);
-                progressDialog.showProgressDialog();
-            }
 
-            @Override
-            public void cancelCallBack() {
-                Toast.makeText(TestActivity.this,"取消",Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        dialog.show();
+//        SDDialog dialog = new SDDialog(this,"成功", new SDDialog.Callback() {
+//            @Override
+//            public void sureCallBack() {
+//                SDProgressDialog progressDialog = new SDProgressDialog(TestActivity.this);
+//                progressDialog.showProgressDialog();
+//            }
+//
+//            @Override
+//            public void cancelCallBack() {
+//                Toast.makeText(TestActivity.this,"取消",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        dialog.show();
 
 //        String dir = null;
 //        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))

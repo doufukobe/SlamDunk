@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fpd.basecore.application.BaseApplication;
+import com.fpd.basecore.config.Config;
 import com.fpd.model.invite.InviteListEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.application.CommenApplication;
@@ -78,7 +79,7 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
 
     @Override
     public int getItemViewType(int position) {
-        if (null == inviteList.get(position).getActImg() &&  inviteList.get(position).getActImg().isEmpty())
+        if (null == inviteList.get(position).getActImg() ||  inviteList.get(position).getActImg().isEmpty())
             return WITHOUT_PHOTO;
         else
             return WITH_PHOTO;
@@ -86,17 +87,17 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.distance.setText(inviteList.get(position).getAddressDist());
+        holder.distance.setText(inviteList.get(position).getAddressDist()+"m");
         holder.theme_name.setText(inviteList.get(position).getActName());
         int cur = inviteList.get(position).getCurPeopleNum();
         int max = inviteList.get(position).getMaxPeopleNum();
         holder.member.setText(cur + "/" + max);
-        holder.people_name.setText(inviteList.get(position).getActOriginator());
-        String date = sdf.format(new Date(inviteList.get(position).getActTime()));
+        holder.people_name.setText(inviteList.get(position).getActOriginatorName());
+        String date = sdf.format(new Date(inviteList.get(position).getActTime()*1000));
         holder.time.setText(date.substring(date.indexOf("-")+1,date.lastIndexOf(":")));
 
         if (!inviteList.get(position).getActImg().isEmpty()){
-            ImageLoader.getInstance().displayImage(inviteList.get(position).getActImg(), holder.ac_img, options);
+            ImageLoader.getInstance().displayImage(Config.headUrl+inviteList.get(position).getActImg(), holder.ac_img, options);
         }else{
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.mipmap.default_ball);
             holder.ac_img.setImageBitmap(bitmap);
@@ -105,8 +106,10 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, JoinActivity.class);
-                intent.putExtra("ACTID",inviteList.get(position).getActId());
-                intent.putExtra("ACTPHOTOURL",inviteList.get(position).getActImg());
+                intent.putExtra("ACTID",inviteList.get(position).getActId()+"");
+                if (!inviteList.get(position).getActImg().isEmpty()){
+                    intent.putExtra("ACTPHOTOURL", Config.headUrl + inviteList.get(position).getActImg());
+                }
                 intent.putExtra("DISTANCE",inviteList.get(position).getAddressDist());
                 context.startActivity(intent);
             }
