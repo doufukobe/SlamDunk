@@ -35,7 +35,7 @@ public class SettingNameActivity extends CommenActivity
             public void onClick(View v)
             {
                 Intent intent=new Intent();
-                intent.putExtra("username",name.getText().toString());
+                intent.putExtra("USERNAME",name.getText().toString());
                 SettingNameActivity.this.setResult(RESULT_OK, intent);
                 SettingNameActivity.this.finish();
             }

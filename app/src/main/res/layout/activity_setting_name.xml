@@ -2,8 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/id_aty_setting_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colormain">
+        <Button
+            android:id="@+id/id_aty_setting_bt"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:text="完成"/>
+    </RelativeLayout>
     <EditText
         android:id="@+id/id_aty_setting_name"
+        android:layout_below="@id/id_aty_setting_top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="15dp"
@@ -17,10 +32,4 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:background="@color/colorPrimary"/>
-    <Button
-        android:id="@+id/id_aty_setting_bt"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="SAVE"
-        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
