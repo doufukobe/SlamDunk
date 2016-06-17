@@ -112,14 +112,14 @@ public class StartUpActivity extends CommenActivity implements Animator.Animator
 
     private void skipActivity(){
         sp =  this.getSharedPreferences(Config.sharedParaferance,MODE_PRIVATE);
-        if (sp.getString(Config.userId,"").isEmpty()){
+        if (sp.getString(Config.USER,"").isEmpty()){
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra("ACTIVITYFROM", "StartUpActivity");
             startActivity(intent);
             finish();
         }else{
             Intent intent = new Intent(this, HomeActivity.class);
-            Config.userId = sp.getString(Config.userId,"");
+            Config.userId = sp.getString(Config.USER,"");
             startActivity(intent);
             finish();
         }

@@ -19,6 +19,7 @@ import com.fpd.slamdunk.R;
 import com.fpd.basecore.util.ColorIcon;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
+import com.fpd.slamdunk.setting.FirstSettingActivity;
 
 
 /**
@@ -120,9 +121,9 @@ public class RegisterActivity extends CommenActivity implements
                 Config.userId = result.getUserId()+"";
                 Log.d("userId",Config.userId);
                 getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
-                        .edit().putString(Config.userId,result.getUserId()+"").commit();
+                        .edit().putString(Config.USER,result.getUserId()+"").commit();
 
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, FirstSettingActivity.class);
                     startActivity(intent);
                     finish();
             }
