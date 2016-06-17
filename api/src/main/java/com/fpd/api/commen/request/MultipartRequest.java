@@ -4,8 +4,10 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.fpd.api.net.VolleyController;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
@@ -103,7 +105,10 @@ public class MultipartRequest extends Request<String> {
 
     @Override
     protected void deliverResponse(String response) {
+
         mListener.onResponse(response);
+        if (VolleyController.getInstance().progressDialog != null)
+            VolleyController.getInstance().progressDialog.hideProgressDialog();
     }
 
     @Override
@@ -111,5 +116,13 @@ public class MultipartRequest extends Request<String> {
         if (mParams!=null)
             return mParams;
         return super.getParams();
+    }
+
+    @Override
+    public void deliverError(VolleyError error) {
+        if (VolleyController.getInstance().progressDialog != null) {
+            VolleyController.getInstance().progressDialog.hideProgressDialog();
+        }
+        super.deliverError(error);
     }
 }
