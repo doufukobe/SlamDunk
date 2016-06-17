@@ -28,4 +28,6 @@ public class URLContans {
     public static String UPLOADHEADIMG = "userimgupload/";
 
     public static String UPDATEUSERINFO="updateuserinfo/";
+
+    public static String GETMYACTIVITY = "getmyactivity/";
 }
