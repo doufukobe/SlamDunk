@@ -1,17 +1,20 @@
 package com.fpd.slamdunk.bussiness.myactdetial.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.model.acthead.MyActHeadEntity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.userdetail.UserDetailActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -53,7 +56,7 @@ public class HeadAdapter extends RecyclerView.Adapter<HeadAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.name.setText(heads.get(position).getUserName());
         if (heads.get(position).getHeadUrl() ==null || heads.get(position).getHeadUrl().isEmpty()){
             holder.head.setBitmap(BitmapFactory.decodeResource(context.getResources(),R.mipmap.user_default_icon));
@@ -80,6 +83,14 @@ public class HeadAdapter extends RecyclerView.Adapter<HeadAdapter.ViewHolder> {
                 }
             });
         }
+        holder.head_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserDetailActivity.class);
+                intent.putExtra("USERID",heads.get(position).getUserId());
+                context.startActivity(intent);
+            }
+        });
     }
 
 
@@ -92,10 +103,10 @@ public class HeadAdapter extends RecyclerView.Adapter<HeadAdapter.ViewHolder> {
 
         private CircleImage head;
         private TextView name;
-
+        private LinearLayout head_layout;
         public ViewHolder(View itemView) {
             super(itemView);
-
+            head_layout = (LinearLayout) itemView.findViewById(R.id.head_layout);
             head = (CircleImage) itemView.findViewById(R.id.member_head);
             name = (TextView) itemView.findViewById(R.id.member_name);
         }
