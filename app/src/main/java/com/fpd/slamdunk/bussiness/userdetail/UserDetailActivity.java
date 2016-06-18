@@ -1,17 +1,21 @@
 package com.fpd.slamdunk.bussiness.userdetail;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
 import com.fpd.basecore.util.CircleImage;
+import com.fpd.core.thum.ThumAction;
 import com.fpd.core.userinfo.UserInfoAction;
+import com.fpd.model.thum.ThumEntity;
 import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
@@ -75,6 +79,7 @@ public class UserDetailActivity extends CommenActivity {
                 .cacheOnDisk(true)
                 .resetViewBeforeLoading(true)
                 .build();
+        userHeader.setBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.user_default_icon));
         ImageLoader.getInstance().loadImage(Config.headUrl + result.getUserHeadUrl(), options, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
@@ -121,8 +126,21 @@ public class UserDetailActivity extends CommenActivity {
         thumBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ThumAction thumAction = new ThumAction(UserDetailActivity.this);
+                thumAction.thumUp(userId, new CallBackListener<ThumEntity>() {
+                    @Override
+                    public void onSuccess(ThumEntity result) {
+                        thumNum.setText(result.getUserLiked()+"");
+                        thumBtn.setClickable(false);
+                    }
 
+                    @Override
+                    public void onFailure(String Message) {
+                        Toast.makeText(UserDetailActivity.this,Message,Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
+
 }

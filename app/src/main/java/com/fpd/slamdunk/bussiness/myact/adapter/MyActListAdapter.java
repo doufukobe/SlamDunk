@@ -72,8 +72,8 @@ public class MyActListAdapter extends BaseSwipeAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.actName.setText(entity.getActName());
-        final String data = getDateToString(entity.getActTime());
-        viewHolder.actTime.setText(data.substring(data.indexOf(" "), data.length()));
+        final String data = getDateToString(entity.getActTime()*1000);
+        viewHolder.actTime.setText(data);
         viewHolder.actMem.setText(entity.getCurPeopleNum()+"");
         if (entity.getActState().equals("1")) {
             viewHolder.actState.setText("正在进行");
@@ -117,7 +117,7 @@ public class MyActListAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MyActDetailActivity.class);
-                intent.putExtra("ACTID",entity.getActId());
+                intent.putExtra("ACTID",entity.getActId()+"");
                 context.startActivity(intent);
             }
         });

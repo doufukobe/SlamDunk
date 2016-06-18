@@ -32,6 +32,7 @@ public class JoinSubmitActivity extends CommenActivity {
     private String actId;
     private Button backBtn;
     private TextView textView;
+    private TextView textUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class JoinSubmitActivity extends CommenActivity {
         submit = (ButtonRectangle) findViewById(R.id.submit_confirm);
         backBtn = (Button) findViewById(R.id.back_button);
         textView = (TextView) findViewById(R.id.top_title);
+        textView.setText("申请加入");
+        textUser = (TextView) findViewById(R.id.submit_user_id);
+        textUser.setText(Config.userId);
     }
 
     private void setClick() {

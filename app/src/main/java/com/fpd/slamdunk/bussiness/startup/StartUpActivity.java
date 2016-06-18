@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
@@ -24,6 +25,8 @@ import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by t450s on 2016/6/10.
@@ -113,13 +116,16 @@ public class StartUpActivity extends CommenActivity implements Animator.Animator
     private void skipActivity(){
         sp =  this.getSharedPreferences(Config.sharedParaferance,MODE_PRIVATE);
         if (sp.getString(Config.USER,"").isEmpty()){
+            JPushInterface.stopPush(StartUpActivity.this);
             Intent intent = new Intent(this, LoginActivity.class);
             intent.putExtra("ACTIVITYFROM", "StartUpActivity");
             startActivity(intent);
             finish();
         }else{
+            JPushInterface.resumePush(StartUpActivity.this);
             Intent intent = new Intent(this, HomeActivity.class);
             Config.userId = sp.getString(Config.USER,"");
+            Log.d("userId",Config.userId);
             startActivity(intent);
             finish();
         }

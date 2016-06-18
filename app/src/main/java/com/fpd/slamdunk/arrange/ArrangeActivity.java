@@ -207,7 +207,7 @@ public class ArrangeActivity extends CommenActivity {
                     startActivity(intent);
                 }else {
                     String s = hasBall.isChecked() ? "True" : "False";
-                    arrangeAct.setArrange(activeName.getText().toString(), actTime + "", item_num.getText().toString()
+                    arrangeAct.setArrange(activeName.getText().toString(), actTime, item_num.getText().toString()
                             , min_num.getText().toString(), s, introduce.getText().toString(), locationLa, locationLo
                             , addressInfo, new CallBackListener<ArrangeEntity>() {
                         @Override
@@ -292,7 +292,7 @@ public class ArrangeActivity extends CommenActivity {
                 .setCancelStringId("取消")
                 .setSureStringId("确定")
                 .setTitleStringId("选择时间")
-                .setCurrentMillseconds(System.currentTimeMillis())
+                .setCurrentMillseconds(System.currentTimeMillis()+3600*3*1000)
                 .setThemeColor(getResources().getColor(R.color.colormain))
                 .setWheelItemTextSize(14)
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.colormain))
@@ -367,6 +367,7 @@ public class ArrangeActivity extends CommenActivity {
                 locationLa =bdLocation.getLatitude() ;
                 locationLo = bdLocation.getLongitude();
                 addressInfo = bdLocation.getLocationDescribe();
+
             }else{
                 Toast.makeText(ArrangeActivity.this, "定位失败", Toast.LENGTH_SHORT).show();
             }
@@ -390,7 +391,7 @@ public class ArrangeActivity extends CommenActivity {
         public void onMapStatusChangeFinish(MapStatus mapStatus) {
             float density = BaseApplication.getDensity();
             int x = BaseApplication.getScreenWidth()/2;
-            int y = (int)(222*density);
+            int y = (int)(150*density);
             android.graphics.Point point = new android.graphics.Point(x,y);
             LatLng center = locationMap.getProjection().fromScreenLocation(point);
 

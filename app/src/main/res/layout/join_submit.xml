@@ -28,7 +28,7 @@
             android:layout_marginRight="12dp"
             android:layout_marginLeft="30dp"
             android:textSize="16dp"
-            android:text="doufukobe"/>
+           />
 
     </RelativeLayout>
 

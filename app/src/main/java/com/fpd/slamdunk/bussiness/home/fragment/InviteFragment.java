@@ -56,17 +56,8 @@ public class InviteFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
             if (listView !=null){
-                listView.setOnRefreshComplete();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        listView.setRefreshing(true);
-                    }
-                },200);
+                getInviteList();
             }
-        }else{
-
         }
     }
 
@@ -77,7 +68,7 @@ public class InviteFragment extends Fragment {
         listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
         initPullList();
         if (getUserVisibleHint())
-            getInviteList();
+                getInviteList();
         return view;
     }
 
@@ -93,7 +84,7 @@ public class InviteFragment extends Fragment {
         listView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.i("TAG","onRefresh");
+                Log.i("TAG", "onRefresh");
                 getInviteList();
             }
         });
@@ -143,7 +134,6 @@ public class InviteFragment extends Fragment {
                 listView.setOnRefreshComplete();
                 Toast.makeText(mContext,"定位失败,无法为您提供活动信息",Toast.LENGTH_SHORT).show();
             }
-
             mLocationClient.stop();
         }
     }

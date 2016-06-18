@@ -22,6 +22,8 @@ import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class LoginActivity extends CommenActivity implements View.OnClickListener
 {
@@ -111,10 +113,16 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                 //登陆成功跳转到首页
                 Log.i("TAG","result="+result.getUserId());
                 Config.userId = result.getUserId()+"";
-                getSharedPreferences(Config.sharedParaferance,MODE_PRIVATE)
+                getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
                         .edit().putString(Config.USER, result.getUserId()+"").commit();
-                if (getIntent().getStringExtra("ACTIVITYFROM").equals("StartUpActivity")){
+                JPushInterface.resumePush(LoginActivity.this);
+                if (null !=getIntent().getStringExtra("ACTIVITYFROM") && getIntent().getStringExtra("ACTIVITYFROM").equals("StartUpActivity")){
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(getIntent().getStringExtra("USERINFO").equals("userInfo")){
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("selectPage",2);
                     startActivity(intent);
                     finish();
                 }else{

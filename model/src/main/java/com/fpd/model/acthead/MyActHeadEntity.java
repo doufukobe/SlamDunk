@@ -7,17 +7,11 @@ import java.io.Serializable;
  */
 public class MyActHeadEntity implements Serializable {
 
-    private String headUrl;
+    private String userImg;
     private String userName;
     private String userId;
 
-    public String getHeadUrl() {
-        return headUrl;
-    }
 
-    public void setHeadUrl(String headUrl) {
-        this.headUrl = headUrl;
-    }
 
     public String getUserName() {
         return userName;
@@ -33,5 +27,13 @@ public class MyActHeadEntity implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
     }
 }

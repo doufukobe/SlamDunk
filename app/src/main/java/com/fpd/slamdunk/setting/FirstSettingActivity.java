@@ -17,6 +17,7 @@ import com.fpd.basecore.dialog.MyDatePickerDialog;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.selectimg.SelectHeadImgActivity;
 
 import java.util.Calendar;
@@ -176,6 +177,9 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         Log.i("TAG", "name=" + nameString + " sex=" + sexString + " age=" + ageString + " site=" + siteString);
 //        UserInfoAction action=new UserInfoAction(this);
 //        action.updateUserInfo(Config.userId, nameString, sexString, siteString, ageString);
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     //0:woman 1:man

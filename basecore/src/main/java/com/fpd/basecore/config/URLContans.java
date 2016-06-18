@@ -30,4 +30,8 @@ public class URLContans {
     public static String UPDATEUSERINFO="updateuserinfo/";
 
     public static String GETMYACTIVITY = "getmyactivity/";
+
+    public static String THUMUP = "addliked/";
+
+    public static String SIGNOUT = "signout/";
 }

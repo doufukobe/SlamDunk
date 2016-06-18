@@ -15,7 +15,9 @@ import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.basecore.util.ColorIcon;
+import com.fpd.core.signout.SignOutAction;
 import com.fpd.core.userinfo.UserInfoAction;
+import com.fpd.model.success.SuccessEntity;
 import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
@@ -26,6 +28,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by solo on 2016/6/2.
@@ -59,8 +63,17 @@ public class MyFragment extends Fragment implements View.OnClickListener
         mContentView=inflater.inflate(R.layout.fragment_my, container, false);
         mContext=getActivity();
         initViews();
-        getUserInfo();
+        if (getUserVisibleHint())
+                getUserInfo();
         return mContentView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            getUserInfo();
+        }
     }
 
     private void initViews()
@@ -138,10 +151,20 @@ public class MyFragment extends Fragment implements View.OnClickListener
                     startActivity(intent3);}
                 break;
             case R.id.id_my_ly_4:
+                SignOutAction action = new SignOutAction(getActivity());
+                action.signout(Config.userId, new CallBackListener<SuccessEntity>() {
+                    @Override
+                    public void onSuccess(SuccessEntity result) {
+                    }
+
+                    @Override
+                    public void onFailure(String Message) {
+                    }
+                });
                 Config.userId = "";
+                JPushInterface.stopPush(getActivity());
                 Intent intent2 = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent2);
-                getActivity().finish();
                 break;
         }
     }

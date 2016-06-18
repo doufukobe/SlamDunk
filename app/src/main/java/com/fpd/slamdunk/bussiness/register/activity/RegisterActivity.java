@@ -21,6 +21,8 @@ import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 import com.fpd.slamdunk.setting.FirstSettingActivity;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by solo on 2016/6/2.
@@ -122,7 +124,7 @@ public class RegisterActivity extends CommenActivity implements
                 Log.d("userId",Config.userId);
                 getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
                         .edit().putString(Config.USER,result.getUserId()+"").commit();
-
+                JPushInterface.resumePush(RegisterActivity.this);
                     Intent intent = new Intent(RegisterActivity.this, FirstSettingActivity.class);
                     startActivity(intent);
                     finish();

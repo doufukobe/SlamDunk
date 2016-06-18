@@ -1,4 +1,4 @@
-package com.fpd.core.myactdetail;
+package com.fpd.core.thum;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,35 +11,32 @@ import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
 import com.fpd.basecore.config.URLContans;
 import com.fpd.core.response.CoreResponse;
-import com.fpd.model.acthead.MyActDetailEntity;
+import com.fpd.model.thum.ThumEntity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by t450s on 2016/6/15.
+ * Created by t450s on 2016/6/18.
  */
-public class MyActDetailAction{
+public class ThumAction {
 
     private Context context;
 
-    public MyActDetailAction(Context context){
-            this.context = context;
+    public ThumAction(Context context){
+        this.context = context;
     }
 
-
-    public void getDetail(String actId, final CallBackListener<MyActDetailEntity> listener){
-
+    public void  thumUp(String userId, final CallBackListener<ThumEntity> listener){
         Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("actId",actId);
+        requestParams.put("userId",userId);
 
-        SDApi.post(context, Config.headUrl+ URLContans.GETMYACTIVITY,requestParams,new SDApiResponse<String>(){
-
+        SDApi.post(context, Config.headUrl + URLContans.THUMUP, requestParams, new SDApiResponse<String>() {
             @Override
             public void onSuccess(String response) {
-                Log.d("response",response);
-                if (response !=null && listener !=null){
-                    CoreResponse<MyActDetailEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<MyActDetailEntity>>(){});
+                if (response!=null && listener !=null){
+                    Log.d("response",response);
+                    CoreResponse<ThumEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<ThumEntity>>(){});
                     if (coreResponse.isSuccess()){
                         listener.onSuccess(coreResponse.getResult());
                     }else{
@@ -49,4 +46,5 @@ public class MyActDetailAction{
             }
         });
     }
+
 }

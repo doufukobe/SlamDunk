@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fpd.basecore.application.BaseApplication;
+import com.fpd.basecore.config.Config;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.application.CommenApplication;
@@ -20,6 +21,7 @@ import com.fpd.slamdunk.bussiness.home.adapter.HomeAdapter;
 import com.fpd.slamdunk.bussiness.home.fragment.InviteFragment;
 import com.fpd.slamdunk.bussiness.home.fragment.MyFragment;
 import com.fpd.slamdunk.bussiness.home.fragment.ShareFragment;
+import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +112,13 @@ public class HomeActivity extends CommenActivity {
         myPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBackground(2);
+                if (Config.userId.isEmpty()){
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    intent.putExtra("USERINFO","userInfo");
+                    startActivity(intent);
+                }else{
+                    setBackground(2);
+                }
             }
         });
 
@@ -164,5 +172,13 @@ public class HomeActivity extends CommenActivity {
             ((CommenApplication)getApplication()).exit(false);
         }
 
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int page = intent.getIntExtra("selectPage",0);
+        setBackground(page);
     }
 }
