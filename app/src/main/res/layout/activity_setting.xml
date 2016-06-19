@@ -7,14 +7,46 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/colormain">
-        <Button
+        <RelativeLayout
+            android:id="@+id/id_setting_back_ly"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/id_setting_back_iv"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="11dp"
+                android:src="@mipmap/ic_back"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <View
+            android:id="@+id/id_setting_vertical_line"
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:layout_toRightOf="@+id/id_setting_back_ly"
+            android:background="@color/colorwhite"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/id_setting_vertical_line"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorwhite"
+            android:textSize="18sp"
+            android:text="个人信息"/>
+        <TextView
             android:id="@+id/id_setting_save_bt"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="完成"/>
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:text="完成"
+            android:textSize="18sp"
+            android:textColor="@color/colorwhite"/>
     </RelativeLayout>
     <ScrollView
         android:layout_below="@+id/id_setting_top_bar"
@@ -69,7 +101,6 @@
                     android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="solo"
                     android:textSize="15sp"/>
                 <View
                     android:layout_width="match_parent"
@@ -100,7 +131,6 @@
                     android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="deng12456"
                     android:textSize="15sp"/>
                 <View
                     android:layout_width="match_parent"
@@ -131,7 +161,6 @@
                     android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SG、SF"
                     android:textSize="15sp"/>
             </RelativeLayout>
             <RelativeLayout
@@ -156,7 +185,6 @@
                     android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="男"
                     android:textSize="15sp"/>
                 <View
                     android:layout_width="match_parent"
@@ -187,13 +215,12 @@
                     android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25"
                     android:textSize="15sp"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_below="@+id/id_setting_ly_age"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="60dp">
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

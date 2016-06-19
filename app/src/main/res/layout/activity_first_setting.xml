@@ -7,13 +7,25 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/colormain">
-        <Button
-            android:id="@+id/id_first_setting_save"
+        <TextView
+            android:id="@+id/id_first_setting_tv"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:text="设置"
+            android:textSize="18sp"
+            android:textColor="@color/colorwhite"/>
+        <TextView
+            android:id="@+id/id_first_setting_save"
+            android:layout_width="70dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:text="完成"/>
+            android:gravity="center_vertical|right"
+            android:text="完成"
+            android:textColor="@color/colorwhite"
+            android:textSize="18sp"/>
     </RelativeLayout>
     <ScrollView
         android:layout_below="@+id/id_first_setting_topbar"
@@ -69,7 +81,8 @@
                     android:layout_marginLeft="10dp"
                     android:textSize="15sp"
                     android:background="@drawable/setting_name_et_bg"
-                    android:textCursorDrawable="@drawable/cursor_bg_1"/>
+                    android:textCursorDrawable="@drawable/cursor_bg_1"
+                    android:singleLine="true"/>
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/id_first_setting_age_ly"
@@ -79,12 +92,25 @@
                 android:layout_height="60dp"
                 android:background="@color/colorwhite">
                 <TextView
+                    android:id="@+id/id_first_setting_age_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:text="年龄"
+                    android:text="年龄:"
                     android:textSize="15sp"/>
+                <EditText
+                    android:id="@+id/id_first_setting_age_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/id_first_setting_age_tv"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15sp"
+                    android:background="@drawable/setting_name_et_bg"
+                    android:textCursorDrawable="@drawable/cursor_bg_1"
+                    android:singleLine="true"/>
+
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/id_first_setting_sex_ly"
@@ -112,7 +138,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/radiobutton_bg"/>
                     <TextView
                         android:layout_toRightOf="@+id/id_first_setting_sex_man_rb"
                         android:layout_width="wrap_content"
@@ -132,7 +159,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/radiobutton_bg"/>
                     <TextView
                         android:layout_toRightOf="@+id/id_first_setting_sex_woman_rb"
                         android:layout_width="wrap_content"
@@ -169,7 +197,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/checkbox_bg"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -189,7 +218,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/checkbox_bg"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -209,7 +239,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/checkbox_bg"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -229,7 +260,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/checkbox_bg"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -249,7 +281,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"/>
+                        android:layout_marginLeft="15dp"
+                        android:button="@drawable/checkbox_bg"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -263,7 +296,7 @@
             <RelativeLayout
                 android:layout_below="@+id/id_first_setting_site_ly"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="60dp"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -36,7 +35,6 @@ public class CircleImage extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-        Log.i("TAG","onDraw");
         super.onDraw(canvas);
         if(sourceBitmap!=null)
         {
@@ -49,7 +47,6 @@ public class CircleImage extends View
      */
     public void setBitmap(Bitmap bitmap)
     {
-        Log.i("TAG","setBitmap");
         this.sourceBitmap=bitmap;
         if(sourceBitmap!=null)
         {
@@ -59,7 +56,6 @@ public class CircleImage extends View
 
     private void doDraw(Canvas canvas)
     {
-        Log.i("TAG","doDraw");
         mBitmap=Bitmap.createBitmap(getWidth(),getHeight(), Bitmap.Config.ARGB_8888);
         mCanvas=new Canvas(mBitmap);
         if(sourceBitmap!=null && getWidth()!=0 && getHeight()!=0)
@@ -82,7 +78,6 @@ public class CircleImage extends View
 
     private Bitmap scaleBitmap(Bitmap bitmap,float sx,float sy,float px,float py)
     {
-        Log.i("TAG","scaleBitmap");
         Matrix matrix=new Matrix();
         matrix.postScale(sx,sy,px,py);
         bitmap=Bitmap.createBitmap(bitmap,0,0,

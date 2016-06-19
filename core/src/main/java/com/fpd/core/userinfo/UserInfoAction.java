@@ -48,7 +48,7 @@ public class UserInfoAction {
     }
 
     public void updateUserInfo(String userId,String userPetName,String userSex,String userPosition
-        ,String userAge)
+        ,String userAge,final CallBackListener<String> listener)
     {
         Map<String,String> requestParam = new HashMap<>();
         requestParam.put("userId",userId);
@@ -61,6 +61,10 @@ public class UserInfoAction {
             @Override
             public void onSuccess(String response)
             {
+                if(listener!=null)
+                {
+                    listener.onSuccess(null);
+                }
 
             }
         });

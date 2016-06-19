@@ -1,25 +1,25 @@
 package com.fpd.slamdunk.setting;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.fpd.basecore.dialog.MyDatePickerDialog;
+import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.config.Config;
 import com.fpd.basecore.util.CircleImage;
+import com.fpd.core.userinfo.UserInfoAction;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.selectimg.SelectHeadImgActivity;
-
-import java.util.Calendar;
 
 /**
  * Created by solo on 2016/6/16.
@@ -35,18 +35,16 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
     private CheckBox mCbSF;
     private CheckBox mCbPF;
     private CheckBox mCbCF;
-
-    private View mLyAge;
     private View mLyIcon;
-    private Button mSave;
+    private TextView mSave;
+    private EditText mAge;
 
     private String nameString;
     private String sexString;
     private String ageString;
     private String siteString;
 
-    private MyDatePickerDialog datePickerDialog;
-
+    private int MAX_LENGTH=20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,7 +53,9 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         setContentView(R.layout.activity_first_setting);
         initViews();
         initEvents();
+        fillViews();
     }
+
 
     private void initViews()
     {
@@ -68,17 +68,14 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         mCbSF=(CheckBox)findViewById(R.id.id_first_setting_site_sf_cb);
         mCbPF=(CheckBox)findViewById(R.id.id_first_setting_site_pf_cb);
         mCbCF=(CheckBox)findViewById(R.id.id_first_setting_site_cf_cb);
-        mLyAge=findViewById(R.id.id_first_setting_age_ly);
         mLyIcon=findViewById(R.id.id_first_setting_icon_ly);
-        mSave=(Button)findViewById(R.id.id_first_setting_save);
-
-        initDateDialog();
+        mSave=(TextView)findViewById(R.id.id_first_setting_save);
+        mAge=(EditText)findViewById(R.id.id_first_setting_age_et);
     }
 
     private void initEvents()
     {
         mLyIcon.setOnClickListener(this);
-        mLyAge.setOnClickListener(this);
         mSave.setOnClickListener(this);
 
         mRbMan.setOnClickListener(this);
@@ -89,31 +86,36 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         mCbSF.setOnClickListener(this);
         mCbPF.setOnClickListener(this);
         mCbCF.setOnClickListener(this);
-    }
 
-    private void initDateDialog()
-    {
-        Calendar calender= Calendar.getInstance();
-        final int c_year = calender.get(Calendar.YEAR);
-        final int c_month = calender.get(Calendar.MONTH);
-        int c_day = calender.get(Calendar.DAY_OF_MONTH);
-        datePickerDialog=new MyDatePickerDialog(this, new DatePickerDialog.OnDateSetListener()
+        mName.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
             {
-                if(c_year-year<0)
-                {
-                    Toast.makeText(FirstSettingActivity.this, "年龄设置不合法", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    ageString=c_year-year+"";
-                }
 
             }
-        },c_year,c_month,c_day);
-        datePickerDialog.setTitle(c_year + "年" + (c_month + 1) + "月" + c_day + "号");
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                String str = mName.getText().toString();
+                String cutString = cutStringByByte(str);
+                if (cutString == null)
+                {
+                    mName.setSelection(str.length());
+                    return;
+                }
+                mName.setText(cutString);
+                mName.setSelection(cutString.length());
+
+            }
+        });
     }
 
     private static final int REQUESTCODE_SETICON=1;
@@ -124,10 +126,7 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         {
             case R.id.id_first_setting_icon_ly:
                 Intent icon=new Intent(this, SelectHeadImgActivity.class);
-                startActivityForResult(icon,REQUESTCODE_SETICON);
-                break;
-            case R.id.id_first_setting_age_ly:
-                datePickerDialog.show();
+                startActivityForResult(icon, REQUESTCODE_SETICON);
                 break;
             case R.id.id_first_setting_save:
                 setUserInfo();
@@ -158,10 +157,16 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
 
     }
 
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode!=RESULT_OK) return;
         switch (requestCode)
         {
             case REQUESTCODE_SETICON:
@@ -173,9 +178,25 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
 
     private void updateUserInfo()
     {
-        Log.i("TAG", "name=" + nameString + " sex=" + sexString + " age=" + ageString + " site=" + siteString);
-//        UserInfoAction action=new UserInfoAction(this);
-//        action.updateUserInfo(Config.userId, nameString, sexString, siteString, ageString);
+        Log.i("TAG", "userId="+Config.userId+" name=" + nameString + " sex=" + sexString + " age=" + ageString + " site=" + siteString);
+        UserInfoAction action=new UserInfoAction(this);
+        action.updateUserInfo(Config.userId, nameString, sexString, siteString, ageString,
+                new CallBackListener<String>()
+                {
+                    @Override
+                    public void onSuccess(String result)
+                    {
+                        Intent intent=new Intent(FirstSettingActivity.this,HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(String Message)
+                    {
+
+                    }
+                });
     }
 
     //0:woman 1:man
@@ -229,9 +250,11 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
 
     private void setUserInfo()
     {
+        String ageReg="([0-9])|([1-9][0-9])|100";
         nameString=mName.getText().toString().trim();
+        ageString=mAge.getText().toString().trim();
         setSiteFromCheckBox();
-        if(nameString!=null && nameString.length()==0)
+        if(nameString==null || nameString.length()==0)
         {
             nameString="Curry";
         }
@@ -239,7 +262,7 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         {
             sexString="男";
         }
-        if(ageString==null)
+        if(ageString==null || !ageString.matches(ageReg))
         {
             ageString="1";
         }
@@ -249,4 +272,44 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         }
     }
 
+    private void fillViews()
+    {
+        mName.setText("Curry");
+        mAge.setText("1");
+        mRbMan.setChecked(true);
+        mCbPG.setChecked(true);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        setUserInfo();
+        updateUserInfo();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private String cutStringByByte(String str)
+    {
+        String result;
+        int count=0;
+        int end=0;
+        byte[] bt = null;
+        int len=MAX_LENGTH;
+        try
+        {
+            bt=str.getBytes("GBK");
+        }
+        catch (Exception e){}
+        if(bt==null || bt.length<=len) return null;
+        for(int i=0;i<len;i++)
+        {
+            if(bt[i]>0) count++;
+            else count+=100;
+        }
+        end=(count/100)/2+count%100;
+        result = str.substring(0,end);
+        return result;
+    }
 }
