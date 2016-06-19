@@ -1,5 +1,6 @@
 package com.fpd.slamdunk.bussiness.myactdetial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.fpd.model.acthead.MyActHeadEntity;
 import com.fpd.model.success.SuccessEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.myactdetial.adapter.HeadAdapter;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -104,7 +106,7 @@ public class MyActDetailActivity extends CommenActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                mFinish();
             }
         });
 
@@ -115,7 +117,7 @@ public class MyActDetailActivity extends CommenActivity {
                     @Override
                     public void sureCallBack() {
                         DeleteAction deleteAction = new DeleteAction(MyActDetailActivity.this);
-                        deleteAction.deleteAct(Config.userId, actId+"", new CallBackListener<SuccessEntity>() {
+                        deleteAction.deleteAct(Config.userId, actId + "", new CallBackListener<SuccessEntity>() {
                             @Override
                             public void onSuccess(SuccessEntity result) {
 
@@ -142,7 +144,7 @@ public class MyActDetailActivity extends CommenActivity {
 
     private void fullView(MyActDetailEntity result){
         actName.setText(result.getActName());
-        actTime.setText(getDateToString(result.getActTime()));
+        actTime.setText(getDateToString(result.getActTime()*1000));
         actAddress.setText(result.getAddressInfo());
         actMembers.setText(result.getCurPeopleNum()+"");
         if (result.getActInfo() !=null && !result.getActInfo().isEmpty()){
@@ -150,13 +152,25 @@ public class MyActDetailActivity extends CommenActivity {
         }else{
             actIntroduceTip.setVisibility(View.GONE);
         }
-        HeadAdapter hd = new HeadAdapter(this,result.getActMembers());
+        HeadAdapter hd = new HeadAdapter(this,result.getMemberList());
         headRecycleView.setAdapter(hd);
     }
 
     private String getDateToString(long time) {
         Date d = new Date(time);
         return sf.format(d);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mFinish();
+    }
+
+    private void mFinish(){
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("selectPage",0);
+        startActivity(intent);
+        finish();
     }
 
 }

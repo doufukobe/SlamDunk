@@ -54,4 +54,5 @@ public class BaseApplication extends Application {
     public void exit(boolean isBackground){
         appManager.exitApp(this,isBackground);
     }
+
 }

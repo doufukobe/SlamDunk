@@ -63,6 +63,7 @@ public class JoinActivity extends CommenActivity {
         actDetail = new ActDetail(this);
         getActivityDetail();
         setClick();
+        initOption();
     }
 
     private void initView() {
@@ -108,6 +109,12 @@ public class JoinActivity extends CommenActivity {
                 startActivity(intent);
             }
         });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void getActivityDetail(){
@@ -135,8 +142,10 @@ public class JoinActivity extends CommenActivity {
         if (member.length()>0){
             member = member.substring(0,member.length()-1);
         }
-        memberList.setText(originator+","+member);
-        addressInfo.setText(result.getAddressInfo());
+        if (member.contains(originator))
+            joinAct.setVisibility(View.GONE);
+        memberList.setText(member);
+        addressInfo.setText(result.getAddressInfo().substring(0,result.getAddressInfo().indexOf(" ")));
         actTime.setText(getDateToString(result.getActTime()*1000));
         memberInfo.setText("当前人数"+result.getCurPeopleNum()+" 目标人数"+result.getMaxPeopleNum());
         String hasball = null;
@@ -151,6 +160,7 @@ public class JoinActivity extends CommenActivity {
         if (act_photo !=null && !act_photo.isEmpty()){
             ImageLoader.getInstance().displayImage(act_photo, topImage, options);
         }
+
     }
 
     private String getDateToString(long time) {
@@ -158,7 +168,7 @@ public class JoinActivity extends CommenActivity {
         return sf.format(d);
     }
 
-    private void initOption() {
+    private void initOption(){
 
         options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.invite_photo)

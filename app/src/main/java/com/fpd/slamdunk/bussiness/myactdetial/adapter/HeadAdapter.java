@@ -58,10 +58,10 @@ public class HeadAdapter extends RecyclerView.Adapter<HeadAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.name.setText(heads.get(position).getUserName());
-        if (heads.get(position).getHeadUrl() ==null || heads.get(position).getHeadUrl().isEmpty()){
+        if (heads.get(position).getUserImg() ==null || heads.get(position).getUserImg().isEmpty()){
             holder.head.setBitmap(BitmapFactory.decodeResource(context.getResources(),R.mipmap.user_default_icon));
         }else{
-            ImageLoader.getInstance().loadImage(heads.get(position).getHeadUrl(), options, new ImageLoadingListener() {
+            ImageLoader.getInstance().loadImage(heads.get(position).getUserImg(), options, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 

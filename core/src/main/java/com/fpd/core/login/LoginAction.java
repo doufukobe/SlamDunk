@@ -2,6 +2,7 @@ package com.fpd.core.login;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -60,6 +61,7 @@ public class LoginAction
             @Override
             public void onSuccess(String response)
             {
+                Log.d("response",response);
                 if(listener!=null && response!=null)
                 {
                     CoreResponse<LREntity> re = JSON.parseObject(response, new TypeReference<CoreResponse<LREntity>>(){});

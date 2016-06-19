@@ -11,7 +11,7 @@ public class MyActDetailEntity implements Serializable {
     private long actTime;
     private String addressInfo;
     private int curPeopleNum;
-    private List<MyActHeadEntity> actMembers;
+    private List<MyActHeadEntity> memberList;
     private String actInfo;
 
     public String getActName() {
@@ -46,13 +46,7 @@ public class MyActDetailEntity implements Serializable {
         this.curPeopleNum = curPeopleNum;
     }
 
-    public List<MyActHeadEntity> getActMembers() {
-        return actMembers;
-    }
 
-    public void setActMembers(List<MyActHeadEntity> actMembers) {
-        this.actMembers = actMembers;
-    }
 
     public String getActInfo() {
         return actInfo;
@@ -60,5 +54,13 @@ public class MyActDetailEntity implements Serializable {
 
     public void setActInfo(String actInfo) {
         this.actInfo = actInfo;
+    }
+
+    public List<MyActHeadEntity> getMemberList() {
+        return memberList;
+    }
+
+    public void setMemberList(List<MyActHeadEntity> memberList) {
+        this.memberList = memberList;
     }
 }
