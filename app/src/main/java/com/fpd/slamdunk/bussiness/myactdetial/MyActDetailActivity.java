@@ -55,6 +55,8 @@ public class MyActDetailActivity extends CommenActivity {
     private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private ImageView img;
     private int[] img_id = {R.mipmap.act_detail01,R.mipmap.act_detail02,R.mipmap.act_detail03,R.mipmap.act_detail04,R.mipmap.act_detail05};
+    private boolean canCancel = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +115,7 @@ public class MyActDetailActivity extends CommenActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 SDDialog dialog = new SDDialog(MyActDetailActivity.this, "确认退出活动吗？", new SDDialog.Callback() {
                     @Override
                     public void sureCallBack() {
@@ -146,7 +149,7 @@ public class MyActDetailActivity extends CommenActivity {
         actName.setText(result.getActName());
         actTime.setText(getDateToString(result.getActTime()*1000));
         actAddress.setText(result.getAddressInfo());
-        actMembers.setText(result.getCurPeopleNum()+"");
+        actMembers.setText(result.getCurPeopleNum() + "");
         if (result.getActInfo() !=null && !result.getActInfo().isEmpty()){
             actIntroduce.setText(result.getActInfo());
         }else{
@@ -154,6 +157,12 @@ public class MyActDetailActivity extends CommenActivity {
         }
         HeadAdapter hd = new HeadAdapter(this,result.getMemberList());
         headRecycleView.setAdapter(hd);
+
+        if (System.currentTimeMillis() - result.getActTime()*1000 <=3600*1000){
+            cancelBtn.setClickable(false);
+            cancelBtn.setBackgroundColor(getColor(R.color.gray01));
+        }
+
     }
 
     private String getDateToString(long time) {

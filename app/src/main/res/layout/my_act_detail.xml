@@ -115,9 +115,10 @@
             <com.gc.materialdesign.views.ButtonRectangle
                 android:id="@+id/my_act_detail_cancel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="15dp"
                 android:background="@color/colormain"
+                android:textSize="4dp"
                 android:text="退 出 活 动"></com.gc.materialdesign.views.ButtonRectangle>
         </LinearLayout>
     </LinearLayout>
