@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.PopupWindow;
@@ -29,6 +28,7 @@ import com.fpd.core.userinfo.UserInfoAction;
 import com.fpd.model.userinfo.UserInfoEntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
+import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.selectimg.SelectHeadImgActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,9 +42,6 @@ import java.util.Calendar;
  */
 public class SettingActivity extends CommenActivity implements View.OnClickListener
 {
-
-    private UserInfoEntity userInfo;
-
     private CircleImage mIcon;
     private TextView mName;
     private TextView mAccount;
@@ -56,6 +53,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
     private View mLySite;
     private View mLySex;
     private View mLyAge;
+    private View mBack;
 
     private View mLyPopupSexMan;
     private View mLyPopupSexWoman;
@@ -77,9 +75,11 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
     private String ageString="";
 
     private MyDatePickerDialog datePickerDialog;
-    private Button mSave;
+    private TextView mSave;
 
     private int mScreenWidth;
+
+    private UserInfoEntity userInfo;
 
 
     @Override
@@ -87,12 +87,13 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        userInfo = (UserInfoEntity) getIntent().getSerializableExtra("userInfo");
         DisplayMetrics outMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
         mScreenWidth = outMetrics.widthPixels;
         initViews();
         initEvents();
-//        getUserInfo();
+        fillViews();
     }
 
     private void initViews()
@@ -109,7 +110,8 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         mLySex=findViewById(R.id.id_setting_ly_sex);
         mLyAge=findViewById(R.id.id_setting_ly_age);
 
-        mSave=(Button)findViewById(R.id.id_setting_save_bt);
+        mSave=(TextView)findViewById(R.id.id_setting_save_bt);
+        mBack=findViewById(R.id.id_setting_back_ly);
 
         initCircleImage(mIcon);
         initSexPopupWindow();
@@ -189,7 +191,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
 
             }
         },c_year,c_month,c_day);
-        datePickerDialog.setTitle(c_year + "年" + (c_month+1) + "月" + c_day + "号");
+        datePickerDialog.setTitle(c_year + "年" + (c_month + 1) + "月" + c_day + "号");
     }
 
     private void initCircleImage(CircleImage view)
@@ -211,10 +213,12 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         mRbMan.setOnClickListener(this);
         mSiteSave.setOnClickListener(this);
         mSave.setOnClickListener(this);
+        mBack.setOnClickListener(this);
     }
 
     private void fillViews()
     {
+        if(userInfo==null) return;
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.mipmap.invite_photo)
                 .showImageForEmptyUri(R.mipmap.default_ball)
@@ -225,7 +229,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 .resetViewBeforeLoading(true)
                 .build();
 
-        ImageLoader.getInstance().loadImage(userInfo.getUserHeadUrl(), options, new ImageLoadingListener() {
+        ImageLoader.getInstance().loadImage(Config.headUrl +userInfo.getUserHeadUrl(), options, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {}
             @Override
@@ -249,12 +253,11 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         }
         if(userInfo.getUserAge()>=0)
         {
-            mAge.setText(userInfo.getUserAge());
-            ageString=userInfo.getUserSex();
+            mAge.setText(userInfo.getUserAge()+"");
+            ageString=userInfo.getUserAge()+"";
         }
         if(userInfo.getUserPosition()!=null)
         {
-            siteString=userInfo.getUserPosition();
             String[] sites=userInfo.getUserPosition().split(":");
             if(sites.length==1)
             {
@@ -264,6 +267,11 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
             {
                 mSite.setText(sites[0]+"、"+sites[1]);
             }
+            siteString=userInfo.getUserPosition();
+        }
+        if(userInfo.getUserName()!=null)
+        {
+            mAccount.setText(userInfo.getUserName());
         }
     }
 
@@ -318,29 +326,66 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 }
                 break;
             case R.id.id_setting_save_bt:
-//                updateUserInfo();
+                updateUserInfo();
+                break;
+            case R.id.id_setting_back_ly:
+                finish();
                 break;
 
         }
     }
 
-    //0:m 1:w
-    private void changeToSex(int sex)
+    private void updateUserInfo()
     {
-        if(sex==0)
+        Log.i("TAG","name="+nameString+" sex="+sexString+" age="+ageString+" site="+siteString);
+        UserInfoAction action=new UserInfoAction(this);
+        action.updateUserInfo(Config.userId, nameString, sexString, siteString, ageString, new CallBackListener<String>()
         {
-            mRbMan.setChecked(true);
-            mRbWoman.setChecked(false);
-            sexString="男";
-        }
-        else if (sex==1)
+            @Override
+            public void onSuccess(String result)
+            {
+                Intent intent=new Intent(SettingActivity.this, HomeActivity.class);
+                startActivity(intent);
+                SettingActivity.this.finish();
+            }
+
+            @Override
+            public void onFailure(String Message)
+            {
+
+            }
+        });
+    }
+
+    private static final int REQUESTCODE_SETNAME=1;
+    private static final int REQUESTCODE_SETICON=2;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(resultCode!=RESULT_OK) return;
+        switch (requestCode)
         {
-            mRbMan.setChecked(false);
-            mRbWoman.setChecked(true);
-            sexString="女";
+            case REQUESTCODE_SETNAME:
+                String tmp=data.getStringExtra("USERNAME");
+                if(tmp.length()>0)
+                {
+                    mName.setText(tmp);
+                    nameString=tmp;
+                }
+                break;
+            case REQUESTCODE_SETICON:
+                Bitmap bitmap=data.getParcelableExtra("HEADIMG");
+                mIcon.setBitmap(bitmap);
+                break;
         }
-        mSex.setText(sexString);
-        Log.i("TAG","sex="+sexString);
+    }
+
+    private void setWindowBackgroundAlpha(float alpah)
+    {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.alpha = alpah;
+        getWindow().setAttributes(lp);
     }
 
     private CheckBox[] checkBoxes;
@@ -370,64 +415,12 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
             siteString="SG";
         }else
         {
-            siteString=builder.toString().substring(0,builder.length()-1);
+            siteString=builder.toString().substring(0, builder.length() - 1);
         }
         mSite.setText(siteString.replace(":", "、"));
         return true;
     }
 
-    private void updateUserInfo()
-    {
-        Log.i("TAG","name="+nameString+" sex="+sexString+" age="+ageString+" site="+siteString);
-        UserInfoAction action=new UserInfoAction(this);
-        action.updateUserInfo(Config.userId,nameString,sexString,siteString,ageString);
-    }
-
-    private void getUserInfo(){
-        UserInfoAction userAction = new UserInfoAction(this);
-        userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>()
-        {
-            @Override
-            public void onSuccess(UserInfoEntity result)
-            {
-                userInfo = result;
-                fillViews();
-            }
-
-            @Override
-            public void onFailure(String Message)
-            {
-                Toast.makeText(SettingActivity.this,Message,Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-    private static final int REQUESTCODE_SETNAME=1;
-    private static final int REQUESTCODE_SETICON=2;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        switch (requestCode)
-        {
-            case REQUESTCODE_SETNAME:
-                nameString=data.getStringExtra("USERNAME");
-                mName.setText(nameString);
-                break;
-            case REQUESTCODE_SETICON:
-                Bitmap bitmap=data.getParcelableExtra("HEADIMG");
-                mIcon.setBitmap(bitmap);
-                break;
-        }
-    }
-
-    private void setWindowBackgroundAlpha(float alpah)
-    {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = alpah;
-        getWindow().setAttributes(lp);
-    }
 
     private void setCheckBoxFromSite(String siteString)
     {
@@ -455,5 +448,23 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         {
             mRbWoman.setChecked(true);
         }
+    }
+
+    //0:m 1:w
+    private void changeToSex(int sex)
+    {
+        if(sex==0)
+        {
+            mRbMan.setChecked(true);
+            mRbWoman.setChecked(false);
+            sexString="男";
+        }
+        else if (sex==1)
+        {
+            mRbMan.setChecked(false);
+            mRbWoman.setChecked(true);
+            sexString="女";
+        }
+        mSex.setText(sexString);
     }
 }

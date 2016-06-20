@@ -7,14 +7,44 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/colormain">
-        <Button
+        <RelativeLayout
+            android:id="@+id/id_settingname_back_ly"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="11dp"
+                android:src="@mipmap/ic_back"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <View
+            android:id="@+id/id_settingname_vertical_line"
+            android:layout_height="match_parent"
+            android:layout_width="1dp"
+            android:layout_toRightOf="@+id/id_settingname_back_ly"
+            android:background="@color/colorwhite"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/id_settingname_vertical_line"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorwhite"
+            android:textSize="18sp"
+            android:text="修改昵称"/>
+        <TextView
             android:id="@+id/id_aty_setting_bt"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="完成"/>
+            android:layout_marginRight="15dp"
+            android:gravity="center|right"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="保存"
+            android:textSize="18sp"
+            android:textColor="@color/colorwhite"/>
     </RelativeLayout>
     <EditText
         android:id="@+id/id_aty_setting_name"

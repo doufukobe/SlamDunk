@@ -15,6 +15,7 @@ public class UserInfoEntity implements Serializable {
     private List<HostedEntity> userHostedAct;
     private List<HostedEntity> userJoinedAct;
     private String userHeadUrl;
+    private String userName;
 
     public String getUserPetName() {
         return userPetName;
@@ -80,5 +81,22 @@ public class UserInfoEntity implements Serializable {
 
     public void setUserJoinedAct(List<HostedEntity> userJoinedAct) {
         this.userJoinedAct = userJoinedAct;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName=userName;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "userPetName="+userPetName+" userPosition="+userPosition
+                +" userAge="+userAge+" userSex="+userSex;
     }
 }
