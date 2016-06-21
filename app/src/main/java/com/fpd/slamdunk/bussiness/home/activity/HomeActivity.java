@@ -7,11 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fpd.basecore.application.BaseApplication;
 import com.fpd.basecore.config.Config;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
