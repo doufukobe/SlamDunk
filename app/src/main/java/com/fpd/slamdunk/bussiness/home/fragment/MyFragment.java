@@ -63,7 +63,6 @@ public class MyFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
-        getUserInfo();
     }
 
     @Override
@@ -75,16 +74,11 @@ public class MyFragment extends Fragment implements View.OnClickListener
         return mContentView;
     }
 
+
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser)
-    {
-        if(isVisibleToUser)
-        {
-            if(mContext !=null)
-            {
-                getUserInfo();
-            }
-        }
+    public void onResume() {
+        super.onResume();
+        getUserInfo();
     }
 
     private void initViews()
