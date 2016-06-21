@@ -1,5 +1,6 @@
 package com.fpd.basecore.application;
 
+import android.app.Activity;
 import android.app.Application;
 import android.util.DisplayMetrics;
 
@@ -55,4 +56,7 @@ public class BaseApplication extends Application {
         appManager.exitApp(this,isBackground);
     }
 
+    public void addActivity(Activity activity){
+        appManager.addActivity(activity);
+    };
 }

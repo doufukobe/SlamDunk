@@ -2,6 +2,7 @@ package com.fpd.slamdunk.bussiness.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -152,7 +153,13 @@ public class MyFragment extends Fragment implements View.OnClickListener
             case R.id.id_my_ly_4:
                 Config.userId = "";
                 Config.userName = "";
+                SharedPreferences.Editor editor = mContext.getSharedPreferences(Config.sharedParaferance,Context.MODE_PRIVATE)
+                        .edit();
+                editor.putString(Config.USER, "");
+                editor.putString(Config.USERNAME, "");
+                editor.commit();
                 Intent intent2 = new Intent(getActivity(), LoginActivity.class);
+                intent2.putExtra("ACTIVITYFROM","StartUpActivity");
                 startActivity(intent2);
                 getActivity().finish();
                 break;

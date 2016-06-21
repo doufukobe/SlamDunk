@@ -2,6 +2,7 @@ package com.fpd.slamdunk;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.fpd.basecore.application.BaseApplication;
 import com.fpd.basecore.util.SystemBarTintManager;
 
 import cn.jpush.android.api.JPushInterface;
@@ -52,5 +54,11 @@ public class CommenActivity extends FragmentActivity {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        ((BaseApplication)getApplication()).addActivity(this);
+        super.startActivity(intent);
     }
 }

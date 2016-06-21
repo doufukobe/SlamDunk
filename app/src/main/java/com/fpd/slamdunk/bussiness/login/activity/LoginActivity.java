@@ -125,7 +125,7 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
-                }else if(getIntent().getStringExtra("USERINFO").equals("userInfo")){
+                }else if("userInfo".equals(getIntent().getStringExtra("USERINFO"))){
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.putExtra("selectPage",2);
                     startActivity(intent);
