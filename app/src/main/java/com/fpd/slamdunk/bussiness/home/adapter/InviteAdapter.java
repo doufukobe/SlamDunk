@@ -52,13 +52,12 @@ public class InviteAdapter extends RecyclerView.Adapter<InviteAdapter.ViewHolder
     private void initOption() {
 
         options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.mipmap.invite_photo)
                 .showImageForEmptyUri(R.mipmap.default_ball)
                 .showImageOnFail(R.mipmap.invite_photo)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
-                .resetViewBeforeLoading(true)
+                .resetViewBeforeLoading(false)
                 .build();
     }
 
