@@ -52,7 +52,7 @@ public class JoinSubmitActivity extends CommenActivity {
         textView = (TextView) findViewById(R.id.top_title);
         textView.setText("申请加入");
         textUser = (TextView) findViewById(R.id.submit_user_id);
-        textUser.setText(Config.userId);
+        textUser.setText(Config.userName);
     }
 
     private void setClick() {

@@ -125,6 +125,7 @@ public class StartUpActivity extends CommenActivity implements Animator.Animator
             JPushInterface.resumePush(StartUpActivity.this);
             Intent intent = new Intent(this, HomeActivity.class);
             Config.userId = sp.getString(Config.USER,"");
+            Config.userName = sp.getString(Config.USERNAME,"");
             Log.d("userId",Config.userId);
             startActivity(intent);
             finish();

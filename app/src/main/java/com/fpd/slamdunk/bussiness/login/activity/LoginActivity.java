@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.bussiness.login.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -113,8 +114,12 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
                 //登陆成功跳转到首页
                 Log.i("TAG","result="+result.getUserId());
                 Config.userId = result.getUserId()+"";
-                getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
-                        .edit().putString(Config.USER, result.getUserId()+"").commit();
+                Config.userName = mEtName.getText().toString();
+                SharedPreferences.Editor editor = getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
+                        .edit();
+                editor.putString(Config.USER, result.getUserId()+"");
+                editor.putString(Config.USERNAME,mEtName.getText().toString());
+                editor.commit();
                 JPushInterface.resumePush(LoginActivity.this);
                 if (null !=getIntent().getStringExtra("ACTIVITYFROM") && getIntent().getStringExtra("ACTIVITYFROM").equals("StartUpActivity")){
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

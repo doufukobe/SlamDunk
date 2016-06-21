@@ -34,7 +34,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 public class MyFragment extends Fragment implements View.OnClickListener
 {
 
-    private Context mContext;
     private View mContentView;
 
     private CircleImage mIcon;
@@ -56,12 +55,16 @@ public class MyFragment extends Fragment implements View.OnClickListener
     private UserInfoEntity userInfo;
     private boolean isFirst=true;
 
+    private Context mContext;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        mContext = getActivity();
         mContentView=inflater.inflate(R.layout.fragment_my, container, false);
         mContext=getActivity();
         initViews();
+        if (getUserVisibleHint())
+            getUserInfo();
         return mContentView;
     }
 
@@ -70,7 +73,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
     {
         if(isVisibleToUser)
         {
-            if(isFirst)
+            if(mContext !=null)
             {
                 getUserInfo();
             }
@@ -148,6 +151,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.id_my_ly_4:
                 Config.userId = "";
+                Config.userName = "";
                 Intent intent2 = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent2);
                 getActivity().finish();
