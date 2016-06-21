@@ -149,6 +149,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
             case R.id.id_my_ly_4:
                 Config.userId = "";
                 Intent intent2 = new Intent(getActivity(), LoginActivity.class);
+                intent2.putExtra("USERINFO","userInfo");
                 startActivity(intent2);
                 getActivity().finish();
                 break;
