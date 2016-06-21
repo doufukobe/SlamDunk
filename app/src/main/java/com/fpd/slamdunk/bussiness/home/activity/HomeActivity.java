@@ -76,19 +76,23 @@ public class HomeActivity extends CommenActivity {
     }
 
     private void setClick() {
-        homeViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        homeViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
 
             }
 
             @Override
-            public void onPageSelected(int position) {
-                    setBackground(position);
+            public void onPageSelected(int position)
+            {
+                setBackground(position);
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onPageScrollStateChanged(int state)
+            {
 
             }
         });
