@@ -149,8 +149,11 @@ public class MyActDetailActivity extends CommenActivity {
 
     private void fullView(MyActDetailEntity result){
         actName.setText(result.getActName());
-        actTime.setText(getDateToString(result.getActTime()*1000));
-        actAddress.setText(result.getAddressInfo().substring(0,result.getAddressInfo().indexOf(" ")));
+        actTime.setText(getDateToString(result.getActTime() * 1000));
+        String address = result.getAddressInfo();
+        if (address.indexOf(" ")>0)
+            address = address.substring(0,address.indexOf(" "));
+        actAddress.setText(address);
         actMembers.setText(result.getCurPeopleNum() + "");
         if (result.getActInfo() !=null && !result.getActInfo().isEmpty()){
             actIntroduce.setText(result.getActInfo());
