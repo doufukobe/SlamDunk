@@ -9,17 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapView;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.gc.materialdesign.views.ButtonFlat;
@@ -69,7 +64,6 @@ public class SelectPhotoActivity extends CommenActivity {
         if (!parent.exists()){
             parent.mkdir();
         }
-
         File file = new File(parent,"temp.jpg");
         File filex = new File(parent,"croptemp.jpg");
 
@@ -166,7 +160,7 @@ public class SelectPhotoActivity extends CommenActivity {
         try {
             fileoutput.createNewFile();
             fout = new FileOutputStream(fileoutput);
-            newbmp.compress(Bitmap.CompressFormat.JPEG,100,fout);
+            newbmp.compress(Bitmap.CompressFormat.JPEG, 100, fout);
         } catch (IOException e) {
             e.printStackTrace();
         }
