@@ -63,6 +63,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+        getUserInfo();
     }
 
     @Override
@@ -71,8 +72,6 @@ public class MyFragment extends Fragment implements View.OnClickListener
         mContentView=inflater.inflate(R.layout.fragment_my, container, false);
         mContext=getActivity();
         initViews();
-        if (getUserVisibleHint())
-            getUserInfo();
         return mContentView;
     }
 
@@ -198,8 +197,8 @@ public class MyFragment extends Fragment implements View.OnClickListener
                 .showImageForEmptyUri(R.mipmap.default_ball)
                 .showImageOnFail(R.mipmap.invite_photo)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
+                .cacheInMemory(false)
+                .cacheOnDisk(false)
                 .resetViewBeforeLoading(true)
                 .build();
 

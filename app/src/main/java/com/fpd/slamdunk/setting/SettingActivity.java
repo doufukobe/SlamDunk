@@ -224,8 +224,8 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 .showImageForEmptyUri(R.mipmap.default_ball)
                 .showImageOnFail(R.mipmap.invite_photo)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
+                .cacheInMemory(false)
+                .cacheOnDisk(false)
                 .resetViewBeforeLoading(true)
                 .build();
 
@@ -345,6 +345,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
             public void onSuccess(String result)
             {
                 Intent intent=new Intent(SettingActivity.this, HomeActivity.class);
+                intent.putExtra("selectPage",2);
                 startActivity(intent);
                 SettingActivity.this.finish();
             }
