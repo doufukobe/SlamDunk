@@ -63,7 +63,8 @@ public class MyReceiver extends BroadcastReceiver {
                     int actId = praseJson(bundle.getString(JPushInterface.EXTRA_EXTRA));
                     if (actId !=0){
                         Intent i = new Intent(context, MyActDetailActivity.class);
-                        i.putExtra("actId",actId+"");
+                        intent.putExtra("ACTSTATE","1");
+                        i.putExtra("ACTID",actId+"");
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i);
                     }else{

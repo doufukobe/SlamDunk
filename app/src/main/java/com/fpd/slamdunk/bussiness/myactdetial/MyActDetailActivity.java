@@ -56,11 +56,12 @@ public class MyActDetailActivity extends CommenActivity {
     private ImageView img;
     private int[] img_id = {R.mipmap.act_detail01,R.mipmap.act_detail02,R.mipmap.act_detail03,R.mipmap.act_detail04,R.mipmap.act_detail05};
     private boolean canCancel = true;
-
+    private String actState;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_act_detail);
+        actState = getIntent().getStringExtra("ACTSTATE");
         actId = getIntent().getStringExtra("ACTID");
         detailAction = new MyActDetailAction(this);
         initView();

@@ -118,6 +118,7 @@ public class MyActListAdapter extends BaseSwipeAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MyActDetailActivity.class);
                 intent.putExtra("ACTID",entity.getActId()+"");
+                intent.putExtra("ACTSTATE",entity.getActState());
                 context.startActivity(intent);
             }
         });
