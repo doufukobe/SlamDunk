@@ -133,7 +133,7 @@ public class JoinActivity extends CommenActivity {
 
     private void fullView(ActivityDetailEntitiy result) {
         actName.setText(result.getActName());
-        addressDist.setText(getIntent().getStringExtra("DISTANCE"));
+        addressDist.setText(getIntent().getStringExtra("DISTANCE")+"m");
         String originator = result.getActOriginatorName();
         String member = "";
         for (int i=0;i<result.getMemberList().size();i++){
@@ -145,7 +145,10 @@ public class JoinActivity extends CommenActivity {
         if (member.contains(Config.userName))
             joinAct.setVisibility(View.GONE);
         memberList.setText(member);
-        addressInfo.setText(result.getAddressInfo().substring(0,result.getAddressInfo().indexOf(" ")));
+        String address = result.getAddressInfo();
+        if (address.indexOf(" ") >0){
+            address = address.substring(0,address.indexOf(" "));}
+        addressInfo.setText(address);
         actTime.setText(getDateToString(result.getActTime()*1000));
         memberInfo.setText("当前人数"+result.getCurPeopleNum()+" 目标人数"+result.getMaxPeopleNum());
         String hasball = null;
