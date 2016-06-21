@@ -30,7 +30,7 @@ public class UserInfoAction {
     public void GetUserInfo(String userId, final CallBackListener<UserInfoEntity> listener){
         Map<String,String> requestParam = new HashMap<>();
         requestParam.put("userId",userId);
-
+        Log.d("userId",userId);
         SDApi.post(context, Config.headUrl + URLContans.GETUSERINFO, requestParam, new SDApiResponse<String>() {
             @Override
             public void onSuccess(String response) {

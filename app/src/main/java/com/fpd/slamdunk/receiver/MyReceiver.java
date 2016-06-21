@@ -60,6 +60,12 @@ public class MyReceiver extends BroadcastReceiver {
                     Log.i(TAG, "This message has no Extra data");
                     return;
                 }
+                if (Config.userId.isEmpty()){
+                    Intent i = new Intent(context, HomeActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.putExtra("selectPage",0);
+                    context.startActivity(i);
+                }else{
                     int actId = praseJson(bundle.getString(JPushInterface.EXTRA_EXTRA));
                     if (actId !=0){
                         Intent i = new Intent(context, MyActDetailActivity.class);
@@ -73,6 +79,7 @@ public class MyReceiver extends BroadcastReceiver {
                         i.putExtra("selectPage",0);
                         context.startActivity(i);
                     }
+                }
 
             }else{
                 Intent i = new Intent(context, StartUpActivity.class);

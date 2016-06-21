@@ -28,11 +28,11 @@ public class MyActDetailAction{
     }
 
 
-    public void getDetail(String actId, final CallBackListener<MyActDetailEntity> listener){
+    public void getDetail(String actId,String actState, final CallBackListener<MyActDetailEntity> listener){
 
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("actId",actId);
-
+        requestParams.put("actState",actState);
         SDApi.post(context, Config.headUrl+ URLContans.GETMYACTIVITY,requestParams,new SDApiResponse<String>(){
 
             @Override

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
@@ -92,7 +93,7 @@ public class MyActDetailActivity extends CommenActivity {
     }
 
     private void getDetail(){
-        detailAction.getDetail(actId, new CallBackListener<MyActDetailEntity>() {
+        detailAction.getDetail(actId,actState, new CallBackListener<MyActDetailEntity>() {
             @Override
             public void onSuccess(MyActDetailEntity result) {
                 fullView(result);
@@ -124,12 +125,12 @@ public class MyActDetailActivity extends CommenActivity {
                         deleteAction.deleteAct(Config.userId, actId + "", new CallBackListener<SuccessEntity>() {
                             @Override
                             public void onSuccess(SuccessEntity result) {
-
+                                mFinish();
                             }
 
                             @Override
                             public void onFailure(String Message) {
-
+                                Toast.makeText(MyActDetailActivity.this,Message,Toast.LENGTH_SHORT ).show();
                             }
                         });
                     }
@@ -149,7 +150,7 @@ public class MyActDetailActivity extends CommenActivity {
     private void fullView(MyActDetailEntity result){
         actName.setText(result.getActName());
         actTime.setText(getDateToString(result.getActTime()*1000));
-        actAddress.setText(result.getAddressInfo());
+        actAddress.setText(result.getAddressInfo().substring(0,result.getAddressInfo().indexOf(" ")));
         actMembers.setText(result.getCurPeopleNum() + "");
         if (result.getActInfo() !=null && !result.getActInfo().isEmpty()){
             actIntroduce.setText(result.getActInfo());
@@ -159,7 +160,7 @@ public class MyActDetailActivity extends CommenActivity {
         HeadAdapter hd = new HeadAdapter(this,result.getMemberList());
         headRecycleView.setAdapter(hd);
 
-        if (System.currentTimeMillis() - result.getActTime()*1000 <=3600*1000){
+        if (result.getActTime()*1000  - System.currentTimeMillis() <=3600*1000){
             cancelBtn.setClickable(false);
             cancelBtn.setBackgroundColor(getColor(R.color.gray01));
         }

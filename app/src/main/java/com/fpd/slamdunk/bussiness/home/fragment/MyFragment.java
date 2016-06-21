@@ -2,6 +2,7 @@ package com.fpd.slamdunk.bussiness.home.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -34,7 +35,6 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 public class MyFragment extends Fragment implements View.OnClickListener
 {
 
-    private Context mContext;
     private View mContentView;
 
     private CircleImage mIcon;
@@ -56,12 +56,23 @@ public class MyFragment extends Fragment implements View.OnClickListener
     private UserInfoEntity userInfo;
     private boolean isFirst=true;
 
+    private Context mContext;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mContentView=inflater.inflate(R.layout.fragment_my, container, false);
         mContext=getActivity();
         initViews();
+        if (getUserVisibleHint())
+            getUserInfo();
         return mContentView;
     }
 
@@ -70,7 +81,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
     {
         if(isVisibleToUser)
         {
-            if(isFirst)
+            if(mContext !=null)
             {
                 getUserInfo();
             }
@@ -148,8 +159,14 @@ public class MyFragment extends Fragment implements View.OnClickListener
                 break;
             case R.id.id_my_ly_4:
                 Config.userId = "";
+                Config.userName = "";
+                SharedPreferences.Editor editor = mContext.getSharedPreferences(Config.sharedParaferance,Context.MODE_PRIVATE)
+                        .edit();
+                editor.putString(Config.USER, "");
+                editor.putString(Config.USERNAME, "");
+                editor.commit();
                 Intent intent2 = new Intent(getActivity(), LoginActivity.class);
-                intent2.putExtra("USERINFO","userInfo");
+                intent2.putExtra("ACTIVITYFROM","StartUpActivity");
                 startActivity(intent2);
                 getActivity().finish();
                 break;
@@ -158,7 +175,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
     private void getUserInfo(){
         Log.i("TAG","getUserInfo");
-        userAction = new UserInfoAction(getActivity());
+        userAction = new UserInfoAction(mContext);
         userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>() {
             @Override
             public void onSuccess(UserInfoEntity result) {

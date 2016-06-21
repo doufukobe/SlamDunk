@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.bussiness.register.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -121,9 +122,13 @@ public class RegisterActivity extends CommenActivity implements
             public void onSuccess(LREntity result)
             {
                 Config.userId = result.getUserId()+"";
+                Config.userName = mEtName.getText().toString();
                 Log.d("userId",Config.userId);
-                getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
-                        .edit().putString(Config.USER,result.getUserId()+"").commit();
+                SharedPreferences.Editor editor = getSharedPreferences(Config.sharedParaferance, MODE_PRIVATE)
+                        .edit();
+                editor.putString(Config.USER, result.getUserId()+"");
+                editor.putString(Config.USERNAME, mEtName.getText().toString());
+                editor.commit();
                 JPushInterface.resumePush(RegisterActivity.this);
                     Intent intent = new Intent(RegisterActivity.this, FirstSettingActivity.class);
                     startActivity(intent);

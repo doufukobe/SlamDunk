@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fpd.basecore.config.Config;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.model.acthead.MyActHeadEntity;
 import com.fpd.slamdunk.R;
@@ -61,7 +62,7 @@ public class HeadAdapter extends RecyclerView.Adapter<HeadAdapter.ViewHolder> {
         if (heads.get(position).getUserImg() ==null || heads.get(position).getUserImg().isEmpty()){
             holder.head.setBitmap(BitmapFactory.decodeResource(context.getResources(),R.mipmap.user_default_icon));
         }else{
-            ImageLoader.getInstance().loadImage(heads.get(position).getUserImg(), options, new ImageLoadingListener() {
+            ImageLoader.getInstance().loadImage(Config.headUrl+heads.get(position).getUserImg(), options, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
 

@@ -12,4 +12,8 @@ public class Config {
     public static String sharedParaferance = "SLAMDUNK";
 
     public static String USER = "USERID";
+
+    public static String userName = "";
+
+    public static String USERNAME = "USERNAME";
 }

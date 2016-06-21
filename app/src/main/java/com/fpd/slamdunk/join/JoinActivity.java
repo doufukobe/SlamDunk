@@ -142,7 +142,7 @@ public class JoinActivity extends CommenActivity {
         if (member.length()>0){
             member = member.substring(0,member.length()-1);
         }
-        if (member.contains(originator))
+        if (member.contains(Config.userName))
             joinAct.setVisibility(View.GONE);
         memberList.setText(member);
         addressInfo.setText(result.getAddressInfo().substring(0,result.getAddressInfo().indexOf(" ")));
