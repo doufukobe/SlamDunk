@@ -162,7 +162,7 @@ public class MyActDetailActivity extends CommenActivity {
 
         if (result.getActTime()*1000  - System.currentTimeMillis() <=3600*1000){
             cancelBtn.setClickable(false);
-            cancelBtn.setBackgroundColor(getColor(R.color.gray01));
+            cancelBtn.setBackgroundColor(getResources().getColor(R.color.gray01));
         }
 
     }

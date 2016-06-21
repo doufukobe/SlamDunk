@@ -54,7 +54,7 @@ public class ArrangeAction {
             listener.onFailure("最小人数不能大于目标人数");
         }else if(actName.isEmpty()){
             listener.onFailure("活动名称不能为空，请重新修改");
-        }else if(timeLong - System.currentTimeMillis()/1000 < 3600*3){
+        }else if(timeLong - System.currentTimeMillis()/1000 < 3600*2){
             listener.onFailure("活动时间太近，无法发起活动");
         }else{
             SDApi.post(context, Config.headUrl+ URLContans.PUBLISHACTIVITY, requestParam, new SDApiResponse<String>() {

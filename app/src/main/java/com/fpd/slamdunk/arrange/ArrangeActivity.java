@@ -292,7 +292,7 @@ public class ArrangeActivity extends CommenActivity {
                 .setCancelStringId("取消")
                 .setSureStringId("确定")
                 .setTitleStringId("选择时间")
-                .setCurrentMillseconds(System.currentTimeMillis()+3600*3*1000)
+                .setCurrentMillseconds(System.currentTimeMillis()+3600*2*1000)
                 .setThemeColor(getResources().getColor(R.color.colormain))
                 .setWheelItemTextSize(14)
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.colormain))
