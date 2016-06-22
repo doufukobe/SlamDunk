@@ -187,7 +187,7 @@
             android:id="@+id/id_my_ly_5"
             android:layout_below="@+id/id_my_ly_4"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="20dp"
             android:background="@color/gray02">
         </RelativeLayout>
     </RelativeLayout>

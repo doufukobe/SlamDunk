@@ -56,7 +56,7 @@ public class LoginActivity extends CommenActivity implements View.OnClickListene
     private void initImages()
     {
         CircleImage mLoginIcon=(CircleImage)findViewById(R.id.id_login_user_icon);
-        Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), R.mipmap.x_3);
+        Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), R.mipmap.user_default_icon);
         mLoginIcon.setBitmap(bitmap);
         initIcon(R.id.id_login_name_icon, R.mipmap.ic_perm_identity_black_48dp);
         initIcon(R.id.id_login_password_icon, R.mipmap.ic_lock_open_black_48dp);

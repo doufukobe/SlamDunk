@@ -20,7 +20,7 @@ public class SettingNameActivity extends CommenActivity implements View.OnClickL
     private EditText name;
     private TextView save;
     private View back;
-    private int MAX_LENGTH=20;
+    private int MAX_LENGTH=12;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

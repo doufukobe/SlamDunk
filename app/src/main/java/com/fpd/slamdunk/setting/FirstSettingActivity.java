@@ -44,7 +44,7 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
     private String ageString;
     private String siteString;
 
-    private int MAX_LENGTH=20;
+    private int MAX_LENGTH=12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -250,7 +250,7 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
 
     private void setUserInfo()
     {
-        String ageReg="([0-9])|([1-9][0-9])|100";
+        String ageReg="([1-9])|([1-9][0-9])|100";
         nameString=mName.getText().toString().trim();
         ageString=mAge.getText().toString().trim();
         setSiteFromCheckBox();
@@ -264,7 +264,7 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
         }
         if(ageString==null || !ageString.matches(ageReg))
         {
-            ageString="1";
+            ageString="20";
         }
         if(siteString==null || siteString.equals(""))
         {
@@ -275,7 +275,7 @@ public class FirstSettingActivity extends CommenActivity implements View.OnClick
     private void fillViews()
     {
         mName.setText("Curry");
-        mAge.setText("1");
+        mAge.setText("20");
         mRbMan.setChecked(true);
         mCbPG.setChecked(true);
     }

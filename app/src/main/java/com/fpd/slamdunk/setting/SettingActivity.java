@@ -1,6 +1,5 @@
 package com.fpd.slamdunk.setting;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
-import com.fpd.basecore.dialog.MyDatePickerDialog;
 import com.fpd.basecore.util.CircleImage;
 import com.fpd.basecore.util.DensityUtil;
 import com.fpd.core.userinfo.UserInfoAction;
@@ -34,8 +31,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
-import java.util.Calendar;
 
 /**
  * Created by solo on 2016/6/11.
@@ -74,13 +69,13 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
     private String siteString="";
     private String ageString="";
 
-    private MyDatePickerDialog datePickerDialog;
     private TextView mSave;
 
     private int mScreenWidth;
 
     private UserInfoEntity userInfo;
 
+    String ageReg="([1-9])|([1-9][0-9])|100";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -116,7 +111,6 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         initCircleImage(mIcon);
         initSexPopupWindow();
         initSitePopupWindow();
-        initDateDialog();
     }
 
     private void initSexPopupWindow()
@@ -168,35 +162,9 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
         });
     }
 
-    private void initDateDialog()
-    {
-        Calendar calender= Calendar.getInstance();
-        final int c_year = calender.get(Calendar.YEAR);
-        final int c_month = calender.get(Calendar.MONTH);
-        int c_day = calender.get(Calendar.DAY_OF_MONTH);
-        datePickerDialog=new MyDatePickerDialog(this, new DatePickerDialog.OnDateSetListener()
-        {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-            {
-                if(c_year-year<0)
-                {
-                    Toast.makeText(SettingActivity.this,"年龄设置不合法",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    ageString=c_year-year+"";
-                    mAge.setText(ageString);
-                }
-
-            }
-        },c_year,c_month,c_day);
-        datePickerDialog.setTitle(c_year + "年" + (c_month + 1) + "月" + c_day + "号");
-    }
-
     private void initCircleImage(CircleImage view)
     {
-        Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), R.mipmap.x_3);
+        Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), R.mipmap.user_default_icon);
         view.setBitmap(bitmap);
     }
 
@@ -299,7 +267,8 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 setWindowBackgroundAlpha(0.5f);
                 break;
             case R.id.id_setting_ly_age:
-                datePickerDialog.show();
+                Intent intent=new Intent(this,SettingAgeActivity.class);
+                startActivityForResult(intent,REQUSETCODE_SETAGE);
                 break;
             //sex
             case R.id.id_popup_sex_man:
@@ -360,6 +329,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
 
     private static final int REQUESTCODE_SETNAME=1;
     private static final int REQUESTCODE_SETICON=2;
+    private static final int REQUSETCODE_SETAGE=3;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -377,6 +347,14 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
             case REQUESTCODE_SETICON:
                 Bitmap bitmap=data.getParcelableExtra("HEADIMG");
                 mIcon.setBitmap(bitmap);
+                break;
+            case REQUSETCODE_SETAGE:
+                String tmpage=data.getStringExtra("USERAGE");
+                if(tmpage.matches(ageReg))
+                {
+                    mAge.setText(tmpage);
+                    ageString=tmpage;
+                }
                 break;
         }
     }
