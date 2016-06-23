@@ -98,6 +98,7 @@
     <orderEntry type="library" exported="" name="ApiStoreSDK1.0.4" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_base_v3_7_3" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_search_v3_7_3" level="project" />
+    <orderEntry type="library" exported="" name="httpcore-4.4.2" level="project" />
     <orderEntry type="library" exported="" name="baidumapapi_radar_v3_7_3" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />

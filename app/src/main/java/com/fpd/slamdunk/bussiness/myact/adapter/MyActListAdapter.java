@@ -79,6 +79,9 @@ public class MyActListAdapter extends BaseSwipeAdapter {
             viewHolder.actState.setText("正在进行");
             viewHolder.actState.setTextColor(context.getResources().getColor(R.color.colormain));
             viewHolder.swipeLayout.setSwipeEnabled(true);
+        }else if(entity.getActState().equals("2")){
+            viewHolder.actState.setText("已锁定");
+            viewHolder.swipeLayout.setSwipeEnabled(false);
         }else{
             viewHolder.actState.setText("已完成");
             viewHolder.swipeLayout.setSwipeEnabled(false);

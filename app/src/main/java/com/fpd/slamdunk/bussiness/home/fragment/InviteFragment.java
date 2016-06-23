@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -22,11 +24,18 @@ import com.fpd.core.invitelist.InviteListAction;
 import com.fpd.model.invite.InviteListEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.adapter.InviteAdapter;
+import com.fpd.slamdunk.bussiness.home.adapter.NewInviteAdapter;
 import com.fpd.slamdunk.bussiness.home.widget.MyLoadMoreView;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.header.MaterialHeader;
+import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
  * Created by t450s on 2016/6/2.
@@ -38,8 +47,11 @@ public class InviteFragment extends Fragment {
     private LocationClient mLocationClient;
 
     private List<InviteListEntity> inviteList = new ArrayList<>();
-    private InviteAdapter mAdapter;
+    private NewInviteAdapter mAdapter;
     private InviteListAction inviteListAction;
+
+    private PtrFrameLayout ptrFrameLayout;
+    private ListView list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,8 +67,13 @@ public class InviteFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            if (listView !=null){
-                getInviteList();
+            if (ptrFrameLayout !=null){
+               ptrFrameLayout.postDelayed(new Runnable() {
+                   @Override
+                   public void run() {
+                       ptrFrameLayout.autoRefresh(true);
+                   }
+               },200);
             }
         }
     }
@@ -64,8 +81,10 @@ public class InviteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.invite_fragment,null);
-        listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.new_invite_fragment,null);
+        ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
+        list = (ListView) view.findViewById(R.id.invite_list);
+        //listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
         initPullList();
         if (getUserVisibleHint())
                 getInviteList();
@@ -77,20 +96,43 @@ public class InviteFragment extends Fragment {
     }
 
     private void initPullList(){
-        listView.setSwipeEnable(true);
-        MyLoadMoreView loadMoreView = new MyLoadMoreView(mContext,listView.getRecyclerView());
-        loadMoreView.setLoadMorePadding(100);
-        listView.setLayoutManager(new LinearLayoutManager(mContext));
-        listView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        listView.setSwipeEnable(true);
+//        MyLoadMoreView loadMoreView = new MyLoadMoreView(mContext,listView.getRecyclerView());
+//        loadMoreView.setLoadMorePadding(100);
+//        listView.setLayoutManager(new LinearLayoutManager(mContext));
+//        listView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Log.i("TAG", "onRefresh");
+//                getInviteList();
+//            }
+//        });
+//        mAdapter = new InviteAdapter(mContext,inviteList);
+//        listView.setAdapter(mAdapter);
+//        listView.onFinishLoading(false, false);
+
+        MaterialHeader materialHeader = new MaterialHeader(mContext);
+        int[] colors = {0xffff9800,0xff3F51B5};
+        materialHeader.setColorSchemeColors(colors);
+        materialHeader.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
+        materialHeader.setPadding(0, 45, 0, 30);
+        materialHeader.setPtrFrameLayout(ptrFrameLayout);
+
+        ptrFrameLayout.setHeaderView(materialHeader);
+        ptrFrameLayout.setPinContent(true);
+        ptrFrameLayout.addPtrUIHandler(materialHeader);
+        ptrFrameLayout.setLoadingMinTime(1000);
+        ptrFrameLayout.setDurationToCloseHeader(1500);
+
+
+        ptrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
-            public void onRefresh() {
-                Log.i("TAG", "onRefresh");
+            public void onRefreshBegin(PtrFrameLayout frame) {
                 getInviteList();
             }
         });
-        mAdapter = new InviteAdapter(mContext,inviteList);
-        listView.setAdapter(mAdapter);
-        listView.onFinishLoading(false, false);
+        mAdapter = new NewInviteAdapter(mContext,inviteList);
+        list.setAdapter(mAdapter);
     }
 
     private void  initLocation(){
@@ -121,12 +163,12 @@ public class InviteFragment extends Fragment {
                     @Override
                     public void onSuccess(List<InviteListEntity> result) {
                         mAdapter.fillView(result);
-                        listView.setOnRefreshComplete();
+                        ptrFrameLayout.refreshComplete();
                     }
 
                     @Override
                     public void onFailure(String Message) {
-                        listView.setOnRefreshComplete();
+                        ptrFrameLayout.refreshComplete();
                         Toast.makeText(mContext,Message,Toast.LENGTH_SHORT).show();
                     }
                 });
