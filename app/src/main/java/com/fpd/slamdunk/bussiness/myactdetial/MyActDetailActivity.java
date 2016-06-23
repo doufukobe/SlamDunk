@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +23,9 @@ import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.myactdetial.adapter.HeadAdapter;
-import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -147,7 +143,8 @@ public class MyActDetailActivity extends CommenActivity {
     }
 
 
-    private void fullView(MyActDetailEntity result){
+    private void fullView(MyActDetailEntity result)
+    {
         actName.setText(result.getActName());
         actTime.setText(getDateToString(result.getActTime() * 1000));
         String address = result.getAddressInfo();

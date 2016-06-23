@@ -105,7 +105,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
     private void initCircleImag(CircleImage view)
     {
-        Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), R.mipmap.x_3);
+        Bitmap bitmap= BitmapFactory.decodeResource(this.getResources(), R.mipmap.user_default_icon);
         view.setBitmap(bitmap);
     }
 
@@ -167,7 +167,6 @@ public class MyFragment extends Fragment implements View.OnClickListener
     }
 
     private void getUserInfo(){
-        Log.i("TAG","getUserInfo");
         userAction = new UserInfoAction(mContext);
         userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>() {
             @Override
@@ -227,7 +226,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
             }
         }
         if (userInfo.getUserSex()!=null)
-            mSexAge.setText(userInfo.getUserSex()+" "+userInfo.getUserAge());
+            mSexAge.setText(userInfo.getUserSex()+"   "+userInfo.getUserAge());
         mZanAmount.setText(userInfo.getUserLiked()+"");
         if(userInfo.getUserName()!=null)
         {

@@ -220,7 +220,7 @@
             <RelativeLayout
                 android:layout_below="@+id/id_setting_ly_age"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="20dp">
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

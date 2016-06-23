@@ -296,7 +296,7 @@
             <RelativeLayout
                 android:layout_below="@+id/id_first_setting_site_ly"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"/>
+                android:layout_height="20dp"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
