@@ -13,12 +13,11 @@ import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
+import com.fpd.basecore.util.ColorIcon;
 import com.fpd.core.register.RegisterAction;
 import com.fpd.model.login.LREntity;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
-import com.fpd.basecore.util.ColorIcon;
-import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.login.widget.MyEditTextView;
 import com.fpd.slamdunk.setting.FirstSettingActivity;
 
@@ -130,9 +129,9 @@ public class RegisterActivity extends CommenActivity implements
                 editor.putString(Config.USERNAME, mEtName.getText().toString());
                 editor.commit();
                 JPushInterface.resumePush(RegisterActivity.this);
-                    Intent intent = new Intent(RegisterActivity.this, FirstSettingActivity.class);
-                    startActivity(intent);
-                    finish();
+                Intent intent = new Intent(RegisterActivity.this, FirstSettingActivity.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override

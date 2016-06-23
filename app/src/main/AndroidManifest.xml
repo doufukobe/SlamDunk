@@ -81,7 +81,10 @@
         <activity android:name=".bussiness.userdetail.UserDetailActivity"></activity>
 
         <activity android:name=".setting.FirstSettingActivity"></activity>
+        
+        <activity android:name=".setting.SettingNameActivity"></activity>
 
+        <activity android:name=".setting.SettingAgeActivity"></activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
 

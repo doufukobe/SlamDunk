@@ -43,7 +43,7 @@ public class CommenApplication extends BaseApplication {
 
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-       String registraId =  JPushInterface.getRegistrationID(this);
+        String registraId =  JPushInterface.getRegistrationID(this);
         Log.d("registraId", registraId);
     }
 }
