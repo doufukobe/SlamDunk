@@ -36,7 +36,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'homhomlin.lib:ptrrv-library:1.3.1'
-    compile 'com.android.support:recyclerview-v7:22.+'
+    compile 'com.android.support:recyclerview-v7:23.+'
     compile 'com.jzxiang.pickerview:TimePickerDialog:0.9.3'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
