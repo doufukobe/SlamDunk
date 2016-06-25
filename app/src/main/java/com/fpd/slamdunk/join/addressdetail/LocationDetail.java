@@ -105,7 +105,7 @@ public class LocationDetail extends CommenActivity implements BDLocationListener
     @Override
     public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
         WalkingRouteOverlay walkingRouteOverlay = new WalkingRouteOverlay(baiduMap);
-        if (walkingRouteOverlay !=null){
+        if (walkingRouteOverlay !=null&&walkingRouteResult.getRouteLines() !=null){
             walkingRouteOverlay.setData(walkingRouteResult.getRouteLines().get(0));
             walkingRouteOverlay.addToMap();
             walkingRouteOverlay.zoomToSpan();
