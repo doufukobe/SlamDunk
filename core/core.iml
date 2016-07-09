@@ -87,14 +87,6 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< Updated upstream
-    <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
-    <orderEntry type="library" exported="" name="ApiStoreSDK1.0.4" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-23.3.0" level="project" />
-    <orderEntry type="library" exported="" name="httpcore-4.4.2" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.3.0" level="project" />
-=======
->>>>>>> Stashed changes
     <orderEntry type="library" exported="" name="support-vector-drawable-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
