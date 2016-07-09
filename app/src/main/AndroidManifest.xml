@@ -36,7 +36,7 @@
         >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="vs4lhxmT0FksD9cS1sqdWU8y"></meta-data>
+            android:value="4XrW8POS1IV3ZBSg7K1erz9HDI8cbUT3"></meta-data>
 
         <activity android:name=".bussiness.startup.StartUpActivity"
             >
@@ -85,6 +85,11 @@
         <activity android:name=".setting.SettingNameActivity"></activity>
 
         <activity android:name=".setting.SettingAgeActivity"></activity>
+
+        <activity android:name=".shake.ShakeActivity"></activity>
+
+        <activity android:name=".shake.ShakeChoseActivity"></activity>
+        <activity android:name=".shake.ShakeAcceptActivity"></activity>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
         </service>
 
