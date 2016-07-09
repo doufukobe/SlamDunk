@@ -152,8 +152,24 @@
                 android:background="@color/gray01"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/id_my_ly_3"
+            android:id="@+id/id_my_ly_6"
             android:layout_below="@+id/id_my_ly_2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorwhite">
+            <TextView
+                android:id="@+id/id_my_tv_shake"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="快速组队"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/id_my_ly_3"
+            android:layout_below="@+id/id_my_ly_6"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="60dp"

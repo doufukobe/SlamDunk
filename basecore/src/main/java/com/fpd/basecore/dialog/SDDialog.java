@@ -2,7 +2,6 @@ package com.fpd.basecore.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -75,4 +74,13 @@ public class SDDialog extends Dialog {
         public void cancelCallBack();
     }
 
+    public void dialogSureText(String text)
+    {
+        dialogSure.setText(text);
+    }
+
+    public void dialogCancelText(String text)
+    {
+        dialogCancel.setText(text);
+    }
 }

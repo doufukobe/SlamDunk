@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -89,15 +90,17 @@ public class MyActDetailActivity extends CommenActivity {
     }
 
     private void getDetail(){
+        Log.i("TAG","actId="+actId+" actState="+actState);
         detailAction.getDetail(actId,actState, new CallBackListener<MyActDetailEntity>() {
             @Override
             public void onSuccess(MyActDetailEntity result) {
+                Log.i("TAG","onSuccess");
                 fullView(result);
             }
 
             @Override
             public void onFailure(String Message) {
-
+                Log.i("TAG","onFailure");
             }
         });
     }
@@ -160,7 +163,7 @@ public class MyActDetailActivity extends CommenActivity {
         HeadAdapter hd = new HeadAdapter(this,result.getMemberList());
         headRecycleView.setAdapter(hd);
 
-        if (result.getActTime()*1000  - System.currentTimeMillis() <=3600*1000){
+        if (result.getActTime()*1000  - System.currentTimeMillis() <=3600*1000 || !actState.equals("1")){
             cancelBtn.setClickable(false);
             cancelBtn.setBackgroundColor(getResources().getColor(R.color.gray01));
         }

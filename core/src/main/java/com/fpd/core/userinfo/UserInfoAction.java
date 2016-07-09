@@ -56,7 +56,8 @@ public class UserInfoAction {
         requestParam.put("userSex",userSex);
         requestParam.put("userPosition",userPosition);
         requestParam.put("userAge",userAge);
-        SDApi.post(context, Config.headUrl + URLContans.UPDATEUSERINFO, requestParam, new SDApiResponse<String>()
+        SDApi.post(context, Config.headUrl + URLContans.UPDATEUSERINFO, requestParam,
+                new SDApiResponse<String>()
         {
             @Override
             public void onSuccess(String response)

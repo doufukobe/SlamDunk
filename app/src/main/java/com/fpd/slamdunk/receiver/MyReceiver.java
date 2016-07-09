@@ -7,12 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.fpd.basecore.application.BaseApplication;
 import com.fpd.basecore.config.Config;
 import com.fpd.slamdunk.bussiness.home.activity.HomeActivity;
 import com.fpd.slamdunk.bussiness.myactdetial.MyActDetailActivity;
 import com.fpd.slamdunk.bussiness.startup.StartUpActivity;
-import com.fpd.slamdunk.join.JoinActivity;
+import com.fpd.slamdunk.shake.ShakeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +55,7 @@ public class MyReceiver extends BroadcastReceiver {
             Log.d(TAG,   bundle.getString(JPushInterface.EXTRA_EXTRA));
             //打开自定义的Activity
             if (isRunning(context, context.getPackageName())){
+
                 if (bundle.getString(JPushInterface.EXTRA_EXTRA).isEmpty()) {
                     Log.i(TAG, "This message has no Extra data");
                     return;
@@ -67,7 +67,12 @@ public class MyReceiver extends BroadcastReceiver {
                     context.startActivity(i);
                 }else{
                     int actId = praseJson(bundle.getString(JPushInterface.EXTRA_EXTRA));
-                    if (actId !=0){
+                    if(actId==-1)
+                    {
+                        Intent intent1=new Intent(context, ShakeActivity.class);
+                        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent1);
+                    } else if (actId !=0){
                         Intent i = new Intent(context, MyActDetailActivity.class);
                         intent.putExtra("ACTSTATE","1");
                         i.putExtra("ACTID",actId+"");

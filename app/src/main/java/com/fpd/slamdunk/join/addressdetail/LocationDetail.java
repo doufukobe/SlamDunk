@@ -1,6 +1,7 @@
 package com.fpd.slamdunk.join.addressdetail;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,8 +15,6 @@ import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.route.BikingRouteResult;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
@@ -72,6 +71,7 @@ public class LocationDetail extends CommenActivity implements BDLocationListener
         final LatLng cenpt =  new LatLng(bdLocation.getLatitude(),bdLocation.getLongitude());
         latitude = getIntent().getDoubleExtra("LATITUDE",bdLocation.getLatitude());
         longitude = getIntent().getDoubleExtra("LONGITUDE",bdLocation.getLongitude());
+        Log.i("TAG","latitude="+latitude+" longitude="+longitude);
         LatLng end = new LatLng(latitude,longitude);
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(cenpt)
@@ -79,6 +79,7 @@ public class LocationDetail extends CommenActivity implements BDLocationListener
                 .build();
         MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
         baiduMap.setMapStatus(mMapStatusUpdate);
+
         WalkingRoutePlanOption option = new WalkingRoutePlanOption();
         option.from(PlanNode.withLocation(cenpt));
         option.to(PlanNode.withLocation(end));
@@ -105,10 +106,13 @@ public class LocationDetail extends CommenActivity implements BDLocationListener
     @Override
     public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
         WalkingRouteOverlay walkingRouteOverlay = new WalkingRouteOverlay(baiduMap);
-        if (walkingRouteOverlay !=null){
-            walkingRouteOverlay.setData(walkingRouteResult.getRouteLines().get(0));
-            walkingRouteOverlay.addToMap();
-            walkingRouteOverlay.zoomToSpan();
+        if (walkingRouteOverlay !=null && walkingRouteResult!=null){
+            if(walkingRouteResult.getRouteLines()!=null && walkingRouteResult.getRouteLines().size()!=0)
+            {
+                walkingRouteOverlay.setData(walkingRouteResult.getRouteLines().get(0));
+                walkingRouteOverlay.addToMap();
+                walkingRouteOverlay.zoomToSpan();
+            }
         }
     }
 

@@ -34,4 +34,12 @@ public class URLContans {
     public static String THUMUP = "addliked/";
 
     public static String SIGNOUT = "signout/";
+
+    public static String QUICKSTART="quickstart/";
+
+    public static String QUICKPUBLISH="quickpublish/";
+
+    public static String QUICKACCEPT="quickaccept/";
+
+    public static String QUICKSTARTE="quickstate/";
 }

@@ -2,12 +2,8 @@ package com.fpd.slamdunk.bussiness.home.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,19 +19,15 @@ import com.fpd.api.callback.CallBackListener;
 import com.fpd.core.invitelist.InviteListAction;
 import com.fpd.model.invite.InviteListEntity;
 import com.fpd.slamdunk.R;
-import com.fpd.slamdunk.bussiness.home.adapter.InviteAdapter;
 import com.fpd.slamdunk.bussiness.home.adapter.NewInviteAdapter;
-import com.fpd.slamdunk.bussiness.home.widget.MyLoadMoreView;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.MaterialHeader;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
  * Created by t450s on 2016/6/2.
@@ -51,6 +43,7 @@ public class InviteFragment extends Fragment {
     private InviteListAction inviteListAction;
 
     private PtrFrameLayout ptrFrameLayout;
+
     private ListView list;
 
     @Override

@@ -37,7 +37,7 @@ public class MyActDetailAction{
 
             @Override
             public void onSuccess(String response) {
-                Log.d("response",response);
+                Log.i("response",response);
                 if (response !=null && listener !=null){
                     CoreResponse<MyActDetailEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<MyActDetailEntity>>(){});
                     if (coreResponse.isSuccess()){
