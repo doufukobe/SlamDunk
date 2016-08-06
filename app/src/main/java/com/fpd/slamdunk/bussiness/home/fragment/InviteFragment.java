@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -48,9 +50,11 @@ public class InviteFragment extends Fragment {
     private InviteListAction inviteListAction;
 
     private PtrFrameLayout ptrFrameLayout;
-
     private ListView list;
     private SQLiteDatabase mDates;
+
+    private TextView temptext;
+    private RelativeLayout tempView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class InviteFragment extends Fragment {
         View view = LayoutInflater.from(mContext).inflate(R.layout.new_invite_fragment,null);
         ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
         list = (ListView) view.findViewById(R.id.invite_list);
+        tempView = (RelativeLayout) view.findViewById(R.id.tempview);
+        temptext = (TextView) view.findViewById(R.id.temp_refresh);
         //listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
         initPullList();
         if (getUserVisibleHint())
@@ -92,6 +98,7 @@ public class InviteFragment extends Fragment {
     }
 
     private void getInviteList(){
+        Log.i("TAG1","getInviteList");
         if (NetWorkUtil.isNetworkAvailable(mContext)) {
             mLocationClient.start();
         }else{
@@ -130,14 +137,24 @@ public class InviteFragment extends Fragment {
         ptrFrameLayout.setDurationToCloseHeader(1500);
 
 
-        ptrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
+        ptrFrameLayout.setPtrHandler(new PtrDefaultHandler()
+        {
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
+            public void onRefreshBegin(PtrFrameLayout frame)
+            {
                 getInviteList();
             }
         });
         mAdapter = new NewInviteAdapter(mContext,inviteList);
         list.setAdapter(mAdapter);
+        temptext.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                getInviteList();
+            }
+        });
     }
 
     private void  initLocation(){
@@ -197,8 +214,13 @@ public class InviteFragment extends Fragment {
             result.add(temp);
         }
         if (!result.isEmpty()) {
+            tempView.setVisibility(View.GONE);
+            ptrFrameLayout.setVisibility(View.VISIBLE);
             mAdapter.fillView(result);
             Log.d("TAG", "readFromLocal success");
+        }else {
+            tempView.setVisibility(View.VISIBLE);
+            ptrFrameLayout.setVisibility(View.GONE);
         }
     }
 
@@ -206,6 +228,7 @@ public class InviteFragment extends Fragment {
 
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
+            Log.i("TAG1","onReceiveLocation");
             if (bdLocation.getLocType() == BDLocation.TypeGpsLocation ||
                     bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
                 Log.d("latitude",bdLocation.getLatitude()+"");
@@ -214,9 +237,17 @@ public class InviteFragment extends Fragment {
                     inviteListAction.getInviteList(bdLocation.getLatitude(), bdLocation.getLongitude(), new CallBackListener<List<InviteListEntity>>() {
                         @Override
                         public void onSuccess(List<InviteListEntity> result) {
+                            Log.i("TAG1","onSuccess");
                             mAdapter.fillView(result);
                             ptrFrameLayout.refreshComplete();
                             new Thread(new InsertDates(result)).start();
+                            if (result.isEmpty()) {
+                                tempView.setVisibility(View.VISIBLE);
+                                ptrFrameLayout.setVisibility(View.GONE);
+                            }else{
+                                tempView.setVisibility(View.GONE);
+                                ptrFrameLayout.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         @Override
