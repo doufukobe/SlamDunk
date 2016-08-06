@@ -2,12 +2,11 @@ package com.fpd.slamdunk.bussiness.sportnews.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.fpd.basecore.config.URLContans;
+import com.fpd.basecore.dialog.SDProgressDialog;
 import com.fpd.slamdunk.CommenActivity;
 import com.fpd.slamdunk.R;
 
@@ -19,7 +18,7 @@ public class SportActivity extends CommenActivity
 
     private WebView webView;
     private String url;
-    private ProgressBar progressBar;
+    private SDProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -32,7 +31,8 @@ public class SportActivity extends CommenActivity
 
     private void initViews()
     {
-        progressBar=(ProgressBar)findViewById(R.id.id_sportnews_progressbar);
+        progressDialog = new SDProgressDialog(this);
+        progressDialog.showProgressDialog();
         init();
     }
 
@@ -53,9 +53,9 @@ public class SportActivity extends CommenActivity
             @Override
             public void onPageFinished(WebView view, String url)
             {
-               progressBar.setVisibility(View.GONE);
+                progressDialog.hideProgressDialog();
             }
         });
     }
-
+    
 }

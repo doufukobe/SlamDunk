@@ -64,14 +64,22 @@ public class LoginAction
                 Log.d("response",response);
                 if(listener!=null && response!=null)
                 {
-                    CoreResponse<LREntity> re = JSON.parseObject(response, new TypeReference<CoreResponse<LREntity>>(){});
-                    if(re.isSuccess())
+                    CoreResponse<LREntity> re=null;
+                    try
                     {
-                        listener.onSuccess(re.getResult());
-                    }
-                    else
+                        re = JSON.parseObject(response, new TypeReference<CoreResponse<LREntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(re!=null)
                     {
-                        listener.onFailure(re.getErrorMessage());
+                        if (re.isSuccess())
+                        {
+                            listener.onSuccess(re.getResult());
+                        } else
+                        {
+                            listener.onFailure(re.getErrorMessage());
+                        }
                     }
                 }
             }

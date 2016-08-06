@@ -34,9 +34,10 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon"
         >
+        <!--vs4lhxmT0FksD9cS1sqdWU8y-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="4XrW8POS1IV3ZBSg7K1erz9HDI8cbUT3"></meta-data>
+            android:value="vs4lhxmT0FksD9cS1sqdWU8y"></meta-data>
 
         <activity android:name=".bussiness.startup.StartUpActivity"
             >

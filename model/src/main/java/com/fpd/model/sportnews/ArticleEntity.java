@@ -20,6 +20,7 @@ public class ArticleEntity implements Serializable
     public String img;
     public String author;
     public long time;
+    public boolean isReaded;
 
     public String getTitle()
     {

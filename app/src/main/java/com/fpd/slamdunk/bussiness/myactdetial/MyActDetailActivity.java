@@ -164,7 +164,7 @@ public class MyActDetailActivity extends CommenActivity {
         headRecycleView.setAdapter(hd);
 
         if (result.getActTime()*1000  - System.currentTimeMillis() <=3600*1000 || !actState.equals("1")){
-            cancelBtn.setClickable(false);
+            cancelBtn.setEnabled(false);
             cancelBtn.setBackgroundColor(getResources().getColor(R.color.gray01));
         }
 

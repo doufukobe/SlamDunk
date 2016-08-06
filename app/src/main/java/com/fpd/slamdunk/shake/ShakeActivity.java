@@ -298,12 +298,12 @@ public class ShakeActivity extends CommenActivity implements View.OnClickListene
         mAccept.setEnabled(false);
         mChoose.setBackgroundColor(getResources().getColor(R.color.gray01));
         mAccept.setBackgroundColor(getResources().getColor(R.color.gray01));
-        if(startState==0)
+        if(startState==1)
         {
             mChoose.setEnabled(true);
             mChoose.setBackgroundColor(getResources().getColor(R.color.colormain));
 
-        }else if(startState==2)
+        }else if(startState==2 && actId!=-1)
         {
             mAccept.setEnabled(true);
             mAccept.setBackgroundColor(getResources().getColor(R.color.colormain));

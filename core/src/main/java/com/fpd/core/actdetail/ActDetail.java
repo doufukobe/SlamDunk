@@ -29,6 +29,7 @@ public class ActDetail {
 
     public void getActivityDetail(String actId, final CallBackListener<ActivityDetailEntitiy> listener){
 
+
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("actId",actId);
 
@@ -37,11 +38,22 @@ public class ActDetail {
             public void onSuccess(String response) {
                 if (response !=null && listener !=null){
                     Log.d("response",response);
-                    CoreResponse<ActivityDetailEntitiy> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<ActivityDetailEntitiy>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<ActivityDetailEntitiy> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<ActivityDetailEntitiy>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }

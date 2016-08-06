@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
@@ -52,7 +53,7 @@ public class MyActListAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(final int position, final View convertView) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         final HostedEntity entity = myActList.get(position);
         if (convertView.getTag() == null){
             viewHolder = new ViewHolder();
@@ -100,14 +101,15 @@ public class MyActListAdapter extends BaseSwipeAdapter {
 
                             @Override
                             public void onFailure(String Message) {
-
+                                Toast.makeText(context,Message,Toast.LENGTH_SHORT).show();
                             }
                         });
+                        viewHolder.swipeLayout.close();
                     }
 
                     @Override
                     public void cancelCallBack() {
-
+                        viewHolder.swipeLayout.close();
                     }
                 });
                 dialog.show();

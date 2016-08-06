@@ -2,6 +2,7 @@ package com.fpd.slamdunk.shake;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -148,7 +149,7 @@ public class ShakeAcceptActivity extends CommenActivity implements View.OnClickL
             @Override
             public void onFailure(String Message)
             {
-
+                Log.i("TAG","Message="+Message);
             }
         });
 

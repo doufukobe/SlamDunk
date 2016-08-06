@@ -86,7 +86,7 @@
         android:layout_alignParentBottom="true">
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/id_shake_choose_accept"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="提交"
             android:textSize="5dp"
@@ -94,7 +94,7 @@
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/id_shake_choose_refuse"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="取消"
             android:textSize="5dp"

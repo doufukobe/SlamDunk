@@ -63,12 +63,22 @@ public class ArrangeAction {
 
                     if (response != null && listener != null) {
                         Log.d("response",response);
-                        CoreResponse<ArrangeEntity> coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<ArrangeEntity>>() {
-                        });
-                        if (coreResponse.isSuccess()) {
-                            listener.onSuccess(coreResponse.getResult());
-                        } else {
-                            listener.onFailure(coreResponse.getErrorMessage());
+                        CoreResponse<ArrangeEntity> coreResponse=null;
+                        try
+                        {
+                            coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<ArrangeEntity>>()
+                            {
+                            });
+                        }catch (Exception e){}
+                        if(coreResponse!=null)
+                        {
+                            if (coreResponse.isSuccess())
+                            {
+                                listener.onSuccess(coreResponse.getResult());
+                            } else
+                            {
+                                listener.onFailure(coreResponse.getErrorMessage());
+                            }
                         }
                     }
                 }

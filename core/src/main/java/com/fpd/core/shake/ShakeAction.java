@@ -35,7 +35,7 @@ public class ShakeAction
         requestParams.put("hasEquipment",hasEquipment);
         requestParams.put("addressLatitude",latitude+"");
         requestParams.put("addressLongitude",longitude+"");
-        Log.i("TAG","quickStart---latitude="+latitude+"  longitude="+longitude+"  hasEquipment="+hasEquipment);
+        Log.i("TAG", "quickStart---latitude=" + latitude + "  longitude=" + longitude + "  hasEquipment=" + hasEquipment);
         SDApi.post(mContext, Config.headUrl+ URLContans.QUICKSTART, requestParams,
                 new SDApiResponse<String>()
         {
@@ -44,14 +44,23 @@ public class ShakeAction
             {
                 if(listener!=null && response!=null)
                 {
-                    CoreResponse<String> re = JSON.parseObject(response,
-                            new TypeReference<CoreResponse<String>>(){});
-                    if(re.isSuccess())
+                    CoreResponse<String> re=null;
+                    try
                     {
-                        listener.onSuccess(null);
-                    }else
+                        re = JSON.parseObject(response,
+                                new TypeReference<CoreResponse<String>>()
+                                {
+                                });
+                    }catch (Exception e){}
+                    if(re!=null)
                     {
-                        listener.onFailure(re.getErrorMessage());
+                        if (re.isSuccess())
+                        {
+                            listener.onSuccess(null);
+                        } else
+                        {
+                            listener.onFailure(re.getErrorMessage());
+                        }
                     }
                 }
             }
@@ -61,7 +70,7 @@ public class ShakeAction
     public void quickState(String userId,final CallBackListener<StartStateEntity> listener)
     {
         Map<String,String> requestParams=new HashMap<>();
-        requestParams.put("userId",userId);
+        requestParams.put("userId", userId);
         SDApi.post(mContext, Config.headUrl+URLContans.QUICKSTARTE, requestParams,
                 new SDApiResponse<String>()
         {
@@ -70,14 +79,23 @@ public class ShakeAction
             {
                 if(listener!=null && response!=null)
                 {
-                    CoreResponse<StartStateEntity> re = JSON.parseObject(response,
-                            new TypeReference<CoreResponse<StartStateEntity>>() {});
-                    if (re.isSuccess())
+                    CoreResponse<StartStateEntity> re=null;
+                    try
                     {
-                        listener.onSuccess(re.getResult());
-                    } else
+                        re = JSON.parseObject(response,
+                                new TypeReference<CoreResponse<StartStateEntity>>()
+                                {
+                                });
+                    }catch (Exception e){}
+                    if(re!=null)
                     {
-                        listener.onFailure(re.getErrorMessage());
+                        if (re.isSuccess())
+                        {
+                            listener.onSuccess(re.getResult());
+                        } else
+                        {
+                            listener.onFailure(re.getErrorMessage());
+                        }
                     }
                 }
             }
@@ -103,15 +121,23 @@ public class ShakeAction
                     {
                         if(listener!=null && response!=null)
                         {
-                            CoreResponse<String> re = JSON.parseObject(response,
-                                    new TypeReference<CoreResponse<String>>() {});
-                            if(re.isSuccess())
+                            CoreResponse<String> re=null;
+                            try
                             {
-                                listener.onSuccess(null);
-                            }
-                            else
+                                re = JSON.parseObject(response,
+                                        new TypeReference<CoreResponse<String>>()
+                                        {
+                                        });
+                            }catch (Exception e){}
+                            if(re!=null)
                             {
-                                listener.onFailure(re.getErrorMessage());
+                                if (re.isSuccess())
+                                {
+                                    listener.onSuccess(null);
+                                } else
+                                {
+                                    listener.onFailure(re.getErrorMessage());
+                                }
                             }
                         }
                     }
@@ -126,6 +152,7 @@ public class ShakeAction
         requestParams.put("actId", actId);
         requestParams.put("userId",userId);
         requestParams.put("hasAccept",isAccept+"");
+        Log.i("TAG","quickAccept------actId="+actId+" userId="+userId);
         SDApi.post(mContext, Config.headUrl + URLContans.QUICKACCEPT, requestParams,
                 new SDApiResponse<String>()
         {
@@ -134,14 +161,23 @@ public class ShakeAction
             {
                 if(listener!=null && response!=null)
                 {
-                    CoreResponse<String> re = JSON.parseObject(response,
-                            new TypeReference<CoreResponse<String>>() {});
-                    if(re.isSuccess())
+                    CoreResponse<String> re=null;
+                    try
                     {
-                        listener.onSuccess(null);
-                    }else
+                        re = JSON.parseObject(response,
+                                new TypeReference<CoreResponse<String>>()
+                                {
+                                });
+                    }catch (Exception e){}
+                    if(re!=null)
                     {
-                        listener.onFailure(re.getErrorMessage());
+                        if (re.isSuccess())
+                        {
+                            listener.onSuccess(null);
+                        } else
+                        {
+                            listener.onFailure(re.getErrorMessage());
+                        }
                     }
                 }
             }
