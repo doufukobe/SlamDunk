@@ -133,8 +133,8 @@ public class InviteFragment extends Fragment {
         ptrFrameLayout.setHeaderView(materialHeader);
         ptrFrameLayout.setPinContent(true);
         ptrFrameLayout.addPtrUIHandler(materialHeader);
-        ptrFrameLayout.setLoadingMinTime(1000);
-        ptrFrameLayout.setDurationToCloseHeader(1500);
+        ptrFrameLayout.setLoadingMinTime(100);
+        ptrFrameLayout.setDurationToCloseHeader(100);
 
 
         ptrFrameLayout.setPtrHandler(new PtrDefaultHandler()
