@@ -1,6 +1,9 @@
 package com.fpd.slamdunk.bussiness.home.fragment;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,8 +23,10 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.fpd.api.callback.CallBackListener;
+import com.fpd.basecore.NetWorkUtil;
 import com.fpd.core.invitelist.InviteListAction;
 import com.fpd.model.invite.InviteListEntity;
+import com.fpd.slamdunk.DBHelper.SDDBHelper;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.adapter.InviteAdapter;
 import com.fpd.slamdunk.bussiness.home.adapter.NewInviteAdapter;
@@ -52,6 +57,7 @@ public class InviteFragment extends Fragment {
 
     private PtrFrameLayout ptrFrameLayout;
     private ListView list;
+    private SQLiteDatabase mDates;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +67,7 @@ public class InviteFragment extends Fragment {
         mLocationClient = new LocationClient(mContext);
         initLocation();
         mLocationClient.registerLocationListener(new InviteLocation());
+        mDates =  new SDDBHelper(mContext).getWritableDatabase();
     }
 
     @Override
@@ -92,7 +99,12 @@ public class InviteFragment extends Fragment {
     }
 
     private void getInviteList(){
-        mLocationClient.start();
+        if (NetWorkUtil.isNetworkAvailable(mContext)) {
+            mLocationClient.start();
+        }else{
+            getDateFromLocal();
+        }
+
     }
 
     private void initPullList(){
@@ -150,6 +162,52 @@ public class InviteFragment extends Fragment {
         mLocationClient.setLocOption(option);
     }
 
+    private void insertLocalDB(List<InviteListEntity> result){
+        if (mDates == null) {
+            mDates =  new SDDBHelper(mContext).getWritableDatabase();
+        }
+        mDates.execSQL("DELETE FROM "+ SDDBHelper.TABLE_SLAMDUNK);
+        if (result == null){
+            return;
+        }
+        for (InviteListEntity listEntity : result) {
+            ContentValues values = new ContentValues();
+            values.put("actid" , listEntity.getActId());
+            values.put("actname", listEntity.getActName());
+            values.put("actimg" , listEntity.getActImg());
+            values.put("actoriginatorname", listEntity.getActOriginatorName());
+            values.put("acttime", (float)listEntity.getActTime());
+            values.put("curpeoplenum", listEntity.getCurPeopleNum());
+            values.put("maxpeoplenum", listEntity.getMaxPeopleNum());
+            values.put("addressdist", listEntity.getAddressDist());
+            mDates.insert(SDDBHelper.TABLE_SLAMDUNK,null,values);
+        }
+        Log.d("TAG","insertLocal success");
+    }
+
+    private void getDateFromLocal(){
+        if (mDates == null) {
+            mDates =  new SDDBHelper(mContext).getWritableDatabase();
+        }
+        Cursor cursor = mDates.query(SDDBHelper.TABLE_SLAMDUNK,null,null,null,null,null,null,null);
+        List<InviteListEntity> result = new ArrayList<InviteListEntity>();
+        while(cursor.moveToNext()) {
+            InviteListEntity temp  = new InviteListEntity();
+            temp.setActId(cursor.getInt(cursor.getColumnIndex("actid")));
+            temp.setActImg(cursor.getString(cursor.getColumnIndex("actimg")));
+            temp.setActName(cursor.getString(cursor.getColumnIndex("actname")));
+            temp.setActOriginatorName(cursor.getString(cursor.getColumnIndex("actoriginatorname")));
+            temp.setActTime((long) cursor.getFloat(cursor.getColumnIndex("acttime")));
+            temp.setCurPeopleNum(cursor.getInt(cursor.getColumnIndex("curpeoplenum")));
+            temp.setMaxPeopleNum(cursor.getInt(cursor.getColumnIndex("maxpeoplenum")));
+            temp.setAddressDist(cursor.getString(cursor.getColumnIndex("addressdist")));
+            result.add(temp);
+        }
+        if (!result.isEmpty()) {
+            mAdapter.fillView(result);
+            Log.d("TAG", "readFromLocal success");
+        }
+    }
 
     private class InviteLocation implements BDLocationListener{
 
@@ -158,25 +216,46 @@ public class InviteFragment extends Fragment {
             if (bdLocation.getLocType() == BDLocation.TypeGpsLocation ||
                     bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
                 Log.d("latitude",bdLocation.getLatitude()+"");
-                Log.d("longitude",bdLocation.getLongitude()+"");
-                inviteListAction.getInviteList(bdLocation.getLatitude(), bdLocation.getLongitude(), new CallBackListener<List<InviteListEntity>>() {
-                    @Override
-                    public void onSuccess(List<InviteListEntity> result) {
-                        mAdapter.fillView(result);
-                        ptrFrameLayout.refreshComplete();
-                    }
+                Log.d("longitude", bdLocation.getLongitude() + "");
+                if (NetWorkUtil.isNetworkAvailable(mContext)) {
+                    inviteListAction.getInviteList(bdLocation.getLatitude(), bdLocation.getLongitude(), new CallBackListener<List<InviteListEntity>>() {
+                        @Override
+                        public void onSuccess(List<InviteListEntity> result) {
+                            mAdapter.fillView(result);
+                            ptrFrameLayout.refreshComplete();
+                            new Thread(new InsertDates(result)).start();
+                        }
 
-                    @Override
-                    public void onFailure(String Message) {
-                        ptrFrameLayout.refreshComplete();
-                        Toast.makeText(mContext,Message,Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(String Message) {
+                            ptrFrameLayout.refreshComplete();
+                            Toast.makeText(mContext,Message,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }else {
+                    getDateFromLocal();
+                }
+
             }else{
+                getDateFromLocal();
                 listView.setOnRefreshComplete();
                 Toast.makeText(mContext,"定位失败,无法为您提供活动信息",Toast.LENGTH_SHORT).show();
             }
             mLocationClient.stop();
+        }
+    }
+
+    private class InsertDates implements Runnable{
+
+        private List<InviteListEntity> result;
+
+        InsertDates(List<InviteListEntity> result){
+            this.result = result;
+        }
+
+        @Override
+        public void run() {
+            insertLocalDB(result);
         }
     }
 }
