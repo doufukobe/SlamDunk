@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        cube_ptr:ptr_resistance="1.7"
+        cube_ptr:ptr_resistance="1.4"
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_duration_to_close="300"
         cube_ptr:ptr_duration_to_close_header="2000"
         cube_ptr:ptr_keep_header_when_refresh="true"
-        cube_ptr:ptr_pull_to_fresh="false" >
+        cube_ptr:ptr_pull_to_fresh="false">
 
 
         <ListView
@@ -26,5 +26,32 @@
 
 
     </in.srain.cube.views.ptr.PtrFrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/tempview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/temp_img"
+            android:layout_marginTop="100dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@mipmap/myact_ground"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/temp_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/temp_img"
+            android:layout_marginTop="5dp"
+            android:textSize="17dp"
+            android:text="暂无活动,刷新试试吧"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

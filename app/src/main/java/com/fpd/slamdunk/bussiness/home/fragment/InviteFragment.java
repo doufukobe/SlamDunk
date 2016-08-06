@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -31,6 +33,7 @@ import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.home.adapter.InviteAdapter;
 import com.fpd.slamdunk.bussiness.home.adapter.NewInviteAdapter;
 import com.fpd.slamdunk.bussiness.home.widget.MyLoadMoreView;
+import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
@@ -58,6 +61,9 @@ public class InviteFragment extends Fragment {
     private PtrFrameLayout ptrFrameLayout;
     private ListView list;
     private SQLiteDatabase mDates;
+
+    private TextView temptext;
+    private RelativeLayout tempView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,6 +97,8 @@ public class InviteFragment extends Fragment {
         View view = LayoutInflater.from(mContext).inflate(R.layout.new_invite_fragment,null);
         ptrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.store_house_ptr_frame);
         list = (ListView) view.findViewById(R.id.invite_list);
+        tempView = (RelativeLayout) view.findViewById(R.id.tempview);
+        temptext = (TextView) view.findViewById(R.id.temp_refresh);
         //listView = (PullToRefreshRecyclerView) view.findViewById(R.id.invite_list);
         initPullList();
         if (getUserVisibleHint())
@@ -145,6 +153,12 @@ public class InviteFragment extends Fragment {
         });
         mAdapter = new NewInviteAdapter(mContext,inviteList);
         list.setAdapter(mAdapter);
+        temptext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getInviteList();
+            }
+        });
     }
 
     private void  initLocation(){
@@ -204,8 +218,13 @@ public class InviteFragment extends Fragment {
             result.add(temp);
         }
         if (!result.isEmpty()) {
+            tempView.setVisibility(View.GONE);
+            ptrFrameLayout.setVisibility(View.VISIBLE);
             mAdapter.fillView(result);
             Log.d("TAG", "readFromLocal success");
+        }else {
+            tempView.setVisibility(View.VISIBLE);
+            ptrFrameLayout.setVisibility(View.GONE);
         }
     }
 
@@ -224,6 +243,13 @@ public class InviteFragment extends Fragment {
                             mAdapter.fillView(result);
                             ptrFrameLayout.refreshComplete();
                             new Thread(new InsertDates(result)).start();
+                            if (result.isEmpty()) {
+                                tempView.setVisibility(View.VISIBLE);
+                                ptrFrameLayout.setVisibility(View.GONE);
+                            }else{
+                                tempView.setVisibility(View.GONE);
+                                ptrFrameLayout.setVisibility(View.VISIBLE);
+                            }
                         }
 
                         @Override
