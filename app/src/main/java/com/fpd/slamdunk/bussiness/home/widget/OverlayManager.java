@@ -73,6 +73,7 @@ public abstract class OverlayManager implements BaiduMap.OnMarkerClickListener, 
 
         for (OverlayOptions option : mOverlayOptionList) {
             mOverlayList.add(mBaiduMap.addOverlay(option));
+
         }
     }
 

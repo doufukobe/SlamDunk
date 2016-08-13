@@ -36,11 +36,22 @@ public class ThumAction {
             public void onSuccess(String response) {
                 if (response!=null && listener !=null){
                     Log.d("response",response);
-                    CoreResponse<ThumEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<ThumEntity>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<ThumEntity> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<ThumEntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }

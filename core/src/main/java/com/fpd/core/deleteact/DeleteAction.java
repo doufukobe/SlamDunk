@@ -1,11 +1,9 @@
 package com.fpd.core.deleteact;
 
 import android.content.Context;
-import android.telecom.Call;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.serializer.URICodec;
 import com.fpd.api.SDApi;
 import com.fpd.api.SDApiResponse;
 import com.fpd.api.callback.CallBackListener;
@@ -38,11 +36,22 @@ public class DeleteAction {
             @Override
             public void onSuccess(String response) {
                 if (response !=null && listener !=null){
-                    CoreResponse<SuccessEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<SuccessEntity>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<SuccessEntity> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<SuccessEntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }

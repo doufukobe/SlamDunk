@@ -316,7 +316,7 @@ public class SettingActivity extends CommenActivity implements View.OnClickListe
                 Intent intent=new Intent(SettingActivity.this, HomeActivity.class);
                 intent.putExtra("selectPage",2);
                 startActivity(intent);
-                SettingActivity.this.finish();
+                finish();
             }
 
             @Override

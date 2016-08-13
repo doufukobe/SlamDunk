@@ -11,12 +11,12 @@
             android:id="@+id/id_my_ly_1"
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:background="@color/colorwhite">
             <com.fpd.basecore.util.CircleImage
                 android:id="@+id/id_my_icon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"/>
             <RelativeLayout
@@ -116,12 +116,12 @@
             android:layout_below="@+id/id_my_ly_1"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:background="@color/colorwhite">
             <RelativeLayout
                 android:id="@+id/id_my_ly_create"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="50dp">
                 <TextView
                     android:id="@+id/id_my_tv_create"
                     android:layout_marginLeft="15dp"
@@ -135,7 +135,7 @@
                 android:id="@+id/id_my_ly_join"
                 android:layout_below="@+id/id_my_ly_create"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="50dp">
                 <TextView
                     android:id="@+id/id_my_tv_join"
                     android:layout_marginLeft="15dp"
@@ -152,11 +152,27 @@
                 android:background="@color/gray01"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/id_my_ly_3"
+            android:id="@+id/id_my_ly_6"
             android:layout_below="@+id/id_my_ly_2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorwhite">
+            <TextView
+                android:id="@+id/id_my_tv_shake"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="快速组队"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/id_my_ly_3"
+            android:layout_below="@+id/id_my_ly_6"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@color/colorwhite">
             <TextView
                 android:id="@+id/id_my_tv_set"
@@ -172,7 +188,7 @@
             android:layout_below="@+id/id_my_ly_3"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@color/colorwhite">
             <TextView
                 android:id="@+id/id_my_tv_quit"

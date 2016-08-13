@@ -10,7 +10,6 @@ import com.fpd.api.callback.CallBackListener;
 import com.fpd.basecore.config.Config;
 import com.fpd.basecore.config.URLContans;
 import com.fpd.core.response.CoreResponse;
-import com.fpd.model.arrange.ArrangeEntity;
 import com.fpd.model.success.SuccessEntity;
 
 import java.io.File;
@@ -36,12 +35,24 @@ public class UpActPhotoAction {
             @Override
             public void onSuccess(String response) {
                 if (response !=null && listener !=null){
-                    CoreResponse<SuccessEntity> coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<SuccessEntity>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<SuccessEntity> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<SuccessEntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
+
                 }
             }
         },filePartName,file);

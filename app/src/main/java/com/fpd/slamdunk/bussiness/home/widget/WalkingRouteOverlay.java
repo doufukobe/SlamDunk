@@ -25,7 +25,6 @@ import java.util.List;
 public class WalkingRouteOverlay extends OverlayManager {
 
     private WalkingRouteLine mRouteLine = null;
-
     public WalkingRouteOverlay(BaiduMap baiduMap) {
         super(baiduMap);
     }
@@ -47,13 +46,12 @@ public class WalkingRouteOverlay extends OverlayManager {
         }
 
         List<OverlayOptions> overlayList = new ArrayList<OverlayOptions>();
-        if (mRouteLine.getAllStep() != null
-                && mRouteLine.getAllStep().size() > 0) {
+        if (mRouteLine.getAllStep() != null && mRouteLine.getAllStep().size() > 0) {
             for (WalkingRouteLine.WalkingStep step : mRouteLine.getAllStep()) {
                 Bundle b = new Bundle();
                 b.putInt("index", mRouteLine.getAllStep().indexOf(step));
                 if (step.getEntrance() != null) {
-                    overlayList.add((new MarkerOptions())
+                    overlayList.add(new MarkerOptions()
                             .position(step.getEntrance().getLocation())
                             .rotate((360 - step.getDirection()))
                             .zIndex(10)
@@ -96,8 +94,7 @@ public class WalkingRouteOverlay extends OverlayManager {
         }
 
         // poly line list
-        if (mRouteLine.getAllStep() != null
-                && mRouteLine.getAllStep().size() > 0) {
+        if (mRouteLine.getAllStep() != null && mRouteLine.getAllStep().size() > 0) {
             LatLng lastStepLastPoint = null;
             for (WalkingRouteLine.WalkingStep step : mRouteLine.getAllStep()) {
                 List<LatLng> watPoints = step.getWayPoints();

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,13 +15,10 @@ import com.fpd.basecore.dialog.SDDialog;
 import com.fpd.basecore.swipelayout.SwipeLayout;
 import com.fpd.basecore.swipelayout.adapters.BaseSwipeAdapter;
 import com.fpd.core.deleteact.DeleteAction;
-import com.fpd.model.myactlist.MyActListEntity;
 import com.fpd.model.success.SuccessEntity;
 import com.fpd.model.userinfo.HostedEntity;
 import com.fpd.slamdunk.R;
 import com.fpd.slamdunk.bussiness.myactdetial.MyActDetailActivity;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -88,7 +84,8 @@ public class MyActListAdapter extends BaseSwipeAdapter {
             viewHolder.swipeLayout.setSwipeEnabled(false);
         }
 
-        viewHolder.textViewCancel.setOnClickListener(new View.OnClickListener() {
+        viewHolder.textViewCancel.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SDDialog dialog = new SDDialog(context, "确认取消吗?", new SDDialog.Callback() {

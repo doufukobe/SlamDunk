@@ -11,10 +11,6 @@
             android:id="@+id/id_sportnews_webview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ProgressBar
-            android:id="@+id/id_sportnews_progressbar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"/>
+
     </RelativeLayout>
 </LinearLayout>

@@ -21,8 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.jpush.android.api.JPushInterface;
-
 /**
  * Created by t450s on 2016/6/3.
  */
@@ -46,11 +44,22 @@ public class InviteListAction {
             public void onSuccess(String response) {
                 if (response !=null && listener !=null){
                     Log.d("response",response);
-                    CoreResponse<inviteEntityList> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<inviteEntityList>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult().getActList());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<inviteEntityList> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<inviteEntityList>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult().getActList());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }

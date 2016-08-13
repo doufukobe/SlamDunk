@@ -60,15 +60,22 @@ public class RegisterAction
             {
                 if (listener != null && response != null)
                 {
-                    CoreResponse<LREntity> re = JSON.parseObject(response, new TypeReference<CoreResponse<LREntity>>()
+                    CoreResponse<LREntity> re=null;
+                    try
                     {
-                    });
-                    if (re.isSuccess())
+                        re = JSON.parseObject(response, new TypeReference<CoreResponse<LREntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(re!=null)
                     {
-                        listener.onSuccess(re.getResult());
-                    } else
-                    {
-                        listener.onFailure(re.getErrorMessage());
+                        if (re.isSuccess())
+                        {
+                            listener.onSuccess(re.getResult());
+                        } else
+                        {
+                            listener.onFailure(re.getErrorMessage());
+                        }
                     }
                 }
             }

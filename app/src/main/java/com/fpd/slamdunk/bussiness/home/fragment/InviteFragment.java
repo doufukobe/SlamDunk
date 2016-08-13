@@ -5,12 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,20 +26,15 @@ import com.fpd.core.invitelist.InviteListAction;
 import com.fpd.model.invite.InviteListEntity;
 import com.fpd.slamdunk.DBHelper.SDDBHelper;
 import com.fpd.slamdunk.R;
-import com.fpd.slamdunk.bussiness.home.adapter.InviteAdapter;
 import com.fpd.slamdunk.bussiness.home.adapter.NewInviteAdapter;
-import com.fpd.slamdunk.bussiness.home.widget.MyLoadMoreView;
-import com.fpd.slamdunk.bussiness.register.activity.RegisterActivity;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.MaterialHeader;
-import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 /**
  * Created by t450s on 2016/6/2.
@@ -107,6 +98,7 @@ public class InviteFragment extends Fragment {
     }
 
     private void getInviteList(){
+        Log.i("TAG1","getInviteList");
         if (NetWorkUtil.isNetworkAvailable(mContext)) {
             mLocationClient.start();
         }else{
@@ -145,17 +137,21 @@ public class InviteFragment extends Fragment {
         ptrFrameLayout.setDurationToCloseHeader(100);
 
 
-        ptrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
+        ptrFrameLayout.setPtrHandler(new PtrDefaultHandler()
+        {
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
+            public void onRefreshBegin(PtrFrameLayout frame)
+            {
                 getInviteList();
             }
         });
         mAdapter = new NewInviteAdapter(mContext,inviteList);
         list.setAdapter(mAdapter);
-        temptext.setOnClickListener(new View.OnClickListener() {
+        temptext.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 getInviteList();
             }
         });
@@ -232,6 +228,7 @@ public class InviteFragment extends Fragment {
 
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
+            Log.i("TAG1","onReceiveLocation");
             if (bdLocation.getLocType() == BDLocation.TypeGpsLocation ||
                     bdLocation.getLocType() == BDLocation.TypeNetWorkLocation){
                 Log.d("latitude",bdLocation.getLatitude()+"");
@@ -240,6 +237,7 @@ public class InviteFragment extends Fragment {
                     inviteListAction.getInviteList(bdLocation.getLatitude(), bdLocation.getLongitude(), new CallBackListener<List<InviteListEntity>>() {
                         @Override
                         public void onSuccess(List<InviteListEntity> result) {
+                            Log.i("TAG1","onSuccess");
                             mAdapter.fillView(result);
                             ptrFrameLayout.refreshComplete();
                             new Thread(new InsertDates(result)).start();

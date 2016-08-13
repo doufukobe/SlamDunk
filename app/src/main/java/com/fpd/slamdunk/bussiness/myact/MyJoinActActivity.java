@@ -27,6 +27,7 @@ public class MyJoinActActivity extends CommenActivity {
     private MyActListAdapter mAdapter;
     private UserInfoEntity userInfo;
     private ArrayList<HostedEntity> actList;
+    private TextView noacttip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +45,17 @@ public class MyJoinActActivity extends CommenActivity {
         backBtn = (Button) findViewById(R.id.back_button);
         title = (TextView) findViewById(R.id.top_title);
         title.setText("参与的活动");
-        if (actList !=null){
-        mAdapter = new MyActListAdapter(this,actList);
-        myActList.setAdapter(mAdapter);}
+        noacttip=(TextView)findViewById(R.id.id_myactlist_tip);
+        if (actList !=null && actList.size()!=0)
+        {
+            mAdapter = new MyActListAdapter(this,actList);
+            myActList.setAdapter(mAdapter);
+            noacttip.setVisibility(View.INVISIBLE);
+        }else
+        {
+            noacttip.setText("你还没有参加任何活动");
+            noacttip.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setClick(){

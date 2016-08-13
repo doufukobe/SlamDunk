@@ -35,12 +35,25 @@ public class UserInfoAction {
             @Override
             public void onSuccess(String response) {
                 if (response!=null && listener !=null){
-                    Log.d("response", response);
-                    CoreResponse<UserInfoEntity> coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<UserInfoEntity>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    Log.i("response", response);
+                    CoreResponse<UserInfoEntity> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<UserInfoEntity>>(){});
+                    }catch (Exception e)
+                    {
+                        Log.i("response",e.toString());
+                    }
+
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }
@@ -56,7 +69,8 @@ public class UserInfoAction {
         requestParam.put("userSex",userSex);
         requestParam.put("userPosition",userPosition);
         requestParam.put("userAge",userAge);
-        SDApi.post(context, Config.headUrl + URLContans.UPDATEUSERINFO, requestParam, new SDApiResponse<String>()
+        SDApi.post(context, Config.headUrl + URLContans.UPDATEUSERINFO, requestParam,
+                new SDApiResponse<String>()
         {
             @Override
             public void onSuccess(String response)

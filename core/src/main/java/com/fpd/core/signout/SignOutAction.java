@@ -35,11 +35,22 @@ public class SignOutAction {
             @Override
             public void onSuccess(String response) {
                 if (response !=null&&listener!=null){
-                    CoreResponse<SuccessEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<SuccessEntity>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<SuccessEntity> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<SuccessEntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }

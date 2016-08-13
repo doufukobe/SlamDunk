@@ -7,16 +7,13 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.animation.Animation;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -99,7 +96,7 @@ public class StartUpActivity extends CommenActivity implements Animator.Animator
 
     @Override
     public void onAnimationEnd(Animator animation) {
-       Handler handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(StartUpActivity.this,1000);
     }
 

@@ -37,13 +37,24 @@ public class MyActDetailAction{
 
             @Override
             public void onSuccess(String response) {
-                Log.d("response",response);
+                Log.i("response",response);
                 if (response !=null && listener !=null){
-                    CoreResponse<MyActDetailEntity> coreResponse = JSON.parseObject(response,new TypeReference<CoreResponse<MyActDetailEntity>>(){});
-                    if (coreResponse.isSuccess()){
-                        listener.onSuccess(coreResponse.getResult());
-                    }else{
-                        listener.onFailure(coreResponse.getErrorMessage());
+                    CoreResponse<MyActDetailEntity> coreResponse=null;
+                    try
+                    {
+                        coreResponse = JSON.parseObject(response, new TypeReference<CoreResponse<MyActDetailEntity>>()
+                        {
+                        });
+                    }catch (Exception e){}
+                    if(coreResponse!=null)
+                    {
+                        if (coreResponse.isSuccess())
+                        {
+                            listener.onSuccess(coreResponse.getResult());
+                        } else
+                        {
+                            listener.onFailure(coreResponse.getErrorMessage());
+                        }
                     }
                 }
             }

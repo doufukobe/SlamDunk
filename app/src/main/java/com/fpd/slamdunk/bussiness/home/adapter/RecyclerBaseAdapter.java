@@ -124,6 +124,14 @@ public abstract class RecyclerBaseAdapter<T> extends RecyclerView.Adapter
             return this;
         }
 
+        public RecyclerHolder setTextColor(int viewId,String text,int textColor)
+        {
+            TextView textView=getView(viewId);
+            textView.setText(text);
+            textView.setTextColor(textColor);
+            return this;
+        }
+
         public RecyclerHolder setImgByUrl(int viewId,String url)
         {
             final ImageView imageView=getView(viewId);

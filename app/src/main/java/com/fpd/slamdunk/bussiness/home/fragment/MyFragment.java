@@ -24,6 +24,7 @@ import com.fpd.slamdunk.bussiness.login.activity.LoginActivity;
 import com.fpd.slamdunk.bussiness.myact.MyActListActivity;
 import com.fpd.slamdunk.bussiness.myact.MyJoinActActivity;
 import com.fpd.slamdunk.setting.SettingActivity;
+import com.fpd.slamdunk.shake.ShakeActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -51,6 +52,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
     private View mSet;
     private View mQuit;
     private View mPersonal;
+    private View mShake;
 
     private UserInfoAction userAction;
     private UserInfoEntity userInfo;
@@ -97,6 +99,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
         mSet=mContentView.findViewById(R.id.id_my_ly_3);
         mQuit=mContentView.findViewById(R.id.id_my_ly_4);
         mPersonal=mContentView.findViewById(R.id.id_my_ly_personal);
+        mShake=mContentView.findViewById(R.id.id_my_ly_6);
 
         initCircleImag(mIcon);
         initColorIcon(mZanIcon);
@@ -122,6 +125,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
         mJoin.setOnClickListener(this);
         mSet.setOnClickListener(this);
         mQuit.setOnClickListener(this);
+        mShake.setOnClickListener(this);
     }
 
     @Override
@@ -163,6 +167,10 @@ public class MyFragment extends Fragment implements View.OnClickListener
                 startActivity(intent2);
                 getActivity().finish();
                 break;
+            case R.id.id_my_ly_6:
+                Intent intent=new Intent(getActivity(), ShakeActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -171,6 +179,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
         userAction.GetUserInfo(Config.userId, new CallBackListener<UserInfoEntity>() {
             @Override
             public void onSuccess(UserInfoEntity result) {
+                Log.i("TAG","result="+result);
                 userInfo = result;
                 isFirst=true;
                 fullView();
@@ -178,6 +187,7 @@ public class MyFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onFailure(String Message) {
+                Log.i("TAG","onFailure");
             }
         });
     }
