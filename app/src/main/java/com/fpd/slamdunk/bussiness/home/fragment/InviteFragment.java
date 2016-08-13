@@ -219,12 +219,12 @@ public class InviteFragment extends Fragment {
         }
         if (!result.isEmpty()) {
             tempView.setVisibility(View.GONE);
-            ptrFrameLayout.setVisibility(View.VISIBLE);
+            list.setVisibility(View.VISIBLE);
             mAdapter.fillView(result);
             Log.d("TAG", "readFromLocal success");
         }else {
             tempView.setVisibility(View.VISIBLE);
-            ptrFrameLayout.setVisibility(View.GONE);
+            list.setVisibility(View.GONE);
         }
     }
 
@@ -245,10 +245,10 @@ public class InviteFragment extends Fragment {
                             new Thread(new InsertDates(result)).start();
                             if (result.isEmpty()) {
                                 tempView.setVisibility(View.VISIBLE);
-                                ptrFrameLayout.setVisibility(View.GONE);
+                                list.setVisibility(View.GONE);
                             }else{
                                 tempView.setVisibility(View.GONE);
-                                ptrFrameLayout.setVisibility(View.VISIBLE);
+                                list.setVisibility(View.VISIBLE);
                             }
                         }
 
